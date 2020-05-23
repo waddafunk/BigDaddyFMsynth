@@ -29,16 +29,15 @@ Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
 void Fm_synthAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+    //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     anime.paint(g);
+    repaint();
 }
 
 void Fm_synthAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    setResizable(true, true);
+    anime.setBounds(0, 0, getWidth(), getHeight());
 }

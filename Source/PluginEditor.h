@@ -12,7 +12,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include"MyAnime.h"
+#include"AnimatedEditor.h"
 
 //==============================================================================
 /**
@@ -27,11 +27,12 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     Fm_synthAudioProcessor& processor;
-    MyAnime anime;
+    AnimatedEditor anime;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)
 };

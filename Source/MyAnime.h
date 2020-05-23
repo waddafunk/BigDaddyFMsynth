@@ -15,8 +15,6 @@ public:
     //==============================================================================
     MyAnime()
     {
-        setSize(800, 600);
-        setFramesPerSecond(60);
     }
 
 
@@ -33,7 +31,6 @@ public:
     void paint(Graphics& g) override
     {
         // (Our component is opaque, so we must completely fill the background with a solid colour)
-        g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
     }
 
     void resized() override
@@ -44,6 +41,13 @@ public:
     }
 
 
+
+protected:
+
+    float saturation = 1.0f;
+    int framesPassed = 0;
+
+    Colour baseColour;
 
 private:
     //==============================================================================

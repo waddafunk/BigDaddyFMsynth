@@ -11,11 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "MyAnime.h"
 
 //==============================================================================
 /*
 */
-class ModuleGui    : public Component
+class ModuleGui    : public MyAnime
 {
 public:
     ModuleGui();

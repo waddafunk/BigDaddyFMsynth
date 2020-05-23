@@ -11,11 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "ModuleGui.h"
 
 //==============================================================================
 /*
 */
-class EqGui    : public Component
+class EqGui    : public ModuleGui
 {
 public:
     EqGui();

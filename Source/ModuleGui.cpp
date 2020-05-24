@@ -19,6 +19,12 @@ ModuleGui::ModuleGui()
 
 }
 
+ModuleGui::ModuleGui(int x, int y, int height, int width) : xPos(x),yPos(y), height(height),width(width){}
+ModuleGui::ModuleGui(int x, int y) : xPos(x), yPos(y){
+    height = 50;
+    width = 50;
+}
+
 ModuleGui::~ModuleGui()
 {
 }
@@ -49,3 +55,49 @@ void ModuleGui::resized()
     // components that your component contains..
 
 }
+
+void ModuleGui::connectModules(ModuleGui module, MatrixGui matrix)
+{
+
+}
+
+int ModuleGui::getXPos() const
+{
+    return xPos;
+}
+
+void ModuleGui::setXPos(int xPos)
+{
+    this->xPos = xPos;
+}
+
+int ModuleGui::getYPos() const
+{
+    return yPos;
+}
+
+void ModuleGui::setYPos(int yPos)
+{
+    this->yPos = yPos;
+}
+
+int ModuleGui::getHeight() const
+{
+    return height;
+}
+
+void ModuleGui::setHeight(int height)
+{
+    this->height = height;
+}
+
+int ModuleGui::getWidth() const
+{
+    return width;
+}
+
+void ModuleGui::setWidth(int width)
+{
+    this->width = width;
+}
+

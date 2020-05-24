@@ -15,12 +15,14 @@
 Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
+
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (400, 300);
     anime.setFramesPerSecond(60);
     anime.mod.addListener(this);
     addAndMakeVisible(&anime.mod);
+    modules.push_back(new ModuleGui(100,150)); //to be modified
 }
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
@@ -42,8 +44,13 @@ void Fm_synthAudioProcessorEditor::resized()
     // subcomponents in your editor..
     setResizable(true, true);
     anime.setBounds(0, 0, getWidth(), getHeight());
-    anime.setComponentz();
-    addAndMakeVisible(&anime.mod);
+
+    for (auto &module : modules) {
+        module->setBounds(module->getX, module->getY, module->getWidth, module->getHeight);
+        addAndMakeVisible(module);
+    }
+    //anime.setComponentz();
+    //addAndMakeVisible(&anime.mod);
     
 }
 

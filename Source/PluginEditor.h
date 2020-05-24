@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include"AnimatedEditor.h"
+#include "ModuleGui.h"
 
 //==============================================================================
 /**
@@ -34,6 +35,7 @@ private:
     // access the processor object that created it.
     Fm_synthAudioProcessor& processor;
     AnimatedEditor anime;
+    std::vector<ModuleGui * > modules;
 
     
 

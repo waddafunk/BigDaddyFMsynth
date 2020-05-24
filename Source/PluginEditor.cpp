@@ -20,6 +20,11 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     // editor's size to whatever you need it to be.
     setSize (400, 300);
     anime.setFramesPerSecond(60);
+    anime.mod.addListener(this);
+    anime.setComponentz();
+    addAndMakeVisible(&anime.mod);
+
+    jassert(sender.connect("127.0.0.1", 9001)); //not finding IP address
 
     modules.push_back(new ModuleGui(100,150)); //to be modified
     modules.push_back(new ModuleGui(200, 450)); //to be modified
@@ -52,6 +57,9 @@ void Fm_synthAudioProcessorEditor::resized()
     // subcomponents in your editor..
     setResizable(true, true);
     anime.setBounds(0, 0, getWidth(), getHeight());
+    anime.setComponentz();
+    addAndMakeVisible(&anime.mod);
+    
 
     for (auto &module : modules) {
         module->setBounds(module->getX(), module->getY(), module->getWidth(), module->getHeight());
@@ -63,4 +71,5 @@ void Fm_synthAudioProcessorEditor::resized()
 void Fm_synthAudioProcessorEditor::sliderValueChanged(Slider* slider) {
     anime.amount = (float)(slider->getValue() / 2 + 0.5f);
     repaint();
+    sender.send("/juce/anime.mod", (float)anime.mod.getValue());
 }

@@ -21,6 +21,7 @@ AnimatedEditor::AnimatedEditor()
     mod.setRange(0, 1, 0.01);
     mod.setValue(1.0);
     mod.setSliderStyle(Slider::SliderStyle::LinearVertical);
+ 
 }
 
 AnimatedEditor::~AnimatedEditor()
@@ -44,10 +45,6 @@ void AnimatedEditor::update()
     setHue((float)((std::cos(0.01 * getFramesPassed()/ 6000) + 1) / 2));
     setSaturation((float)((std::sin(0.002 * getFramesPassed()/ 6000) + 1) / 4 + 0.75));
     setInterpolated ((float)((std::sin(0.002 * getFramesPassed() / 6000) + 1) / 2) * amount);
-
-
-
-
 }
 
 void AnimatedEditor::paint(Graphics& g)
@@ -58,6 +55,6 @@ void AnimatedEditor::paint(Graphics& g)
 }
 
 void AnimatedEditor::setComponentz() {
-    mod.setBounds(getWidth() * 3 / 4, getHeight() / 8, getWidth() / 4, getHeight() / 4);
+    mod.setBounds(getWidth() - getWidth() / 4, getHeight() / 16, getWidth() / 4, getHeight() / 4);
     addAndMakeVisible(&mod);
 }

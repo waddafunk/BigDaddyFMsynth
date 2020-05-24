@@ -20,7 +20,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     setSize (400, 300);
     anime.setFramesPerSecond(60);
     anime.mod.addListener(this);
-    addAndMakeVisible(anime.mod);
+    addAndMakeVisible(&anime.mod);
 }
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
@@ -43,6 +43,8 @@ void Fm_synthAudioProcessorEditor::resized()
     setResizable(true, true);
     anime.setBounds(0, 0, getWidth(), getHeight());
     anime.setComponentz();
+    addAndMakeVisible(&anime.mod);
+    
 }
 
 void Fm_synthAudioProcessorEditor::sliderValueChanged(Slider* slider) {

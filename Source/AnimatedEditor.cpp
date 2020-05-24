@@ -20,6 +20,7 @@ AnimatedEditor::AnimatedEditor()
     interpolateColour = Colours::sandybrown;
     mod.setRange(0, 1, 0.01);
     mod.setValue(1.0);
+    mod.setSliderStyle(Slider::SliderStyle::LinearVertical);
 }
 
 AnimatedEditor::~AnimatedEditor()
@@ -40,7 +41,7 @@ void AnimatedEditor::update()
     // in the constructor. You can use it to update counters, animate values, etc.
     framesPassed += getFrameCounter();
     alpha = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 4 + 0.5 );
-    hue = (float)((std::cos(0.002 * framesPassed / 6000) + 1) / 2);
+    hue = (float)((std::cos(0.01 * framesPassed / 6000) + 1) / 2);
     saturation = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 4 + 0.75);
     interpolated = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 2) * amount;
     
@@ -57,6 +58,6 @@ void AnimatedEditor::paint(Graphics& g)
 }
 
 void AnimatedEditor::setComponentz() {
-    mod.setBounds(getWidth() / 2, getHeight() / 2, 200, getHeight() / 4);
+    mod.setBounds(getWidth() * 3 / 4, getHeight() / 8, getWidth() / 4, getHeight() / 4);
     addAndMakeVisible(&mod);
 }

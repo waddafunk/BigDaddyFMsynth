@@ -12,7 +12,6 @@
 
 #include <JuceHeader.h>
 #include "MyAnime.h"
-#include "MatrixGui.h"
 
 //==============================================================================
 /*
@@ -28,7 +27,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    void connectModules(ModuleGui module, MatrixGui matrix); //connects this module to another one using drag and drop and sets the current state in the matrix
+    void connectModules(ModuleGui module); //connects this module to another one using drag and drop and sets the current state in the matrix
 
 
     //getters and setters

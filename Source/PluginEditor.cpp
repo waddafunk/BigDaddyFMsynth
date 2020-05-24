@@ -46,7 +46,7 @@ void Fm_synthAudioProcessorEditor::resized()
     anime.setBounds(0, 0, getWidth(), getHeight());
 
     for (auto &module : modules) {
-        module->setBounds(module->getX, module->getY, module->getWidth, module->getHeight);
+        module->setBounds(module->getX(), module->getY(), module->getWidth(), module->getHeight());
         addAndMakeVisible(module);
     }
     //anime.setComponentz();

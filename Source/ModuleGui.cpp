@@ -56,7 +56,7 @@ void ModuleGui::resized()
 
 }
 
-void ModuleGui::connectModules(ModuleGui module, MatrixGui matrix)
+void ModuleGui::connectModules(ModuleGui module)
 {
 
 }

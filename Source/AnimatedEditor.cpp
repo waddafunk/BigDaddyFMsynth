@@ -16,7 +16,7 @@ AnimatedEditor::AnimatedEditor()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-    baseColour = Colours::limegreen;
+    setBaseColour(Colours::limegreen);
     interpolateColour = Colours::sandybrown;
     mod.setRange(0, 1, 0.01);
     mod.setValue(1.0);
@@ -44,7 +44,7 @@ void AnimatedEditor::update()
     hue = (float)((std::cos(0.01 * framesPassed / 6000) + 1) / 2);
     saturation = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 4 + 0.75);
     interpolated = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 2) * amount;
-    
+
 
 
 

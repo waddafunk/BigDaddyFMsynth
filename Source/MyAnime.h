@@ -45,9 +45,19 @@ public:
 protected:
 
     float saturation = 1.0f;
+    float opacity = 1.0f;
+    float brightness = 1.0f;
+    float contrast = 1.0f;
+    float alpha = 1.0f;
+    float hue = 1.0f;
+    float interpolated = 0.0f;
+    float overlaid = 0.0f;
     int framesPassed = 0;
+    
 
     Colour baseColour;
+    Colour interpolateColour;
+    Colour overlayColour;
 
 private:
     //==============================================================================

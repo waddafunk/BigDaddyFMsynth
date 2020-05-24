@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="CAcYrn" name="FMsynth" projectType="audioplug" jucerVersion="5.4.7"
+              pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+  <MAINGROUP id="It8PsJ" name="FMsynth">
+    <GROUP id="{EEE764A2-426D-8D6F-B2BD-98E4F3C1D40E}" name="Source">
+      <GROUP id="{649E0F83-E613-7B4D-70DB-93CBEF8AF504}" name="GUI">
+        <GROUP id="{88EF2A92-5C33-4138-703F-5F64C772505D}" name="CustomLookAndFeel">
+          <FILE id="ywCqS0" name="ModuleLookAndFeel.cpp" compile="1" resource="0"
+                file="Source/ModuleLookAndFeel.cpp"/>
+          <FILE id="WuPiC5" name="ModuleLookAndFeel.h" compile="0" resource="0"
+                file="Source/ModuleLookAndFeel.h"/>
+          <FILE id="nNUGZ7" name="KnobLookAndFeel.cpp" compile="1" resource="0"
+                file="Source/KnobLookAndFeel.cpp"/>
+          <FILE id="owDqex" name="KnobLookAndFeel.h" compile="0" resource="0"
+                file="Source/KnobLookAndFeel.h"/>
+          <FILE id="IkdNcz" name="ButtonLookAndFeel.cpp" compile="1" resource="0"
+                file="Source/ButtonLookAndFeel.cpp"/>
+          <FILE id="xDOW7Y" name="FaderLookAndFeel.cpp" compile="1" resource="0"
+                file="Source/FaderLookAndFeel.cpp"/>
+          <FILE id="En6kcj" name="FaderLookAndFeel.h" compile="0" resource="0"
+                file="Source/FaderLookAndFeel.h"/>
+          <FILE id="ueRGKb" name="ButtonLookAndFeel.h" compile="0" resource="0"
+                file="Source/ButtonLookAndFeel.h"/>
+        </GROUP>
+        <FILE id="nptztb" name="EnvelopeGui.cpp" compile="1" resource="0" file="Source/EnvelopeGui.cpp"/>
+        <FILE id="PLsNbY" name="EnvelopeGui.h" compile="0" resource="0" file="Source/EnvelopeGui.h"/>
+        <FILE id="Ig8K9V" name="EqGui.cpp" compile="1" resource="0" file="Source/EqGui.cpp"/>
+        <FILE id="Ag2ibh" name="EqGui.h" compile="0" resource="0" file="Source/EqGui.h"/>
+        <FILE id="zqrtVg" name="FilterGui.cpp" compile="1" resource="0" file="Source/FilterGui.cpp"/>
+        <FILE id="jImiVf" name="FilterGui.h" compile="0" resource="0" file="Source/FilterGui.h"/>
+        <FILE id="GiDT0I" name="LfoGui.cpp" compile="1" resource="0" file="Source/LfoGui.cpp"/>
+        <FILE id="NQiF8J" name="LfoGui.h" compile="0" resource="0" file="Source/LfoGui.h"/>
+        <FILE id="uK1r7p" name="MasterGui.cpp" compile="1" resource="0" file="Source/MasterGui.cpp"/>
+        <FILE id="f1LigK" name="MasterGui.h" compile="0" resource="0" file="Source/MasterGui.h"/>
+        <FILE id="ssQKV7" name="MatrixGui.cpp" compile="1" resource="0" file="Source/MatrixGui.cpp"/>
+        <FILE id="uOaLyC" name="MatrixGui.h" compile="0" resource="0" file="Source/MatrixGui.h"/>
+        <FILE id="vnzi3q" name="ModuleGui.cpp" compile="1" resource="0" file="Source/ModuleGui.cpp"/>
+        <FILE id="I9YSsN" name="ModuleGui.h" compile="0" resource="0" file="Source/ModuleGui.h"/>
+        <FILE id="iSATEZ" name="OscillatorGui.cpp" compile="1" resource="0"
+              file="Source/OscillatorGui.cpp"/>
+        <FILE id="Sx762F" name="OscillatorGui.h" compile="0" resource="0" file="Source/OscillatorGui.h"/>
+      </GROUP>
+      <FILE id="HVoZvt" name="MyAnime.h" compile="0" resource="0" file="Source/MyAnime.h"/>
+      <FILE id="Y5NhdF" name="AnimatedEditor.h" compile="0" resource="0"
+            file="Source/AnimatedEditor.h"/>
+      <FILE id="tT4BTF" name="AnimatedEditor.cpp" compile="1" resource="0"
+            file="Source/AnimatedEditor.cpp"/>
+      <FILE id="PxoobG" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="dhyoYi" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="OFklWN" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="sA0KIW" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2019 targetFolder="Builds/VisualStudio2019">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2019>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>

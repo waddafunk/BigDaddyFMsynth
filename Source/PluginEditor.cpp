@@ -32,6 +32,9 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
 {
+    for (auto& module : modules) {
+        delete module;
+    }
 }
 
 //==============================================================================

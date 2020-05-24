@@ -18,6 +18,8 @@ AnimatedEditor::AnimatedEditor()
     // initialise any special settings that your component needs.
     baseColour = Colours::limegreen;
     interpolateColour = Colours::sandybrown;
+    mod.setRange(0, 1, 0.01);
+    mod.setValue(1.0);
 }
 
 AnimatedEditor::~AnimatedEditor()
@@ -30,7 +32,6 @@ void AnimatedEditor::resized()
 {
     // This method is where you should set the bounds of any child
     // components that your component contains..
-
 }
 
 void AnimatedEditor::update()
@@ -41,7 +42,10 @@ void AnimatedEditor::update()
     alpha = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 4 + 0.5 );
     hue = (float)((std::cos(0.002 * framesPassed / 6000) + 1) / 2);
     saturation = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 4 + 0.75);
-    interpolated = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 2);
+    interpolated = (float)((std::sin(0.002 * framesPassed / 6000) + 1) / 2) * amount;
+    
+
+
 
 }
 
@@ -50,4 +54,9 @@ void AnimatedEditor::paint(Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll(baseColour.withMultipliedSaturation(saturation).withMultipliedAlpha(alpha).withRotatedHue(hue).interpolatedWith(interpolateColour, interpolated));
     repaint();
+}
+
+void AnimatedEditor::setComponentz() {
+    mod.setBounds(getWidth() / 2, getHeight() / 2, 200, getHeight() / 4);
+    addAndMakeVisible(&mod);
 }

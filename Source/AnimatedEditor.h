@@ -26,7 +26,11 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     void update() override;
+    void setComponentz();
 
+
+    Slider mod;
+    float amount = 1;
 
 private:
 

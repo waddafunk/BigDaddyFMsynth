@@ -17,7 +17,7 @@
 //==============================================================================
 /**
 */
-class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor
+class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor, Slider::Listener
 {
 public:
     Fm_synthAudioProcessorEditor (Fm_synthAudioProcessor&);
@@ -26,6 +26,7 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    void sliderValueChanged(Slider* slider);
 
 
 private:
@@ -33,6 +34,8 @@ private:
     // access the processor object that created it.
     Fm_synthAudioProcessor& processor;
     AnimatedEditor anime;
+
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)
 };

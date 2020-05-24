@@ -40,9 +40,7 @@ public:
         // update their positions.
     }
 
-
-
-protected:
+    void setComponentz() {}
 
     float saturation = 1.0f;
     float opacity = 1.0f;
@@ -53,11 +51,14 @@ protected:
     float interpolated = 0.0f;
     float overlaid = 0.0f;
     int framesPassed = 0;
-    
+
 
     Colour baseColour;
     Colour interpolateColour;
     Colour overlayColour;
+
+
+    
 
 private:
     //==============================================================================

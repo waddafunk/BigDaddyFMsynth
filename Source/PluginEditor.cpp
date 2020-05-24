@@ -19,6 +19,8 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     // editor's size to whatever you need it to be.
     setSize (400, 300);
     anime.setFramesPerSecond(60);
+    anime.mod.addListener(this);
+    addAndMakeVisible(anime.mod);
 }
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
@@ -40,4 +42,10 @@ void Fm_synthAudioProcessorEditor::resized()
     // subcomponents in your editor..
     setResizable(true, true);
     anime.setBounds(0, 0, getWidth(), getHeight());
+    anime.setComponentz();
+}
+
+void Fm_synthAudioProcessorEditor::sliderValueChanged(Slider* slider) {
+    anime.amount = (float)(slider->getValue() / 2 + 0.5f);
+    repaint();
 }

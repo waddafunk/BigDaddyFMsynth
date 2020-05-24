@@ -42,7 +42,9 @@ public:
 
 
     void setComponentz() {}
-
+    void incrementFrame(int frames){
+        this->framesPassed += frames;
+    };
 
 
 //---------------Getters----------------
@@ -68,13 +70,12 @@ public:
     void setContrast (float contrast){this->contrast = contrast;}
     void setAlpha (float alpha){this->alpha = alpha;}
     void setHue (float hue){this->hue = hue;}
-    void setInterpolated(float inter){this->interpolated = interpolated;}
+    void setInterpolated(float inter){this->interpolated = inter;}
     void setOverlaid (float overlaid){this->overlaid = overlaid;}
     void setFramesPassed (int frames){this->framesPassed = frames;}
     void setBaseColour (Colour baseColour){this->baseColour = baseColour;}
     void setInterpolateColour (Colour interpolateColour){this->interpolateColour = interpolateColour;}
     void setOverlayColour (Colour overlayColour){this->overlayColour = overlayColour;}
-
 
 
 

@@ -20,9 +20,14 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     // editor's size to whatever you need it to be.
     setSize (400, 300);
     anime.setFramesPerSecond(60);
-    anime.mod.addListener(this);
-    addAndMakeVisible(&anime.mod);
+
     modules.push_back(new ModuleGui(100,150)); //to be modified
+    modules.push_back(new ModuleGui(200, 450)); //to be modified
+    modules.push_back(new ModuleGui(400, 150)); //to be modified
+
+    for (auto& module : modules) {
+        addAndMakeVisible(module);
+    }
 }
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
@@ -49,8 +54,6 @@ void Fm_synthAudioProcessorEditor::resized()
         module->setBounds(module->getX(), module->getY(), module->getWidth(), module->getHeight());
         addAndMakeVisible(module);
     }
-    //anime.setComponentz();
-    //addAndMakeVisible(&anime.mod);
     
 }
 

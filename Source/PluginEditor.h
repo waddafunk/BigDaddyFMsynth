@@ -35,7 +35,7 @@ private:
     // access the processor object that created it.
     Fm_synthAudioProcessor& processor;
     AnimatedEditor anime;
-    std::vector<ModuleGui * > modules;
+    std::vector<ModuleGui *> modules;
 
     
 

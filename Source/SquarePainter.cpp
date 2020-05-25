@@ -24,9 +24,23 @@ SquarePainter::SquarePainter(int x, int y, int width, int height) {
     this->height = height;
 }
 
+SquarePainter::SquarePainter(int x, int y, int width, int height, float dutyCycle) {
+    xPos = x;
+    yPos = y;
+    this->width = width;
+    this->height = height;
+    setDutyCycle(dutyCycle);
+}
+
 
 SquarePainter::~SquarePainter()
 {
+}
+
+void SquarePainter::setDutyCycle(float dutyCycle)
+{
+    if(dutyCycle > 0 && dutyCycle < 1)
+        this->dutyCycle = dutyCycle;
 }
 
 void SquarePainter::paint(Graphics& g)
@@ -44,13 +58,13 @@ void SquarePainter::paint(Graphics& g)
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
     int amplitude = (height - 40) / 2;
-    float freq = 0.02f;
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
-    {
-
-        Point<float> p(i * getWidth() / (numberOfDots - 2),
-            height / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
+    {   
+        float pos = amplitude - getHeight() / 10;
+        if(std::cos(i * freq + 8 * freq * getFrameCounter()) < dutyCycle - 0.5)
+            pos = -pos;
+        Point<float> p(i * getWidth() / (numberOfDots - 2), getHeight() / 2 + pos);
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..

@@ -51,13 +51,16 @@ void SawPainter::paint(Graphics& g)
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
     int amplitude = (height - 40) / 2;
-    float freq = 0.02f;
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
-
+        float sign = 1.0f;
+        if (reflect)
+            sign = -sign;
+        float traslpos = std::abs((sign * i + 80 * 4 * freq * getFrameCounter()));
+        float pos = std::fmod(traslpos, amplitude * 4) / 2 + height / 8;
         Point<float> p(i * getWidth() / (numberOfDots - 2),
-            height / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
+            pos);
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..
@@ -79,4 +82,3 @@ void SawPainter::resized()
     // components that your component contains..
 
 }
-

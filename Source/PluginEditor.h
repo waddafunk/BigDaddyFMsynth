@@ -14,11 +14,16 @@
 #include "PluginProcessor.h"
 #include"AnimatedEditor.h"
 #include "ModuleGui.h"
+#include "WavePainter.h"
+#include "SinePainter.h"
+#include "TrianglePainter.h"
+#include "SawPainter.h"
+#include "SquarePainter.h"
 
 //==============================================================================
 /**
 */
-class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor, Slider::Listener
+class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor, public  Slider::Listener
 {
 public:
     Fm_synthAudioProcessorEditor (Fm_synthAudioProcessor&);
@@ -32,8 +37,7 @@ public:
 
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+
     Fm_synthAudioProcessor& processor;
     AnimatedEditor anime;
     std::vector<ModuleGui *> modules;

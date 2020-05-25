@@ -50,7 +50,7 @@ void AnimatedEditor::update()
 void AnimatedEditor::paint(Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll(getBaseColour().withMultipliedSaturation(getSaturation()).withMultipliedAlpha(getAlpha()).withRotatedHue(getHue()).interpolatedWith(getInterpolateColour(), getInterpolated()));
+   // g.fillAll(getBaseColour().withMultipliedSaturation(getSaturation()).withMultipliedAlpha(getAlpha()).withRotatedHue(getHue()).interpolatedWith(getInterpolateColour(), getInterpolated()));
     repaint();
 }
 

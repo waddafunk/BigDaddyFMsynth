@@ -1,35 +1,29 @@
 /*
   ==============================================================================
 
-    ModuleGui.cpp
-    Created: 23 May 2020 4:12:42pm
+    TrianglePainter.cpp
+    Created: 25 May 2020 5:56:30pm
     Author:  daveg
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "ModuleGui.h"
+#include "TrianglePainter.h"
 
 //==============================================================================
-ModuleGui::ModuleGui()
+TrianglePainter::TrianglePainter()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
 
 }
 
-ModuleGui::ModuleGui(int x, int y, int height, int width) : xPos(x),yPos(y), height(height),width(width){}
-ModuleGui::ModuleGui(int x, int y) : xPos(x), yPos(y){
-    height = 50;
-    width = 50;
-}
-
-ModuleGui::~ModuleGui()
+TrianglePainter::~TrianglePainter()
 {
 }
 
-void ModuleGui::paint (Graphics& g)
+void TrianglePainter::paint (Graphics& g)
 {
     /* This demo code just fills the component's background and
        draws some placeholder text to get you started.
@@ -45,63 +39,13 @@ void ModuleGui::paint (Graphics& g)
 
     g.setColour (Colours::white);
     g.setFont (14.0f);
-    g.drawText ("ModuleGui", getLocalBounds(),
+    g.drawText ("TrianglePainter", getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
 }
 
-void ModuleGui::resized()
+void TrianglePainter::resized()
 {
     // This method is where you should set the bounds of any child
     // components that your component contains..
 
 }
-
-void ModuleGui::setMyBounds(){
-    this->setBounds(xPos, yPos, width, height);
-}
-
-void ModuleGui::connectModules(ModuleGui module)
-{
-
-}
-
-int ModuleGui::getXPos() const
-{
-    return xPos;
-}
-
-void ModuleGui::setXPos(int xPos)
-{
-    this->xPos = xPos;
-}
-
-int ModuleGui::getYPos() const
-{
-    return yPos;
-}
-
-void ModuleGui::setYPos(int yPos)
-{
-    this->yPos = yPos;
-}
-
-int ModuleGui::getHeight() const
-{
-    return height;
-}
-
-void ModuleGui::setHeight(int height)
-{
-    this->height = height;
-}
-
-int ModuleGui::getWidth() const
-{
-    return width;
-}
-
-void ModuleGui::setWidth(int width)
-{
-    this->width = width;
-}
-

@@ -40,6 +40,19 @@
         <FILE id="iSATEZ" name="OscillatorGui.cpp" compile="1" resource="0"
               file="Source/OscillatorGui.cpp"/>
         <FILE id="Sx762F" name="OscillatorGui.h" compile="0" resource="0" file="Source/OscillatorGui.h"/>
+        <FILE id="vu91UD" name="SawPainter.cpp" compile="1" resource="0" file="Source/SawPainter.cpp"/>
+        <FILE id="QIrLVN" name="SawPainter.h" compile="0" resource="0" file="Source/SawPainter.h"/>
+        <FILE id="FytyAo" name="SinePainter.cpp" compile="1" resource="0" file="Source/SinePainter.cpp"/>
+        <FILE id="kU4AQl" name="SinePainter.h" compile="0" resource="0" file="Source/SinePainter.h"/>
+        <FILE id="qZY11C" name="SquarePainter.cpp" compile="1" resource="0"
+              file="Source/SquarePainter.cpp"/>
+        <FILE id="HTbdii" name="SquarePainter.h" compile="0" resource="0" file="Source/SquarePainter.h"/>
+        <FILE id="SAiIEN" name="TrianglePainter.cpp" compile="1" resource="0"
+              file="Source/TrianglePainter.cpp"/>
+        <FILE id="IaaDu7" name="TrianglePainter.h" compile="0" resource="0"
+              file="Source/TrianglePainter.h"/>
+        <FILE id="EKRJXO" name="WavePainter.cpp" compile="1" resource="0" file="Source/WavePainter.cpp"/>
+        <FILE id="sWL7vN" name="WavePainter.h" compile="0" resource="0" file="Source/WavePainter.h"/>
       </GROUP>
       <FILE id="HVoZvt" name="MyAnime.h" compile="0" resource="0" file="Source/MyAnime.h"/>
       <FILE id="Y5NhdF" name="AnimatedEditor.h" compile="0" resource="0"
@@ -76,6 +89,7 @@
         <MODULEPATH id="juce_gui_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2019 targetFolder="Builds/VisualStudio2019">
@@ -84,7 +98,7 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="..\..\..\..\..\..\JUCE\modules\juce_audio_basics"/>
         <MODULEPATH id="juce_audio_devices" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_audio_formats" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_audio_plugin_client" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
@@ -98,6 +112,7 @@
         <MODULEPATH id="juce_gui_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -120,11 +135,12 @@
         <MODULEPATH id="juce_gui_basics" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="C:/Users/jacop/Desktop/Projucer/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../../../JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
@@ -139,6 +155,7 @@
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>

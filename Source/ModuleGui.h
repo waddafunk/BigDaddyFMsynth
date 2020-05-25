@@ -27,6 +27,8 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    void setMyBounds();
+
     void connectModules(ModuleGui module); //connects this module to another one using drag and drop and sets the current state in the matrix
 
 
@@ -43,15 +45,16 @@ public:
     int getWidth() const;
     void setWidth(int width);
 
+protected:
+    int xPos;
+    int yPos;
+    int height;
+    int width;
 
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModuleGui)
 
-    int xPos;
-    int yPos;
-    int height;
-    int width;
 
 
 

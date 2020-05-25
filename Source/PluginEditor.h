@@ -21,6 +21,7 @@
 #include "SquarePainter.h"
 #include "FilterGui.h"
 #include "OscillatorGui.h"
+#include "EnvelopeGui.h"
 
 //==============================================================================
 /**

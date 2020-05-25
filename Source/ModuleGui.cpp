@@ -19,7 +19,7 @@ ModuleGui::ModuleGui()
 
 }
 
-ModuleGui::ModuleGui(int x, int y, int height, int width) : xPos(x),yPos(y), height(height),width(width){}
+ModuleGui::ModuleGui(int x, int y, int width, int height) : xPos(x),yPos(y),width(width), height(height) {}
 ModuleGui::ModuleGui(int x, int y) : xPos(x), yPos(y){
     height = 50;
     width = 50;

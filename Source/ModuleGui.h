@@ -12,15 +12,16 @@
 
 #include <JuceHeader.h>
 #include "MyAnime.h"
+#include "MyMouseListener.h"
 
 //==============================================================================
 /*
 */
-class ModuleGui    : public MyAnime
+class ModuleGui    : public MyAnime, public MyMouseListener
 {
 public:
     ModuleGui();
-    ModuleGui(int x, int y, int height, int width);
+    ModuleGui(int x, int y, int width, int height);
     ModuleGui(int x, int y);
     ~ModuleGui();
 
@@ -30,6 +31,10 @@ public:
     void setMyBounds();
 
     void connectModules(ModuleGui module); //connects this module to another one using drag and drop and sets the current state in the matrix
+
+
+
+
 
 
     //getters and setters

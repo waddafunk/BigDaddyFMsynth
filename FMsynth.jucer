@@ -4,6 +4,14 @@
               pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="It8PsJ" name="FMsynth">
     <GROUP id="{EEE764A2-426D-8D6F-B2BD-98E4F3C1D40E}" name="Source">
+      <GROUP id="{AC544877-3D8F-1719-2502-57A93CE4609D}" name="Utils">
+        <FILE id="FQ1hgH" name="Coordinate.cpp" compile="1" resource="0" file="Source/Coordinate.cpp"/>
+        <FILE id="dNrbJn" name="Coordinate.h" compile="0" resource="0" file="Source/Coordinate.h"/>
+        <FILE id="i2tGjn" name="MyMouseListener.cpp" compile="1" resource="0"
+              file="Source/MyMouseListener.cpp"/>
+        <FILE id="jedJzJ" name="MyMouseListener.h" compile="0" resource="0"
+              file="Source/MyMouseListener.h"/>
+      </GROUP>
       <GROUP id="{649E0F83-E613-7B4D-70DB-93CBEF8AF504}" name="GUI">
         <GROUP id="{EF599F49-21E8-21E8-73F6-6FD6B460358D}" name="Waves">
           <FILE id="vu91UD" name="SawPainter.cpp" compile="1" resource="0" file="Source/SawPainter.cpp"/>

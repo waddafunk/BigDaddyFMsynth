@@ -37,6 +37,7 @@ void ModuleGui::paint (Graphics& g)
        You should replace everything in this method with your own
        drawing code..
     */
+    
 
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
 

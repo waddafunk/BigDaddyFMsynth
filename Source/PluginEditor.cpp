@@ -36,7 +36,10 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
 
 
     //modules initialization
-    modules.push_back(new SinePainter(0,0)); //to be modified
+   // modules.push_back(new SinePainter(0,0)); //to be modified
+    modules.push_back(new ModuleGui(20,20));
+    modules.push_back(new FilterGui(60, 20));
+    modules.push_back(new SinePainter(100, 20));
 
     //adds and makes visible all the created modules 
     for (auto& module : modules) {
@@ -59,13 +62,8 @@ Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
 void Fm_synthAudioProcessorEditor::paint (Graphics& g)
 {
 
-    anime.paint(g);
-
-    for (auto& module : modules) {
-        module->paint(g);
-    }
-
-    repaint();
+   // anime.paint(g);
+    //repaint();
 }
 
 void Fm_synthAudioProcessorEditor::resized()

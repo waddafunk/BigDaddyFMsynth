@@ -20,6 +20,7 @@ class FilterGui    : public ModuleGui
 {
 public:
     FilterGui();
+    FilterGui(int x, int y);
     ~FilterGui();
 
     void paint (Graphics&) override;

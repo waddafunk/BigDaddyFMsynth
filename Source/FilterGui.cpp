@@ -19,18 +19,21 @@ FilterGui::FilterGui()
 
 }
 
+FilterGui::FilterGui(int x, int y)
+{
+    xPos = x;
+    yPos = y;
+    height = 40;
+    width = 40;
+}
+
+
 FilterGui::~FilterGui()
 {
 }
 
 void FilterGui::paint (Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
 
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
 
@@ -41,6 +44,34 @@ void FilterGui::paint (Graphics& g)
     g.setFont (14.0f);
     g.drawText ("FilterGui", getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
+
+    
+
+    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
+
+    auto numberOfDots = getWidth(); // [1]
+    Path spinePath;         // [2]
+    int amplitude = 150;
+    float freq = 0.02f;
+
+    for (auto i = 0; i < numberOfDots; ++i) // [3]
+    {
+
+        Point<float> p(i * getWidth() / (numberOfDots - 2),
+            getHeight() / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
+
+        if (i == 0)
+            spinePath.startNewSubPath(p);  // if this is the first point, start a new path..
+        else
+            spinePath.lineTo(p);           // ...otherwise add the next point
+    }
+
+
+
+    // draw an outline around the path that we have created
+    g.strokePath(spinePath, PathStrokeType(4.0f)); // [4]
+
+
 }
 
 void FilterGui::resized()

@@ -19,6 +19,7 @@
 #include "TrianglePainter.h"
 #include "SawPainter.h"
 #include "SquarePainter.h"
+#include "FilterGui.h"
 
 //==============================================================================
 /**

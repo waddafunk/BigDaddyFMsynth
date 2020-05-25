@@ -72,10 +72,10 @@ void OscillatorGui::resized()
 
 
 void OscillatorGui::addPainters(int w, int h) {
-    painters.push_back(new SinePainter(0, 0, w/2, h/2));
+    painters.push_back(new SquarePainter(0, 0, w/2, h/2));
     painters.push_back(new SinePainter(w/2, 0, w/2, h/2));
-    painters.push_back(new SinePainter(0, h/2, w/2, h/2));
-    painters.push_back(new SinePainter(w/2, h/2, w/2, h/2));
+    painters.push_back(new TrianglePainter(0, h/2, w/2, h/2));
+    painters.push_back(new SawPainter(w/2, h/2, w/2, h/2));
 
     for (auto& painter : painters) {
         painter->setFramesPerSecond(60);

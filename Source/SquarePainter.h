@@ -11,12 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include"ModuleGui.h"
+#include"WavePainter.h"
 
 //==============================================================================
 /*
 */
-class SquarePainter    : public ModuleGui
+class SquarePainter    : public WavePainter
 {
 public:
     SquarePainter();

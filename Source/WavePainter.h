@@ -11,19 +11,22 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "ModuleGui.h"
+#include "MyAnime.h"
 
 //==============================================================================
 /*
 */
-class WavePainter    : public ModuleGui
+class WavePainter    : public MyAnime
 {
 public:
 
 //--------------------constructors and distructor
     WavePainter();
     WavePainter(int x, int y);
+    WavePainter(int x, int y, int height, int width);
     ~WavePainter();
+
+    void setMyBounds();
 
 
 //----------------paint and shit
@@ -35,6 +38,18 @@ public:
 //--------------------Setters And Getters-----------
     float getFreq() const;
     void setFreq(float freq);
+    float getHeight() const;
+    void setHeight(float height);
+
+    float getWidth() const;
+    void setWidth(float width);
+
+    int getXPos() const;
+    void setXPos(int xPos);
+
+    int getYPos() const;
+    void setYPos(int yPos);
+
 
 
 
@@ -42,9 +57,16 @@ protected:
     float freq =0.02f;
     float height = 300;
     float width = 300;
+    int xPos;
+    int yPos;
 
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavePainter)
 
+public:
+
+
 };
+
+

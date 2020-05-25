@@ -5,6 +5,21 @@
   <MAINGROUP id="It8PsJ" name="FMsynth">
     <GROUP id="{EEE764A2-426D-8D6F-B2BD-98E4F3C1D40E}" name="Source">
       <GROUP id="{649E0F83-E613-7B4D-70DB-93CBEF8AF504}" name="GUI">
+        <GROUP id="{EF599F49-21E8-21E8-73F6-6FD6B460358D}" name="Waves">
+          <FILE id="vu91UD" name="SawPainter.cpp" compile="1" resource="0" file="Source/SawPainter.cpp"/>
+          <FILE id="QIrLVN" name="SawPainter.h" compile="0" resource="0" file="Source/SawPainter.h"/>
+          <FILE id="FytyAo" name="SinePainter.cpp" compile="1" resource="0" file="Source/SinePainter.cpp"/>
+          <FILE id="kU4AQl" name="SinePainter.h" compile="0" resource="0" file="Source/SinePainter.h"/>
+          <FILE id="qZY11C" name="SquarePainter.cpp" compile="1" resource="0"
+                file="Source/SquarePainter.cpp"/>
+          <FILE id="HTbdii" name="SquarePainter.h" compile="0" resource="0" file="Source/SquarePainter.h"/>
+          <FILE id="SAiIEN" name="TrianglePainter.cpp" compile="1" resource="0"
+                file="Source/TrianglePainter.cpp"/>
+          <FILE id="IaaDu7" name="TrianglePainter.h" compile="0" resource="0"
+                file="Source/TrianglePainter.h"/>
+          <FILE id="EKRJXO" name="WavePainter.cpp" compile="1" resource="0" file="Source/WavePainter.cpp"/>
+          <FILE id="sWL7vN" name="WavePainter.h" compile="0" resource="0" file="Source/WavePainter.h"/>
+        </GROUP>
         <GROUP id="{88EF2A92-5C33-4138-703F-5F64C772505D}" name="CustomLookAndFeel">
           <FILE id="ywCqS0" name="ModuleLookAndFeel.cpp" compile="1" resource="0"
                 file="Source/ModuleLookAndFeel.cpp"/>
@@ -40,19 +55,6 @@
         <FILE id="iSATEZ" name="OscillatorGui.cpp" compile="1" resource="0"
               file="Source/OscillatorGui.cpp"/>
         <FILE id="Sx762F" name="OscillatorGui.h" compile="0" resource="0" file="Source/OscillatorGui.h"/>
-        <FILE id="vu91UD" name="SawPainter.cpp" compile="1" resource="0" file="Source/SawPainter.cpp"/>
-        <FILE id="QIrLVN" name="SawPainter.h" compile="0" resource="0" file="Source/SawPainter.h"/>
-        <FILE id="FytyAo" name="SinePainter.cpp" compile="1" resource="0" file="Source/SinePainter.cpp"/>
-        <FILE id="kU4AQl" name="SinePainter.h" compile="0" resource="0" file="Source/SinePainter.h"/>
-        <FILE id="qZY11C" name="SquarePainter.cpp" compile="1" resource="0"
-              file="Source/SquarePainter.cpp"/>
-        <FILE id="HTbdii" name="SquarePainter.h" compile="0" resource="0" file="Source/SquarePainter.h"/>
-        <FILE id="SAiIEN" name="TrianglePainter.cpp" compile="1" resource="0"
-              file="Source/TrianglePainter.cpp"/>
-        <FILE id="IaaDu7" name="TrianglePainter.h" compile="0" resource="0"
-              file="Source/TrianglePainter.h"/>
-        <FILE id="EKRJXO" name="WavePainter.cpp" compile="1" resource="0" file="Source/WavePainter.cpp"/>
-        <FILE id="sWL7vN" name="WavePainter.h" compile="0" resource="0" file="Source/WavePainter.h"/>
       </GROUP>
       <FILE id="HVoZvt" name="MyAnime.h" compile="0" resource="0" file="Source/MyAnime.h"/>
       <FILE id="Y5NhdF" name="AnimatedEditor.h" compile="0" resource="0"

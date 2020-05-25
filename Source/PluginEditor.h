@@ -20,6 +20,7 @@
 #include "SawPainter.h"
 #include "SquarePainter.h"
 #include "FilterGui.h"
+#include "OscillatorGui.h"
 
 //==============================================================================
 /**

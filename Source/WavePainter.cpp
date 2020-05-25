@@ -29,9 +29,22 @@ WavePainter::WavePainter(int x, int y)
     width = 700;
 }
 
+WavePainter::WavePainter(int x, int y, int height, int width)
+{
+    xPos = x;
+    yPos = y;
+    this->height = height;
+    this->width = width;
+}
+
 
 
 WavePainter::~WavePainter(){
+}
+
+void WavePainter::setMyBounds()
+{
+    this->setBounds(xPos, yPos, width, height);
 }
 
 void WavePainter::paint (Graphics& g)
@@ -53,5 +66,46 @@ float WavePainter::getFreq() const
 void WavePainter::setFreq(float freq)
 {
     this->freq = freq;
+}
+
+
+float WavePainter::getHeight() const
+{
+    return height;
+}
+
+void WavePainter::setHeight(float height)
+{
+    this->height = height;
+}
+
+float WavePainter::getWidth() const
+{
+    return width;
+}
+
+void WavePainter::setWidth(float width)
+{
+    this->width = width;
+}
+
+int WavePainter::getXPos() const
+{
+    return xPos;
+}
+
+void WavePainter::setXPos(int xPos)
+{
+    this->xPos = xPos;
+}
+
+int WavePainter::getYPos() const
+{
+    return yPos;
+}
+
+void WavePainter::setYPos(int yPos)
+{
+    this->yPos = yPos;
 }
 

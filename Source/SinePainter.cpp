@@ -16,6 +16,10 @@ SinePainter::SinePainter()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
+    xPos = 0;
+    yPos = 0;
+    height = 40;
+    width = 40;
 
 }
 
@@ -38,6 +42,7 @@ SinePainter::SinePainter(int x, int y, int width, int height){
 SinePainter::~SinePainter()
 {
 }
+
 
 void SinePainter::paint(Graphics& g)
 {

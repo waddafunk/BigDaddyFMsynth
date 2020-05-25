@@ -11,17 +11,18 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "ModuleGui.h"
+#include "WavePainter.h"
 //==============================================================================
 /*
 */
-class SinePainter    : public ModuleGui
+class SinePainter    : public WavePainter
 {
 public:
     SinePainter();
     SinePainter(int x, int y);
     SinePainter(int x, int y, int width, int height);
     ~SinePainter();
+
 
     void paint (Graphics&) override;
     void resized() override;

@@ -40,7 +40,6 @@ public:
 private:
 
     Fm_synthAudioProcessor& processor;
-    AnimatedEditor anime;
     std::vector<ModuleGui *> modules;
     OSCSender sender;
     

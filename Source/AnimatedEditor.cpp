@@ -21,6 +21,7 @@ AnimatedEditor::AnimatedEditor()
     mod.setRange(0, 1, 0.01);
     mod.setValue(1.0);
     mod.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    addAndMakeVisible(&mod);
  
 }
 
@@ -56,5 +57,4 @@ void AnimatedEditor::paint(Graphics& g)
 
 void AnimatedEditor::setComponentz() {
     mod.setBounds(getWidth() - getWidth() / 4, getHeight() / 16, getWidth() / 4, getHeight() / 4);
-    addAndMakeVisible(&mod);
 }

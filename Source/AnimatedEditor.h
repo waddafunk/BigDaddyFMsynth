@@ -13,11 +13,12 @@
 #include <JuceHeader.h>
 #include"MyAnime.h"
 #include"PluginProcessor.h"
+#include"ModuleGui.h"
 
 //==============================================================================
 /*
 */
-class AnimatedEditor    : public MyAnime
+class AnimatedEditor    : public ModuleGui
 {
 public:
     AnimatedEditor();
@@ -27,10 +28,13 @@ public:
     void resized() override;
     void update() override;
     void setComponentz();
+    void setMyCurrentColour(Colour newColour);
+    void getMyCurrentColour();
 
 
     Slider mod;
     float amount = 1;
+    Colour myCurrentColour;
 
 private:
 

@@ -43,39 +43,39 @@ public:
 
     void setComponentz() {}
     void incrementFrame(int frames){
-        this->framesPassed += frames;
+        this->myframesPassed += frames;
     };
 
 
 //---------------Getters----------------
 
-    float getSaturation(){return saturation;}
-    float getOpacity (){return opacity;}
-    float getBrightness(){return brightness;}
-    float getContrast (){return contrast;}
-    float getAlpha (){return alpha;}
-    float getHue (){return hue;}
-    float getInterpolated (){return interpolated;}
-    float getOverlaid (){return overlaid;}
-    int getFramesPassed (){return framesPassed;}
-    Colour getBaseColour(){return baseColour;}
-    Colour getInterpolateColour(){return interpolateColour;}
-    Colour getOverlayColour(){return overlayColour;}
+    float getSaturation(){return mysaturation;}
+    float getOpacity (){return myopacity;}
+    float getBrightness(){return mybrightness;}
+    float getContrast (){return mycontrast;}
+    float getAlpha (){return myalpha;}
+    float getHue (){return myhue;}
+    float getInterpolated (){return myinterpolated;}
+    float getOverlaid (){return myoverlaid;}
+    int getFramesPassed (){return myframesPassed;}
+    Colour getBaseColour(){return mybaseColour;}
+    Colour getInterpolateColour(){return myinterpolateColour;}
+    Colour getOverlayColour(){return myoverlayColour;}
 
 
 //--------------Setters---------------
-    void setSaturation(float sat){this->saturation = sat;}
-    void setOpacity (float opacity){this->opacity = opacity;}
-    void setBrightness(float brightness){this->brightness = brightness;}
-    void setContrast (float contrast){this->contrast = contrast;}
-    void setAlpha (float alpha){this->alpha = alpha;}
-    void setHue (float hue){this->hue = hue;}
-    void setInterpolated(float inter){this->interpolated = inter;}
-    void setOverlaid (float overlaid){this->overlaid = overlaid;}
-    void setFramesPassed (int frames){this->framesPassed = frames;}
-    void setBaseColour (Colour baseColour){this->baseColour = baseColour;}
-    void setInterpolateColour (Colour interpolateColour){this->interpolateColour = interpolateColour;}
-    void setOverlayColour (Colour overlayColour){this->overlayColour = overlayColour;}
+    void setSaturation(float sat){this->mysaturation = sat;}
+    void setOpacity (float opacity){this->myopacity = opacity;}
+    void setBrightness(float brightness){this->mybrightness = brightness;}
+    void setContrast (float contrast){this->mycontrast = contrast;}
+    void setAlpha (float alpha){this->myalpha = alpha;}
+    void setHue (float hue){this->myhue = hue;}
+    void setInterpolated(float inter){this->myinterpolated = inter;}
+    void setOverlaid (float overlaid){this->myoverlaid = overlaid;}
+    void setFramesPassed (int frames){this->myframesPassed = frames;}
+    void setBaseColour (Colour baseColour){this->mybaseColour = baseColour;}
+    void setInterpolateColour (Colour interpolateColour){this->myinterpolateColour = interpolateColour;}
+    void setOverlayColour (Colour overlayColour){this->myoverlayColour = overlayColour;}
 
 
 
@@ -83,17 +83,16 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyAnime)
 
-    float saturation = 1.0f;
-    float opacity = 1.0f;
-    float brightness = 1.0f;
-    float contrast = 1.0f;
-    float alpha = 1.0f;
-    float hue = 1.0f;
-    float interpolated = 0.0f;
-    float overlaid = 0.0f;
-    int framesPassed = 0;
-    Colour baseColour;
-    Colour interpolateColour;
-    Colour overlayColour;
-
+    float mysaturation = 1.0f;
+    float myopacity = 1.0f;
+    float mybrightness = 1.0f;
+    float mycontrast = 1.0f;
+    float myalpha = 1.0f;
+    float myhue = 1.0f;
+    float myinterpolated = 0.0f;
+    float myoverlaid = 0.0f;
+    int myframesPassed = 0;
+    Colour mybaseColour;
+    Colour myinterpolateColour;
+    Colour myoverlayColour;
 };

@@ -26,7 +26,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     setSize (960, 540);
 
     //modules initialization
-    modules.push_back(new SinePainter(0, getHeight()/2,getWidth(),getHeight()/2));
+    modules.push_back(new SquarePainter(0, getHeight()/2,getWidth(),getHeight()/2));
 
     //adds and makes visible all the created modules 
     for (auto& module : modules) {

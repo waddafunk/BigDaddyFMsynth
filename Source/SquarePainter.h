@@ -11,17 +11,20 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include"ModuleGui.h"
 
 //==============================================================================
 /*
 */
-class SquarePainter    : public Component
+class SquarePainter    : public ModuleGui
 {
 public:
     SquarePainter();
+    SquarePainter(int x, int y);
+    SquarePainter(int x, int y, int width, int height);
     ~SquarePainter();
 
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
 private:

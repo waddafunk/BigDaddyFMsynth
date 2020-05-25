@@ -21,9 +21,9 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     sender.connect("127.0.0.1", 9001); //not finding IP address
 
     //sets windows attributes
-    setResizable(true, false);
-    setResizeLimits(300, 250, 10000, 10000);
-    setSize (1000, 1000);
+   // setResizable(true, false);
+   // setResizeLimits(300, 250, 10000, 10000);
+    setSize (960, 540);
 
 
     //anime shit
@@ -39,7 +39,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
    // modules.push_back(new SinePainter(0,0)); //to be modified
     modules.push_back(new ModuleGui(20,20));
     modules.push_back(new FilterGui(60, 20));
-    modules.push_back(new SinePainter(100, 20));
+    modules.push_back(new SinePainter(0, getHeight()/2,getWidth(),getHeight()/2));
 
     //adds and makes visible all the created modules 
     for (auto& module : modules) {

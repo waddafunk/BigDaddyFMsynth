@@ -27,6 +27,13 @@ SinePainter::SinePainter(int x, int y)
     width = 40;
 }
 
+SinePainter::SinePainter(int x, int y, int width, int height){
+    xPos = x;
+    yPos = y;
+    this->width = width;
+    this->height = height;
+}
+
 
 SinePainter::~SinePainter()
 {
@@ -49,16 +56,16 @@ void SinePainter::paint(Graphics& g)
 
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
-    auto numberOfDots = getWidth(); // [1]
+    auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
-    int amplitude = 150;
+    int amplitude = (height-40)/2;
     float freq = 0.02f;
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
 
         Point<float> p(i * getWidth() / (numberOfDots - 2),
-            getHeight() / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
+            height / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..

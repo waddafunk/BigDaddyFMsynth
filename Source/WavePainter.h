@@ -50,6 +50,9 @@ public:
     int getYPos() const;
     void setYPos(int yPos);
 
+    void setTriggered(bool isTriggered);
+    bool getTriggered() { return triggered; }
+    bool toggleTriggered() { this->triggered = !this->triggered; }
 
 
 
@@ -62,6 +65,7 @@ protected:
 
 
 private:
+    bool triggered = false;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavePainter)
 
 public:

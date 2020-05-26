@@ -58,6 +58,8 @@ void SawPainter::paint(Graphics& g)
         if (reflect)
             sign = -sign;
         float traslpos = std::abs((i + 80 * 4 * freq * getFrameCounter()));
+        if (getTriggered())
+            traslpos = i;
         float pos = (std::fmod(sign * traslpos, 2 * height) / 2 + height * (float)(1 - 1 / 8)) * 3 / 4 + height / 8;
         Point<float> p(i * getWidth() / (numberOfDots - 2),pos);
 

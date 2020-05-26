@@ -62,7 +62,10 @@ void SquarePainter::paint(Graphics& g)
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {   
         float pos = amplitude - getHeight() / 16;
-        if(std::cos(i * freq + 8 * freq * getFrameCounter()) < dutyCycle - 0.5)
+        float check = std::cos(i * freq + 8 * freq * getFrameCounter());
+        if (getTriggered())
+            check = std::cos(i * freq);
+        if(check < dutyCycle - 0.5)
             pos = -pos;
         Point<float> p(i * getWidth() / (numberOfDots - 2), getHeight() / 2 + pos);
 

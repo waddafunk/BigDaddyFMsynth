@@ -18,10 +18,10 @@ EnvelopeGui::EnvelopeGui()
     height = 300;
     width = 300;
     currentPoint = nullptr;
-    env[envelope::attack]->setCoordinates(xPos, yPos + height * 3 / 4);
-    env[envelope::decay]->setCoordinates(xPos + width/3, yPos + height/4);
-    env[envelope::sustain]->setCoordinates(xPos + width*2/3, yPos +  height* 2 / 4);
-    env[envelope::release]->setCoordinates(xPos + width, yPos + height);
+    env[envelope::attack]->setCoordinates(width / 4, height / 4);
+    env[envelope::decay]->setCoordinates(width * 2 / 4, height * 2 / 4);
+    env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
+    env[envelope::release]->setCoordinates(width, height);
 }
 
 
@@ -32,10 +32,10 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height )
     this->width = width;
     this->height = height;
     currentPoint = nullptr;
-    env[envelope::attack]->setCoordinates(xPos+ width/4, yPos + height/4);
-    env[envelope::decay]->setCoordinates(xPos + width *2 /4, yPos + height* 2 / 4);
-    env[envelope::sustain]->setCoordinates(xPos + width * 3 / 4, yPos + height * 2 / 4);
-    env[envelope::release]->setCoordinates(xPos + width, yPos + height);
+    env[envelope::attack]->setCoordinates(width/4,height/4);
+    env[envelope::decay]->setCoordinates(width *2 /4,height* 2 / 4);
+    env[envelope::sustain]->setCoordinates(width * 3 / 4,height * 2 / 4);
+    env[envelope::release]->setCoordinates(width,height);
 }
 
 
@@ -56,7 +56,7 @@ void EnvelopeGui::paint (Graphics& g)
 
     Path envelopePath;
 
-    Point<float> start((float)xPos, (float)(yPos + height));
+    Point<float> start((float)0, (float)(height));
     envelopePath.startNewSubPath(start);  // if this is the first point, start a new path..
 
    
@@ -88,6 +88,8 @@ void EnvelopeGui::resized()
 //TODO decay cannot be higher in value than attack
 //TODO sustain cannot be higher in value than decay
 //TODO release has the same height as sustan but can be moved in the x axis
+
+
 void EnvelopeGui::mouseDown(const MouseEvent& event){
     triggerDistance = 50;
     Coordinate mousePos;
@@ -95,6 +97,7 @@ void EnvelopeGui::mouseDown(const MouseEvent& event){
     float minDistance = 0;
     float currentDistance = 0;
     mousePos.setCoordinates(event.getMouseDownX(), event.getMouseDownY());
+    bool dontChange = false;
 
     //finds the closest point
     for (std::map<envelope, Coordinate*>::const_iterator it = env.begin(); it != env.end(); ++it) {
@@ -106,20 +109,34 @@ void EnvelopeGui::mouseDown(const MouseEvent& event){
         if (it == env.begin()) {
             minDistance = currentDistance;
             closestPoint = it->second;
-        }
-        else {
-            if (minDistance > currentDistance) {
-                minDistance = currentDistance;
-                closestPoint = it->second;
+            currentEnv = it->first;
+        } else {
+            if (minDistance >= currentDistance) {
+                if (minDistance > currentDistance) {
+                    minDistance = currentDistance;
+                    dontChange = false;
+                }else { //if minDistance == currentDistance
+                    if (mousePos.getX() < it->second->getX()) { //
+                        dontChange = true;
+                    }else {
+                        dontChange = false;
+                    }
+                }
+                
+                if (!dontChange) {
+                    closestPoint = it->second;
+                    currentEnv = it->first;
+                }
+                
             }
         }
         
     }
 
     if (minDistance < triggerDistance) {
-        closestPoint->setCoordinates(mousePos);
+       // closestPoint->setCoordinates(mousePos);
         currentPoint = closestPoint;
-        repaint();
+        //repaint();
     }
     else {
         currentPoint = nullptr;
@@ -130,12 +147,116 @@ void EnvelopeGui::mouseDown(const MouseEvent& event){
 void EnvelopeGui::mouseDrag(const MouseEvent& event)
 {
     Coordinate mousePos;
+    bool isLegalX = true;
+    bool isLegalY = true;
     mousePos.setCoordinates(event.getPosition().getX(), event.getPosition().getY());
 
+    envelope a;
+
     if (currentPoint != nullptr) {
-        currentPoint->setCoordinates(mousePos);
+        switch (currentEnv)
+        {
+        case attack : 
+            if (mousePos.hasHigherXThan(*env[envelope::decay])) {
+                isLegalX = false;
+            }
+            else {
+                isLegalX = true;
+            }
+
+            if (mousePos.hasHigherYThan(*env[envelope::decay])) { //remember that Y works the opposite way... it grows when going down
+                isLegalY = false;
+            }
+            else {
+                isLegalY = true;
+            }
+            break;
+
+        case decay:
+            if (mousePos.hasLowerYThan(*env[envelope::attack])) { //remember that Y works the opposite way... it grows when going down
+                isLegalY = false;
+            }else {
+                isLegalY = true;
+            }
+
+            if (mousePos.hasLowerXThan(*env[envelope::attack]) || mousePos.hasHigherXThan(*env[envelope::sustain])) {
+                isLegalX = false;
+            }
+            else {
+                isLegalX = true;
+            }
+            break;
+
+        case sustain:
+
+            if (mousePos.hasLowerYThan(*env[envelope::attack])) {
+                isLegalY = false;
+            }
+            else {
+                isLegalY = true;
+            }
+            if (mousePos.hasLowerXThan(*env[envelope::decay]) || mousePos.hasHigherXThan(*env[envelope::release])) {
+                isLegalX = false;
+            }
+            else {
+                isLegalX = true;
+            }
+
+            break;
+
+        case release:
+            isLegalY = false;
+            if (mousePos.hasLowerXThan(*env[envelope::sustain]) || mousePos.getX() >  width) {
+                isLegalX = false;
+            }
+            break;
+
+        default:
+            break;
+        }
+
+        if (isLegalX) {
+            if (mousePos.getX() > 0) {
+                currentPoint->setX(mousePos.getX());
+            }
+        }
+        
+        if (isLegalY) {
+            if (mousePos.getY() < height) {
+                currentPoint->setY(mousePos.getY());
+                if (currentEnv == envelope::decay) {
+                    env[envelope::sustain]->setY(currentPoint->getY());
+                }
+                else {
+                    if (currentEnv == envelope::sustain) {
+                        env[envelope::decay]->setY(currentPoint->getY());
+                    }
+                }
+            }
+        }
+           
     }
 
+}
+
+
+int envToInt(envelope enve) {
+    if (enve == envelope::attack) {
+        return 0;
+    }else {
+        if (enve == envelope::decay) {
+            return 1;
+        }else {
+            if (enve == envelope::sustain) {
+                return 2;
+            }else {
+                if (enve == envelope::release) {
+                    return 3;
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 void EnvelopeGui::mouseUp(const MouseEvent& event)

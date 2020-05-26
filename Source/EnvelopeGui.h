@@ -38,6 +38,14 @@ private:
     std::map<envelope, Coordinate*> env{ {envelope::attack,new Coordinate()},{envelope::decay , new Coordinate()},{envelope::sustain , new Coordinate()},{envelope::release , new Coordinate()} };
     float triggerDistance = 0;
     bool moving = false;
-    Coordinate* currentPoint = nullptr;
+    Coordinate* currentPoint = nullptr; //used to position of the point we're ecurrently moving
+    envelope currentEnv = envelope::attack; // used to store what type of point we're currently moving
+                                            //used to set boundaries in dragging
+
+
+    int envToInt(envelope enve);
+
+
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeGui)
 };

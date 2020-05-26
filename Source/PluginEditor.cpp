@@ -28,6 +28,10 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     //modules initialization
     modules.push_back(new OscillatorGui(0, getHeight()/2,getWidth(),getHeight()/2));
     modules.push_back(new EnvelopeGui(0, 0, getWidth() / 2, getHeight() / 2));
+    modules.push_back(new FilterGui(getWidth() / 2, 0, getWidth() / 4, getHeight() / 4));
+    modules.push_back(new EnvelopeGui(getWidth() / 2, getHeight() / 4, getWidth() / 4, getHeight() / 4));
+    modules.push_back(new EnvelopeGui(getWidth() * 3 / 4, 0, getWidth() / 4, getHeight() / 4));
+    modules.push_back(new EnvelopeGui(getWidth() * 3 / 4, getHeight() / 4, getWidth() / 4, getHeight() / 4));
     //adds and makes visible all the created modules 
     for (auto& module : modules) {
         module->setFramesPerSecond(60);

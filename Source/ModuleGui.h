@@ -55,7 +55,6 @@ protected:
     int yPos;
     int height;
     int width;
-    float freq = 0;
 
 
 private:

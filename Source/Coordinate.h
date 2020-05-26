@@ -30,6 +30,11 @@ public:
 
     float computeDistanceFrom(Coordinate point);
 
+    bool hasHigherXThan(Coordinate point);
+    bool hasHigherYThan(Coordinate point);
+    bool hasLowerXThan(Coordinate point);
+    bool hasLowerYThan(Coordinate point);
+
 private:
     float x;
     float y;

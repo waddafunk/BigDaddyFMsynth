@@ -27,6 +27,13 @@ FilterGui::FilterGui(int x, int y)
     width = 40;
 }
 
+FilterGui::FilterGui(int x, int y, int w, int h)
+{
+    xPos = x;
+    yPos = y;
+    height = h;
+    width = w;
+}
 
 FilterGui::~FilterGui()
 {

@@ -69,3 +69,32 @@ float Coordinate::computeDistanceFrom(Coordinate point)
     return sqrt(pow(this->x - point.getX(), 2) + pow(this->y - point.getY(), 2));
 }
 
+bool Coordinate::hasHigherXThan(Coordinate point)
+{
+    if(this->x>point.getX())
+        return true;
+    return false;
+}
+
+bool Coordinate::hasHigherYThan(Coordinate point)
+{
+    if (this->y > point.getY())
+        return true;
+    return false;
+}
+
+bool Coordinate::hasLowerYThan(Coordinate point)
+{
+    if (this->y < point.getY())
+        return true;
+    return false;
+}
+
+
+bool Coordinate::hasLowerXThan(Coordinate point)
+{
+    if (this->x < point.getX())
+        return true;
+    return false;
+}
+

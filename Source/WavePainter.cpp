@@ -109,3 +109,8 @@ void WavePainter::setYPos(int yPos)
     this->yPos = yPos;
 }
 
+void WavePainter::setTriggered(bool isTriggered)
+{
+    this->triggered = isTriggered;
+}
+

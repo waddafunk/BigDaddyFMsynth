@@ -63,9 +63,10 @@ void SinePainter::paint(Graphics& g)
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
-
-        Point<float> p(i * getWidth() / (numberOfDots - 2),
-            height / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
+        float pos = height / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter());
+        if (getTriggered())
+            pos = height / 2.0f + amplitude * std::cos(i * freq);
+        Point<float> p(i * width / (numberOfDots - 2), pos);
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..

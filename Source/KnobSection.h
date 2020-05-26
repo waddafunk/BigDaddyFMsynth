@@ -15,15 +15,39 @@
 //==============================================================================
 /*
 */
-class KnobSection    : public Component
+
+enum class direction {horizontal, vertical};
+
+class KnobSection    : public Component, public Slider::Listener
 {
 public:
     KnobSection();
+    KnobSection(int x,int y, int w, int h);
+    KnobSection(int x, int y, int w, int h, direction dir, int nKnob);
+    KnobSection(int x, int y, int w, int h, int nKnob);
+
     ~KnobSection();
+
 
     void paint (Graphics&) override;
     void resized() override;
 
+    void sliderValueChanged(Slider* slider) override;
+    void sliderDragStarted(Slider*) override;
+    void sliderDragEnded(Slider*) override;
+
+
+    void setMyBounds();
+
+
 private:
+    std::vector<Slider*> knobs;
+    int xPos;
+    int yPos;
+    int width;
+    int height;
+    direction dir;
+
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobSection)
 };

@@ -16,7 +16,11 @@ FilterGui::FilterGui()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-
+    xPos = 0;
+    yPos = 0;
+    height = 0;
+    width = 0;
+    addKnobSection(xPos, yPos, width, height, direction::horizontal, 2);
 }
 
 FilterGui::FilterGui(int x, int y)
@@ -25,6 +29,7 @@ FilterGui::FilterGui(int x, int y)
     yPos = y;
     height = 40;
     width = 40;
+    addKnobSection(xPos, yPos, width, height, direction::horizontal, 2);
 }
 
 FilterGui::FilterGui(int x, int y, int w, int h)
@@ -33,10 +38,14 @@ FilterGui::FilterGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
+    addKnobSection(xPos, yPos, width, height, direction::horizontal, 2);
 }
 
 FilterGui::~FilterGui()
 {
+    for (auto& knobSection : knobSections) {
+        delete knobSection;
+    }
 }
 
 void FilterGui::paint (Graphics& g)
@@ -52,32 +61,6 @@ void FilterGui::paint (Graphics& g)
     g.drawText ("FilterGui", getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
 
-    
-
-    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
-
-    auto numberOfDots = getWidth(); // [1]
-    Path spinePath;         // [2]
-    int amplitude = 150;
-    float freq = 0.02f;
-
-    for (auto i = 0; i < numberOfDots; ++i) // [3]
-    {
-
-        Point<float> p(i * getWidth() / (numberOfDots - 2),
-            getHeight() / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter()));
-
-        if (i == 0)
-            spinePath.startNewSubPath(p);  // if this is the first point, start a new path..
-        else
-            spinePath.lineTo(p);           // ...otherwise add the next point
-    }
-
-
-
-    // draw an outline around the path that we have created
-    g.strokePath(spinePath, PathStrokeType(4.0f)); // [4]
-
 
 }
 
@@ -87,3 +70,4 @@ void FilterGui::resized()
     // components that your component contains..
 
 }
+

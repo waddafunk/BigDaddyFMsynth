@@ -12,35 +12,50 @@
 #include "KnobSection.h"
 
 //==============================================================================
+
 KnobSection::KnobSection()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    xPos = 0;
+    yPos = 0;
+    height = 40;
+    width = 40;
+    dir = direction::horizontal;
 
 }
 
-KnobSection::~KnobSection()
-{
+KnobSection::KnobSection(int x, int y, int w, int h) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
+    dir = direction::horizontal;
+   
 }
+
+
+KnobSection::KnobSection(int x, int y, int w, int h, direction dir, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }, dir{ dir } {
+    for (size_t i; i < nKnob; ++i) {
+        knobs.push_back(new Slider(Slider::Rotary, Slider::TextBoxBelow));
+    }
+}
+
+KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
+    dir = direction::horizontal;
+    for (size_t i; i < nKnob; ++i) {
+        knobs.push_back(new Slider(Slider::Rotary, Slider::TextBoxBelow));
+    }
+}
+
+KnobSection::~KnobSection(){
+    for (auto& knob : knobs) {
+        delete knob;
+    }
+}
+
+void KnobSection::setMyBounds() {
+    this->setBounds(xPos, yPos, width, height);
+}
+
 
 void KnobSection::paint (Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
 
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("KnobSection", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
 }
 
 void KnobSection::resized()
@@ -48,4 +63,16 @@ void KnobSection::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
 
+}
+
+void KnobSection::sliderValueChanged(Slider* slider)
+{
+}
+
+void KnobSection::sliderDragStarted(Slider*)
+{
+}
+
+void KnobSection::sliderDragEnded(Slider*)
+{
 }

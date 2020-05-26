@@ -50,12 +50,13 @@ void TrianglePainter::paint(Graphics& g)
 
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
-    int amplitude = (height - 40) / 2;
+    float amplitude = height / 2;
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
-        float traslpos = std::abs((i + 80 * 4 * freq * getFrameCounter()));
-        float pos = std::fmod(traslpos,  amplitude * 4) / 2 + height / 8;
+        float traslpos = i + 80 * 4 * freq * getFrameCounter();
+        float pos = std::abs(std::fmod(traslpos, height) - height / 2) * 2 * 3 / 4 + height / 8;
+        
         Point<float> p(i * getWidth() / (numberOfDots - 2),
             pos);
 

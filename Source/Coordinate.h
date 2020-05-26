@@ -26,6 +26,8 @@ public:
 
     void setCoordinates(float x, float y);
 
+	void setCoordinates(Coordinate pos);
+
     float computeDistanceFrom(Coordinate point);
 
 private:

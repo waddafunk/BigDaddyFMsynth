@@ -22,6 +22,7 @@ Coordinate::Coordinate(float x, float y)
     this->y = y;
 }
 
+
 float Coordinate::getX() const
 {
     return x;
@@ -55,6 +56,12 @@ void Coordinate::setCoordinates(float x, float y)
 {
     this->x = x;
     this->y = y;
+}
+
+void Coordinate::setCoordinates(Coordinate pos)
+{
+    this->x = pos.getX();
+    this->y = pos.getY();
 }
 
 float Coordinate::computeDistanceFrom(Coordinate point)

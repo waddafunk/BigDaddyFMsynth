@@ -31,9 +31,13 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     void mouseDown(const MouseEvent& event) override;
+    void mouseDrag(const MouseEvent& event) override;
+    void mouseUp(const MouseEvent& event) override;
 
 private:
     std::map<envelope, Coordinate*> env{ {envelope::attack,new Coordinate()},{envelope::decay , new Coordinate()},{envelope::sustain , new Coordinate()},{envelope::release , new Coordinate()} };
-
+    float triggerDistance = 0;
+    bool moving = false;
+    Coordinate* currentPoint = nullptr;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeGui)
 };

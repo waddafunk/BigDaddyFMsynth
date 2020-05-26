@@ -57,17 +57,16 @@ void SquarePainter::paint(Graphics& g)
 
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
-    int amplitude = (height - 40) / 2;
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {   
-        float pos = amplitude - height / 16;
+        float pos = height  * 3 / 8;
         float check = std::cos(i * freq + 8 * freq * getFrameCounter());
         if (getTriggered())
             check = std::cos(i * freq);
         if(check < dutyCycle - 0.5)
             pos = -pos;
-        Point<float> p(i * width / (numberOfDots - 2), height / 2 + pos);
+        Point<float> p(i * width / (numberOfDots - 2), pos + height / 2);
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..

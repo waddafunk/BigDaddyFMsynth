@@ -57,7 +57,7 @@ protected:
     int yPos;
     int height;
     int width;
-    std::vector<KnobSection*> knobSections;
+    //std::vector<KnobSection*> knobSections;
 
 
 private:

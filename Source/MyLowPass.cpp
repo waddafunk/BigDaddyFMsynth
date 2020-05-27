@@ -33,22 +33,27 @@ MyLowPass::~MyLowPass()
 
 void MyLowPass::paint (Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
 
-       You should replace everything in this method with your own
-       drawing code..
-    */
+    g.setColour(Colours::grey);
+    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
+    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+    Path filterPath;
+    Point<float> start((float)0, (float)(height / 2)), cutX(width / 2, (float)0), preCutX(cutX.getX() * 99 / 100, height / 2), 
+        endLinear(preCutX.getX() / 2, (float)(height / 2)), endp(cutX.getX() + width / 10, (float)height);
+    
+    if (endp.getX() > width)
+        endp.setX(width);
+    
+    filterPath.startNewSubPath(start);  // if this is the first point, start a new path..
+    filterPath.lineTo(endLinear);
+    filterPath.cubicTo(preCutX, cutX, endp);
 
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("MyLowPass", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+
+    // draw an outline around the path that we have created
+    g.strokePath(filterPath, PathStrokeType(4.0f)); // [4]
 }
 
 void MyLowPass::resized()

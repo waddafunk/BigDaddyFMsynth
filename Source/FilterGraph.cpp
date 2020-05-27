@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "FilterGraph.h"
+#include"Coordinate.h"
 
 
 FilterGraph::FilterGraph() {
@@ -38,22 +39,7 @@ FilterGraph::~FilterGraph()
 
 void FilterGraph::paint (Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("FilterGraph", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+  
 }
 
 void FilterGraph::resized()
@@ -83,3 +69,15 @@ void FilterGraph::addGraphs()
 
 
 }
+
+void FilterGraph::setCutoff(float cutoff)
+{
+    this->cutoff = cutoff;
+}
+
+void FilterGraph::setResonance(float resonance)
+{
+    this->resonance = resonance;
+}
+
+

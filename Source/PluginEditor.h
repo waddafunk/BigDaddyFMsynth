@@ -40,7 +40,7 @@ public:
 
 
 
-    static OSCSender sender;
+    OSCSender sender;
 
 private:
 

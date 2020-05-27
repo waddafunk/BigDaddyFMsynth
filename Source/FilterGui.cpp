@@ -39,6 +39,7 @@ FilterGui::FilterGui(int x, int y, int w, int h)
     height = h;
     width = w;
 
+    addMyFilters(width, height * 3 / 4);
     addKnobSection(0, 3 * height / 4, width, height/4, 8);
 
 }
@@ -47,6 +48,10 @@ FilterGui::~FilterGui()
 {
     for (auto& knobSection : knobSections) {
         delete knobSection;
+    }
+
+    for (auto& filter : myFilters) {
+        delete filter;
     }
 }
 
@@ -68,3 +73,15 @@ void FilterGui::resized()
 
 }
 
+void FilterGui::addMyFilters(int w, int h) {
+    myFilters.push_back(new FilterGraph(0, 0, w, h));
+
+    for (auto& filter : myFilters) {
+        filter->setMyBounds();
+        addAndMakeVisible(filter);
+    }
+}
+
+void FilterGui::addMyFilter(FilterGraph* painter) {
+    myFilters.push_back(painter);
+}

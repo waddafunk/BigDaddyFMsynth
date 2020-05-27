@@ -1,8 +1,8 @@
 /*
   ==============================================================================
 
-    EqGui.h
-    Created: 23 May 2020 4:14:32pm
+    SpectrogramGui.h
+    Created: 27 May 2020 3:41:44pm
     Author:  daveg
 
   ==============================================================================
@@ -11,20 +11,19 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "ModuleGui.h"
 
 //==============================================================================
 /*
 */
-class EqGui    : public ModuleGui
+class SpectrogramGui    : public Component
 {
 public:
-    EqGui();
-    ~EqGui();
+    SpectrogramGui();
+    ~SpectrogramGui();
 
     void paint (Graphics&) override;
     void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EqGui)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectrogramGui)
 };

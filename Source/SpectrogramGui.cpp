@@ -1,29 +1,29 @@
 /*
   ==============================================================================
 
-    EqGui.cpp
-    Created: 23 May 2020 4:14:32pm
+    SpectrogramGui.cpp
+    Created: 27 May 2020 3:41:44pm
     Author:  daveg
 
   ==============================================================================
 */
 
 #include <JuceHeader.h>
-#include "EqGui.h"
+#include "SpectrogramGui.h"
 
 //==============================================================================
-EqGui::EqGui()
+SpectrogramGui::SpectrogramGui()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
 
 }
 
-EqGui::~EqGui()
+SpectrogramGui::~SpectrogramGui()
 {
 }
 
-void EqGui::paint (Graphics& g)
+void SpectrogramGui::paint (Graphics& g)
 {
     /* This demo code just fills the component's background and
        draws some placeholder text to get you started.
@@ -39,11 +39,11 @@ void EqGui::paint (Graphics& g)
 
     g.setColour (Colours::white);
     g.setFont (14.0f);
-    g.drawText ("EqGui", getLocalBounds(),
+    g.drawText ("SpectrogramGui", getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
 }
 
-void EqGui::resized()
+void SpectrogramGui::resized()
 {
     // This method is where you should set the bounds of any child
     // components that your component contains..

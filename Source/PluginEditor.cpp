@@ -23,7 +23,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     //sets windows attributes
    // setResizable(true, false);
    // setResizeLimits(300, 250, 10000, 10000);
-    setSize (960, 540);
+    setSize (1920/2, 1200*5/8);
 
     //modules initialization
     modules.push_back(new OscillatorGui(0, getHeight()/2,getWidth() / 2, getHeight()/2));

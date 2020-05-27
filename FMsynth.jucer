@@ -13,6 +13,10 @@
               file="Source/MyMouseListener.h"/>
       </GROUP>
       <GROUP id="{649E0F83-E613-7B4D-70DB-93CBEF8AF504}" name="GUI">
+        <FILE id="pjI9TB" name="FilterGraph.cpp" compile="1" resource="0" file="Source/FilterGraph.cpp"/>
+        <FILE id="mD3bI4" name="FilterGraph.h" compile="0" resource="0" file="Source/FilterGraph.h"/>
+        <FILE id="yOkTO8" name="KnobSection.cpp" compile="1" resource="0" file="Source/KnobSection.cpp"/>
+        <FILE id="ftL6kd" name="KnobSection.h" compile="0" resource="0" file="Source/KnobSection.h"/>
         <GROUP id="{EF599F49-21E8-21E8-73F6-6FD6B460358D}" name="Waves">
           <FILE id="vu91UD" name="SawPainter.cpp" compile="1" resource="0" file="Source/SawPainter.cpp"/>
           <FILE id="QIrLVN" name="SawPainter.h" compile="0" resource="0" file="Source/SawPainter.h"/>

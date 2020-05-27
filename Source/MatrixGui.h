@@ -20,6 +20,7 @@ class MatrixGui    : public ModuleGui
 {
 public:
     MatrixGui();
+    MatrixGui(int x, int y, int w, int h);
     ~MatrixGui();
 
     void paint (Graphics&) override;

@@ -14,13 +14,34 @@
 //==============================================================================
 MatrixGui::MatrixGui()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    xPos = 0;
+    yPos = 0;
+    height = 40;
+    width = 40;
+    addKnobSection(0, 0 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 1 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 2 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 3 * height / 4, width, height / 4, 8);
 
+}
+
+MatrixGui::MatrixGui(int x, int y, int w, int h)
+{
+    xPos = x;
+    yPos = y;
+    height = h;
+    width = w;
+    addKnobSection(0, 0 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 1 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 2 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 3 * height / 4, width, height / 4, 8);
 }
 
 MatrixGui::~MatrixGui()
 {
+    for (auto& knobSection : knobSections) {
+        delete knobSection;
+    }
 }
 
 void MatrixGui::paint (Graphics& g)
@@ -37,11 +58,7 @@ void MatrixGui::paint (Graphics& g)
     g.setColour (Colours::grey);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("MatrixGui", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
-}
+  }
 
 void MatrixGui::resized()
 {

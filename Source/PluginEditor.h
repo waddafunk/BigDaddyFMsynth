@@ -22,6 +22,7 @@
 #include "FilterGui.h"
 #include "OscillatorGui.h"
 #include "EnvelopeGui.h"
+#include "MatrixGui.h"
 
 //==============================================================================
 /**

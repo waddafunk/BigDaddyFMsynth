@@ -11,11 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "ModuleGui.h"
 
 //==============================================================================
 /*
 */
-class FilterGraph    : public Component
+class FilterGraph    : public ModuleGui
 {
 public:
     FilterGraph();

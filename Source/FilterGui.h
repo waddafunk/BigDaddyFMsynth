@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "ModuleGui.h"
 #include "KnobSection.h"
+#include "FilterGraph.h"
 
 //==============================================================================
 /*

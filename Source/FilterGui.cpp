@@ -38,10 +38,8 @@ FilterGui::FilterGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
-    addKnobSection(xPos, yPos + 0 * height / 4, width, height / 4, 8);
-    addKnobSection(xPos, yPos + 1 * height / 4, width, height / 4, 8);
-    addKnobSection(xPos, yPos + 2 * height / 4, width, height / 4, 8);
-    addKnobSection(xPos, yPos + 3 * height / 4, width, height/4, 8);
+
+    addKnobSection(0, 3 * height / 4, width, height/4, 8);
 
 }
 

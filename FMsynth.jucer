@@ -11,8 +11,14 @@
               file="Source/MyMouseListener.cpp"/>
         <FILE id="jedJzJ" name="MyMouseListener.h" compile="0" resource="0"
               file="Source/MyMouseListener.h"/>
+        <FILE id="YdixXj" name="MySender.cpp" compile="1" resource="0" file="Source/MySender.cpp"/>
+        <FILE id="MD3y9z" name="MySender.h" compile="0" resource="0" file="Source/MySender.h"/>
       </GROUP>
       <GROUP id="{649E0F83-E613-7B4D-70DB-93CBEF8AF504}" name="GUI">
+        <FILE id="Z6z5zh" name="SpectrogramGui.cpp" compile="1" resource="0"
+              file="Source/SpectrogramGui.cpp"/>
+        <FILE id="rREM70" name="SpectrogramGui.h" compile="0" resource="0"
+              file="Source/SpectrogramGui.h"/>
         <FILE id="pjI9TB" name="FilterGraph.cpp" compile="1" resource="0" file="Source/FilterGraph.cpp"/>
         <FILE id="mD3bI4" name="FilterGraph.h" compile="0" resource="0" file="Source/FilterGraph.h"/>
         <FILE id="yOkTO8" name="KnobSection.cpp" compile="1" resource="0" file="Source/KnobSection.cpp"/>
@@ -52,8 +58,6 @@
         </GROUP>
         <FILE id="nptztb" name="EnvelopeGui.cpp" compile="1" resource="0" file="Source/EnvelopeGui.cpp"/>
         <FILE id="PLsNbY" name="EnvelopeGui.h" compile="0" resource="0" file="Source/EnvelopeGui.h"/>
-        <FILE id="Ig8K9V" name="EqGui.cpp" compile="1" resource="0" file="Source/EqGui.cpp"/>
-        <FILE id="Ag2ibh" name="EqGui.h" compile="0" resource="0" file="Source/EqGui.h"/>
         <FILE id="zqrtVg" name="FilterGui.cpp" compile="1" resource="0" file="Source/FilterGui.cpp"/>
         <FILE id="jImiVf" name="FilterGui.h" compile="0" resource="0" file="Source/FilterGui.h"/>
         <FILE id="GiDT0I" name="LfoGui.cpp" compile="1" resource="0" file="Source/LfoGui.cpp"/>

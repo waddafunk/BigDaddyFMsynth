@@ -1,4 +1,6 @@
 /// SYNTHDEF OF THE FM
+
+// ANTONACCI ' S SYNTH
 (
 SynthDef(\fmSynth,
 {
@@ -14,29 +16,7 @@ Out.ar(outBus,(outSig * direct).dup);
 ).add
 )
 
-
-
-// SYNTHDEF OF THE REVERB
-
-(
-SynthDef(\reverb,
-{
-arg inBus, outBus;
-var dry, wet;
-dry = In.ar (inBus);
-wet = DelayN.ar(dry,0.048,0.048);
-wet = Mix.arFill(7,{
-CombL.ar(wet,0.1,LFNoise1.kr(Rand(0,0.1),0.04,0.05),1 )});
-4.do({wet = AllpassC.ar(wet,0.05,
-[Rand(0,0.05),Rand(0,0.05)],15) });
-Out.ar(outBus, wet);
-}
-).add;
-)
-
-
-// SYNTH INSTANTATION
-
+// OUR SYNTH
 (
 SynthDef.new(\fmSynth, {
 	arg  freq =500, mRatio = 1, cRatio = 1, index =1, iScale = 5,
@@ -65,7 +45,26 @@ SynthDef.new(\fmSynth, {
 )
 
 
+// SYNTHDEF REVERB
 
+(
+SynthDef(\reverb,
+{
+arg inBus, outBus;
+var dry, wet;
+dry = In.ar (inBus);
+wet = DelayN.ar(dry,0.048,0.048);
+wet = Mix.arFill(7,{
+CombL.ar(wet,0.1,LFNoise1.kr(Rand(0,0.1),0.04,0.05),1 )});
+4.do({wet = AllpassC.ar(wet,0.05,
+[Rand(0,0.05),Rand(0,0.05)],15) });
+Out.ar(outBus, wet);
+}
+).add;
+)
+
+
+// SYNTH INSTANTATION
 (
 var bus = Bus.audio(s);
 x =

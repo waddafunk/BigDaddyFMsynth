@@ -74,9 +74,9 @@ void ModuleGui::addKnobSection(int x, int y, int w, int h)
     addAndMakeVisible(knobSection);
 }
 
-void ModuleGui::addKnobSection(int x, int y, int w, int h, direction dir, int nKnob)
+void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob)
 {
-    KnobSection* knobSection = new KnobSection(x, y, w, h, dir, nKnob);
+    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob);
     knobSections.push_back(knobSection);
     knobSection->setMyBounds();
     addAndMakeVisible(knobSection); // each time you add a knob setion it is added in the add and make visible

@@ -23,7 +23,6 @@ class KnobSection    : public Component, public Slider::Listener
 public:
     KnobSection();
     KnobSection(int x,int y, int w, int h);
-    KnobSection(int x, int y, int w, int h, direction dir, int nKnob);
     KnobSection(int x, int y, int w, int h, int nKnob);
 
     ~KnobSection();
@@ -38,6 +37,8 @@ public:
 
 
     void setMyBounds();
+    void addKnobs(int nKnob);
+
 
 
 private:
@@ -47,6 +48,10 @@ private:
     int width;
     int height;
     direction dir;
+
+
+    void arrange();
+    void checkDirection();
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobSection)

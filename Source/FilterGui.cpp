@@ -20,7 +20,7 @@ FilterGui::FilterGui()
     yPos = 0;
     height = 0;
     width = 0;
-    addKnobSection(xPos, yPos, width, height, direction::horizontal, 2);
+    addKnobSection(xPos, yPos, width, height, 2);
 }
 
 FilterGui::FilterGui(int x, int y)
@@ -29,7 +29,7 @@ FilterGui::FilterGui(int x, int y)
     yPos = y;
     height = 40;
     width = 40;
-    addKnobSection(xPos, yPos, width, height, direction::horizontal, 2);
+    addKnobSection(xPos, yPos, width, height, 2);
 }
 
 FilterGui::FilterGui(int x, int y, int w, int h)
@@ -38,7 +38,7 @@ FilterGui::FilterGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
-    addKnobSection(xPos, yPos, width, height, direction::horizontal, 2);
+    addKnobSection(xPos, yPos + 3/4 * height, width, height/4, 8);
 }
 
 FilterGui::~FilterGui()

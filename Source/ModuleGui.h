@@ -34,7 +34,7 @@ public:
     void connectModules(ModuleGui module); //connects this module to another one using drag and drop and sets the current state in the matrix
 
     void addKnobSection(int x, int y, int w, int h);
-    void addKnobSection(int x, int y, int w, int h,direction dir, int nKnob);
+    void addKnobSection(int x, int y, int w, int h, int nKnob);
 
 
 

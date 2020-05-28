@@ -58,6 +58,11 @@ void KnobSection::addKnobs(int nKnob)
     arrange();
 }
 
+
+void KnobSection::send(){
+    sender.send(getSocketName(), 10);
+}
+
 //TODO IMPLEMENT AUTOMATIC AND SCALABLE SETBOUND FOR KNOBS 
 void KnobSection::arrange() {
     if (knobs.size() == 0){
@@ -101,6 +106,17 @@ void KnobSection::checkDirection() {
     {
         dir = direction::horizontal;
     }
+}
+
+String KnobSection::getSocketName()
+{
+    switch (type) {
+    case typeOfSection::filter: return "Fxasdasldaskd/Filter";
+    case typeOfSection::matrix: return "blaaa";
+    default:
+        break;
+    }
+    return "StandardSocket"; //error case
 }
 
 

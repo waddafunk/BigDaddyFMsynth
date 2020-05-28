@@ -148,42 +148,57 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
 {
     Coordinate mousePos;
     bool isLegalX = true;
+    bool illegalRight = false; //used to understand if i exit the area on the right or on the left
     bool isLegalY = true;
+    bool illegalDown = false;
     mousePos.setCoordinates(event.getPosition().getX(), event.getPosition().getY());
 
     envelope a;
 
     if (currentPoint != nullptr) {
+        isLegalX = true;
+        isLegalY = true;
+        illegalRight = false;
+        illegalDown = false;
         switch (currentEnv)
         {
-        case attack : 
+        case attack:
             if (mousePos.hasHigherXThan(*env[envelope::decay])) {
                 isLegalX = false;
+                illegalRight = true;
             }
-            else {
-                isLegalX = true;
+            if (mousePos.getX() < 0) {
+                isLegalX = false;
             }
 
             if (mousePos.hasHigherYThan(*env[envelope::decay])) { //remember that Y works the opposite way... it grows when going down
                 isLegalY = false;
+                illegalDown = true;
             }
-            else {
-                isLegalY = true;
+
+            if (mousePos.hasLowerYThan(*env[envelope::decay])) { //remember that Y works the opposite way... it grows when going down
+                isLegalY = false;
             }
+
             break;
 
         case decay:
             if (mousePos.hasLowerYThan(*env[envelope::attack])) { //remember that Y works the opposite way... it grows when going down
                 isLegalY = false;
-            }else {
-                isLegalY = true;
+            }
+            
+            if (mousePos.hasHigherYThan(*env[envelope::release])) {
+                isLegalY = false;
+                illegalDown = true;
             }
 
-            if (mousePos.hasLowerXThan(*env[envelope::attack]) || mousePos.hasHigherXThan(*env[envelope::sustain])) {
+            if (mousePos.hasLowerXThan(*env[envelope::attack])) {
                 isLegalX = false;
             }
-            else {
-                isLegalX = true;
+
+            if (mousePos.hasHigherXThan(*env[envelope::sustain])) {
+                isLegalX = false;
+                illegalRight = true;
             }
             break;
 
@@ -192,22 +207,31 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
             if (mousePos.hasLowerYThan(*env[envelope::attack])) {
                 isLegalY = false;
             }
-            else {
-                isLegalY = true;
+
+            if (mousePos.hasHigherYThan(*env[envelope::release])) {
+                isLegalY = false;
+                illegalDown = true;
             }
-            if (mousePos.hasLowerXThan(*env[envelope::decay]) || mousePos.hasHigherXThan(*env[envelope::release])) {
+
+            if (mousePos.hasLowerXThan(*env[envelope::decay])) {
                 isLegalX = false;
             }
-            else {
-                isLegalX = true;
+            if (mousePos.hasHigherXThan(*env[envelope::release])) {
+                isLegalX = false;
+                illegalRight = true;
             }
+
 
             break;
 
         case release:
-            isLegalY = false;
-            if (mousePos.hasLowerXThan(*env[envelope::sustain]) || mousePos.getX() >  width) {
+            isLegalY = false; // so that we don't change the y of the release
+            if (mousePos.hasLowerXThan(*env[envelope::sustain])) {
                 isLegalX = false;
+            }
+            if (mousePos.getX() > width) {
+                isLegalX = false;
+                illegalRight = true;
             }
             break;
 
@@ -223,8 +247,39 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
         else {
             switch (currentEnv)
             {
-            case envelope::attack : currentPoint->setX(env[envelope::decay]->getX());
+            case envelope::attack:
+                if (illegalRight) {
+                    currentPoint->setX(env[envelope::decay]->getX());
+                }
+                else {
+                    currentPoint->setX(0);
+                }
                 break;
+            case envelope::decay:
+                if (illegalRight) {
+                    currentPoint->setX(env[envelope::sustain]->getX());
+                }
+                else {
+                    currentPoint->setX(env[envelope::attack]->getX());
+                }
+                break;
+            case envelope::sustain: 
+                if (illegalRight) {
+                    currentPoint->setX(env[envelope::release]->getX());
+                }
+                else {
+                    currentPoint->setX(env[envelope::decay]->getX());
+                }
+                break;
+            case envelope::release:
+                if (illegalRight) {
+                    currentPoint->setX(width);
+                }
+                else {
+                    currentPoint->setX(env[envelope::sustain]->getX());
+                }
+                break;
+
             default:
                 break;
             }
@@ -243,6 +298,29 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
                 }
             }
         }
+        /*
+        else {
+            switch (currentEnv)
+            {
+            case envelope::attack: currentPoint->setX(env[envelope::decay]->getX());
+                break;
+            case envelope::decay:
+                if (illegalRight) {
+                    currentPoint->setX(env[envelope::sustain]->getX());
+                }
+                else {
+                    currentPoint->setX(env[envelope::attack]->getX());
+                }
+
+                break;
+            case envelope::sustain: currentPoint->setX(env[envelope::release]->getX());
+                break;
+
+            default:
+                break;
+            }
+        }
+        */
            
     }
 

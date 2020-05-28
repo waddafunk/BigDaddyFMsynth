@@ -65,14 +65,16 @@ void FilterGraph::addGraphs()
     this->myGraphs.push_back(new MyBandPass(xPos, yPos, width, height));
     this->myGraphs.push_back(new MyNotchFilter(xPos, yPos, width, height));
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++) {
         myGraphs[i]->setMyBounds();
-    
-    this->setCutoff(9000);
-    myGraphs[0]->setCutoff(9000);
+        myGraphs[i]->setCutoff(1000);
+        myGraphs[i]->setResonance(0.7f);
+    }
+
+    this->setCutoff(100);   
     this->setResonance(0.7f);
-    myGraphs[0]->setResonance(0.7f);
-    addAndMakeVisible(myGraphs[0]);
+
+    addAndMakeVisible(myGraphs[1]);
 
 
 }

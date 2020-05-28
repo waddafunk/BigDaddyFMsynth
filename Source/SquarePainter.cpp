@@ -66,6 +66,7 @@ void SquarePainter::paint(Graphics& g)
             check = std::cos(i * freq);
         if(check < dutyCycle - 0.5)
             pos = -pos;
+        pushPainted(pos);
         Point<float> p(i * width / (numberOfDots - 2), pos + height / 2);
 
         if (i == 0)

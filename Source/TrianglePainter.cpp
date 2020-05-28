@@ -58,6 +58,7 @@ void TrianglePainter::paint(Graphics& g)
         if (getTriggered())
             traslpos = i;
         float pos = std::abs(std::fmod(traslpos, height) - height / 2) * 2 * 3 / 4 + height / 8;
+        pushPainted(pos);
         
         Point<float> p(i * width / (numberOfDots - 2),
             pos);

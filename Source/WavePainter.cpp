@@ -40,6 +40,7 @@ WavePainter::WavePainter(int x, int y, int height, int width)
 
 
 WavePainter::~WavePainter(){
+    wavePainted.clear();
 }
 
 void WavePainter::setMyBounds()
@@ -112,5 +113,10 @@ void WavePainter::setYPos(int yPos)
 void WavePainter::setTriggered(bool isTriggered)
 {
     this->triggered = isTriggered;
+}
+
+void WavePainter::pushPainted(float pos)
+{
+    wavePainted.push_back(pos);
 }
 

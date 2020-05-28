@@ -1,29 +1,15 @@
-/// SYNTHDEF OF THE FM
-
-// ANTONACCI ' S SYNTH
-(
-SynthDef(\fmSynth,
-{
-arg freq = 440, modIndex = 3, modPartial = 1,
-carPartial = 1, level = 0.05, outBus = 0,
-effectBus, direct = 0.33;
-var modSig, outSig;
-modSig = SinOsc.ar(freq*modPartial, 0, freq*modIndex);
-outSig = SinOsc.ar(freq * carPartial + modSig, 0, level);
-Out.ar(effectBus,outSig * (1 - direct));
-Out.ar(outBus,(outSig * direct).dup);
-}
-).add
-)
-
 // OUR SYNTH
 (
 SynthDef.new(\fmSynth, {
-	arg  freq =500, mRatio = 1, cRatio = 1, index =1, iScale = 5,
-	atk = 0.01, rel = 3, cAtk = 4, cRel = (-4), outBus = 0,
-	effectBus, direct = 0.33,
-	amp = 0.2, pan = 0;
-	var car, mod, env, iEnv;
+	arg  freq, mRatio = 1, cRatio = 1,
+	index =1, iScale = 5,
+	atk = 0.01, rel = 3, cAtk = 4, cRel = (-4),
+	outBus = 0,direct = 0.33,
+	amp = 0.2, pan = 0, a = 1,
+	effectBus,
+	lpCutoff, hpCutoff;
+
+	var car, mod, env, iEnv, out;
 	// iENV for synthesisation of acoustic like instruments
 	iEnv = EnvGen.kr(
 		Env.new(
@@ -38,10 +24,14 @@ SynthDef.new(\fmSynth, {
 	mod = SinOsc.ar(freq * mRatio, mul:freq * mRatio * iEnv);   // modAmp * index
 	car = SinOsc.ar(freq * cRatio + mod) * env * amp;
 	car = Pan2.ar(car,pan);
-	Out.ar(effectBus,car * (1 - direct));
-	Out.ar(car,(car * direct).dup);
-		}).add;
 
+	// THERE ARE TWO FILTERS ALWAYS ACTING; AN HIGHPASS AND A LOWPASS
+	out = LPF.ar(car,lpCutoff,1,0);
+	out = HPF.ar(out,hpCutoff,1,0);
+
+	Out.ar(effectBus,out * (1 - direct));
+	Out.ar(out,(out * direct).dup);
+}).add;
 )
 
 
@@ -68,15 +58,15 @@ Out.ar(outBus, wet);
 (
 var bus = Bus.audio(s);
 x =
-Synth(\fmSynth,[\freq,300,\index,2,\modratiol,2.4,\outBus,0,\level,0.1, \effectBus, bus ]);
+Synth(\fmSynth,[\freq,300,\index,2,\modratiol,2.4,\outBus,0,\level,0.1, \effectBus, bus,\lpCutoff,600, \hpCutoff, 350 ]);
+
 y =
 Synth.after(x,\reverb,[\inBus,bus,\outBus,0]);
 
 OSCdef('OSCreceiver', {
 	arg msg;
-	x = msg[1];
-	y = msg[2];
+	x.set(\freq, msg[1]);
 
 },
-"FMsynth/freq")
+"FMsynth/NoteOn")
 )

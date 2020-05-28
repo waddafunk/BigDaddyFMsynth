@@ -26,5 +26,7 @@ public:
 
 private:
 
+    int frames = 0;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MySender)
 };

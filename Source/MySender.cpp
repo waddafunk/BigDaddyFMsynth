@@ -22,6 +22,7 @@ MySender::~MySender()
 
 void MySender::update()
 {
-    float dat = std::cos(10 / 60 * getFrameCounter());
+    frames += getFrameCounter();
+    float dat = std::cos(10 * frames / 60 );
     send("/FmSynth/test", dat);
 }

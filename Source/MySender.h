@@ -16,17 +16,14 @@
 //==============================================================================
 /*
 */
-class MySender : public MyAnime, public OSCSender
+class MySender : public OSCSender
 {
 public:
     MySender();
     ~MySender();
 
-    void update() override;
 
 private:
-
-    int frames = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MySender)
 };

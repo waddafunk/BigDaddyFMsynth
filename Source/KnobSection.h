@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "MySender.h"
 
 //==============================================================================
 /*
@@ -41,6 +42,7 @@ public:
 
 
 
+
 private:
     std::vector<Slider*> knobs;
     int xPos;
@@ -52,6 +54,8 @@ private:
 
     void arrange();
     void checkDirection();
+
+    MySender sender;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobSection)

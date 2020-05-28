@@ -27,7 +27,7 @@
 //==============================================================================
 /**
 */
-class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor, public  Slider::Listener
+class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
     Fm_synthAudioProcessorEditor (Fm_synthAudioProcessor&);
@@ -36,14 +36,12 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
-    void sliderValueChanged(Slider* slider);
 
 
 private:
 
     Fm_synthAudioProcessor& processor;
     std::vector<ModuleGui *> modules;
-    OSCSender sender;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)

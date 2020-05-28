@@ -68,7 +68,3 @@ void Fm_synthAudioProcessorEditor::resized()
     } */
     
 }
-
-void Fm_synthAudioProcessorEditor::sliderValueChanged(Slider* slider) {
-
-}

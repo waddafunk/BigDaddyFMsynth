@@ -29,6 +29,7 @@ public:
     void setMyBounds();
 
 
+
 //----------------paint and shit
     void paint (Graphics&) override;
     void resized() override;
@@ -54,6 +55,10 @@ public:
     bool getTriggered() { return triggered; }
     bool toggleTriggered() { this->triggered = !this->triggered; }
 
+    void pushPainted(float pos);
+    void clearWavePainted();
+    std::vector<float>* getPaintedAddress() { return &wavePainted; };
+
 
 
 protected:
@@ -65,6 +70,7 @@ protected:
 
 
 private:
+    std::vector<float> wavePainted;
     bool triggered = false;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavePainter)
 

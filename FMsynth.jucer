@@ -15,6 +15,18 @@
         <FILE id="MD3y9z" name="MySender.h" compile="0" resource="0" file="Source/MySender.h"/>
       </GROUP>
       <GROUP id="{649E0F83-E613-7B4D-70DB-93CBEF8AF504}" name="GUI">
+        <GROUP id="{CC80DCC6-3698-FE9D-6360-0EA06646B4F6}" name="FilterGraphics">
+          <FILE id="WQQxcM" name="MyBandPass.cpp" compile="1" resource="0" file="Source/MyBandPass.cpp"/>
+          <FILE id="hKeGXl" name="MyBandPass.h" compile="0" resource="0" file="Source/MyBandPass.h"/>
+          <FILE id="WbYkYh" name="MyFilter.h" compile="0" resource="0" file="Source/MyFilter.h"/>
+          <FILE id="dEKqyC" name="MyHighPass.cpp" compile="1" resource="0" file="Source/MyHighPass.cpp"/>
+          <FILE id="fOxQpc" name="MyHighPass.h" compile="0" resource="0" file="Source/MyHighPass.h"/>
+          <FILE id="VLnnDz" name="MyLowPass.cpp" compile="1" resource="0" file="Source/MyLowPass.cpp"/>
+          <FILE id="ze8ZwM" name="MyLowPass.h" compile="0" resource="0" file="Source/MyLowPass.h"/>
+          <FILE id="AJFboQ" name="MyNotchFilter.cpp" compile="1" resource="0"
+                file="Source/MyNotchFilter.cpp"/>
+          <FILE id="UtVNpw" name="MyNotchFilter.h" compile="0" resource="0" file="Source/MyNotchFilter.h"/>
+        </GROUP>
         <FILE id="Z6z5zh" name="SpectrogramGui.cpp" compile="1" resource="0"
               file="Source/SpectrogramGui.cpp"/>
         <FILE id="rREM70" name="SpectrogramGui.h" compile="0" resource="0"

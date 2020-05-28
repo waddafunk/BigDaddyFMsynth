@@ -11,7 +11,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "ModuleGui.h"
+#include "MyFilter.h"
+#include"ModuleGui.h"
 
 //==============================================================================
 /*
@@ -20,11 +21,33 @@ class FilterGraph    : public ModuleGui
 {
 public:
     FilterGraph();
+    FilterGraph(int x, int y, int width, int height);
     ~FilterGraph();
 
     void paint (Graphics&) override;
     void resized() override;
+    void setMyBounds();
+    void addGraphs();
+    void mouseDown(const MouseEvent& event) override;
+
+    void setSelectedGraph(int selectedGraph); //0 lowpass, 1 highpass, 2 bandpass, 3 notch
+    int getSelectedGraph() { return this->selectedGraph; }
+
+    void setCutoff(float cutoff);
+    float getCutoff() { return this->cutoff; };
+
+    void setResonance(float resonance);
+    float getResonance() { return this->resonance; };
 
 private:
+
+    float triggerDistance = 0;
+
+    std::vector <MyFilter*> myGraphs;
+
+    int selectedGraph = 0; //0 lowpass, 1 highpass, 2 bandpass, 3 notch
+    float cutoff;
+    float resonance;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterGraph)
 };

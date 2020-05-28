@@ -39,17 +39,12 @@ public:
     void sliderValueChanged(Slider* slider);
 
 
-
-
-
 private:
 
     Fm_synthAudioProcessor& processor;
     std::vector<ModuleGui *> modules;
     OSCSender sender;
-    
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)
 };
-
-

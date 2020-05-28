@@ -29,7 +29,13 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    void addMyFilters(int w, int h);
+
+    void addMyFilter(FilterGraph* painter);
+
+
 private:
+    std::vector<FilterGraph*> myFilters;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterGui)
 };

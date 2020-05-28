@@ -176,7 +176,7 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
                 illegalDown = true;
             }
 
-            if (mousePos.hasLowerYThan(*env[envelope::decay])) { //remember that Y works the opposite way... it grows when going down
+            if (mousePos.getY()<0) { //remember that Y works the opposite way... it grows when going down
                 isLegalY = false;
             }
 
@@ -298,29 +298,41 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
                 }
             }
         }
-        /*
         else {
             switch (currentEnv)
             {
-            case envelope::attack: currentPoint->setX(env[envelope::decay]->getX());
-                break;
-            case envelope::decay:
-                if (illegalRight) {
-                    currentPoint->setX(env[envelope::sustain]->getX());
+            case envelope::attack:
+                if (illegalDown) {
+                    currentPoint->setY(env[envelope::decay]->getY());
                 }
                 else {
-                    currentPoint->setX(env[envelope::attack]->getX());
+                    currentPoint->setY(0);
                 }
-
                 break;
-            case envelope::sustain: currentPoint->setX(env[envelope::release]->getX());
+            case envelope::decay:
+                if (illegalDown) {
+                    currentPoint->setY(env[envelope::release]->getY());
+                }
+                else {
+                    currentPoint->setY(env[envelope::attack]->getY());
+                }
+                env[envelope::sustain]->setY(currentPoint->getY()); //in both cases we have to update the value of the sustain
+                break;
+            case envelope::sustain:
+                if (illegalDown) {
+                    currentPoint->setY(env[envelope::release]->getY());
+                }
+                else {
+                    currentPoint->setY(env[envelope::attack]->getY());
+                }
+                env[envelope::decay]->setY(currentPoint->getY()); //in both cases we have to update the value of the decay
                 break;
 
             default:
                 break;
             }
         }
-        */
+        
            
     }
 

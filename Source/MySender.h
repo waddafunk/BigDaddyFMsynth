@@ -9,3 +9,22 @@
 */
 
 #pragma once
+
+#include <JuceHeader.h>
+#include "Myanime.h"
+
+//==============================================================================
+/*
+*/
+class MySender : public MyAnime, public OSCSender
+{
+public:
+    MySender();
+    ~MySender();
+
+    void update() override;
+
+private:
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MySender)
+};

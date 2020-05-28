@@ -42,7 +42,7 @@ public:
 
 private:
     std::vector<WavePainter*> painters;
-    std::vector<std::vector<float>*> paintedWaves;
+    std::vector<std::vector<float>*> paintedWaves; //TODO: set waves length to perceptual present
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorGui)

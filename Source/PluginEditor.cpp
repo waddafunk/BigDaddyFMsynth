@@ -17,8 +17,6 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
     : AudioProcessorEditor (&p), processor (p)
 {
 
-    //sets sender
-    sender.connect("127.0.0.1", 9001);
 
     //sets windows attributes
    // setResizable(true, false);
@@ -39,7 +37,6 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
         module->setMyBounds();
         addAndMakeVisible(module);
     }
-
 
 }
 
@@ -74,5 +71,4 @@ void Fm_synthAudioProcessorEditor::resized()
 
 void Fm_synthAudioProcessorEditor::sliderValueChanged(Slider* slider) {
 
-    sender.send("/juce/testsend", 1.0f);
 }

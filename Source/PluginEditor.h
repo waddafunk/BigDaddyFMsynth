@@ -39,9 +39,6 @@ public:
     void sliderValueChanged(Slider* slider);
 
 
-
-    OSCSender sender;
-
 private:
 
     Fm_synthAudioProcessor& processor;

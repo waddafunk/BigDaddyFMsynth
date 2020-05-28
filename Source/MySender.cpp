@@ -12,7 +12,7 @@
 
 MySender::MySender()
 {
-    setFramesPerSecond(1);
+    setFramesPerSecond(10);
     connect("127.0.0.1", 57120);
 }
 
@@ -22,5 +22,6 @@ MySender::~MySender()
 
 void MySender::update()
 {
-    send("/FmSynth/test", 1.0f);
+    float dat = std::cos(10 / 60 * getFrameCounter());
+    send("/FmSynth/test", dat);
 }

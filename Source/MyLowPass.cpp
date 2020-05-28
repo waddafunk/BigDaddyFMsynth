@@ -39,8 +39,9 @@ void MyLowPass::paint (Graphics& g)
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
     Path filterPath;
-    Point<float> start((float)0, (float)(height / 2)), cutX(width / 2, (float)-height / 2), preCutX(cutX.getX() * 99 / 100, height / 2), 
-        endLinear(preCutX.getX() / 2, (float)(height / 2)), endp(cutX.getX() + width / 10, (float)height);
+    Point<float> start((float)0, (float)(height / 2)), cutX(getCutoff(), (float)-getResonance() * 2.0f * height * 0.7f + height * 0.5f), 
+        preCutX(cutX.getX() * 99.0f / 100.0f, height / 2.0f), 
+        endLinear(preCutX.getX() * 95.0f / 100.0f, (float)(height / 2)), endp(cutX.getX() + width / 10, (float)height);
     
     if (endp.getX() > width)
         endp.setX(width);
@@ -51,8 +52,8 @@ void MyLowPass::paint (Graphics& g)
 
 
     // draw an outline around the path that we have created
-    g.strokePath(filterPath, PathStrokeType(4.0f)); // [4]
-    g.fillEllipse(endp.getX() - 20, height / 6, 10.0f, 10.0f);
+    g.strokePath(filterPath, PathStrokeType(2.0f)); // [4]
+    g.fillEllipse(cutX.getX(), height * (1.0f - getResonance()) - 10.0f, 10.0f, 10.0f);
 
     g.setColour(Colours::grey);
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
@@ -65,26 +66,15 @@ void MyLowPass::resized()
 
 }
 
-void MyLowPass::setCutoff(float cutOff)
-{
-    this->cutoff = cutOff;
-}
-
-void MyLowPass::setResonance(float resonance)
-{
-    this->resonance = resonance;
-}
 
 void MyLowPass::mouseDown(const MouseEvent& event) {
-    triggerDistance = 50;
+    float triggerDistance = 50.0;
     float minDistance = 0;
-    
-    Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(cutoff, resonance / 2);
+
+    Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(getCutoff(), getResonance() / 2);
     float currentDistance = mousePos.getDistanceFrom(cutoffDrag);
     if (currentDistance < triggerDistance) {
-        cutoff = mousePos.getX();
-        resonance = mousePos.getY() * 2;
+        setCutoff(mousePos.getX());
+        setResonance(mousePos.getY() * 2);
     }
-
-   
 }

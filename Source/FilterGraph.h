@@ -11,11 +11,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "ModuleGui.h"
-#include"MyLowPass.h"
-#include "MyBandPass.h"
-#include "MyHighPass.h"
-#include "MyNotchFilter.h"
+#include "MyFilter.h"
+#include"ModuleGui.h"
 
 //==============================================================================
 /*
@@ -31,6 +28,7 @@ public:
     void resized() override;
     void setMyBounds();
     void addGraphs();
+    void mouseDown(const MouseEvent& event) override;
 
     void setSelectedGraph(int selectedGraph); //0 lowpass, 1 highpass, 2 bandpass, 3 notch
     int getSelectedGraph() { return this->selectedGraph; }
@@ -43,7 +41,9 @@ public:
 
 private:
 
-    std::vector <ModuleGui*> myGraphs;
+    float triggerDistance = 0;
+
+    std::vector <MyFilter*> myGraphs;
 
     int selectedGraph = 0; //0 lowpass, 1 highpass, 2 bandpass, 3 notch
     float cutoff;

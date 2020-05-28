@@ -10,7 +10,10 @@
 
 #include <JuceHeader.h>
 #include "FilterGraph.h"
-#include"Coordinate.h"
+#include "MyLowPass.h"
+#include "MyHighPass.h"
+#include "MyBandPass.h"
+#include "MyNotchFilter.h"
 
 
 FilterGraph::FilterGraph() {
@@ -64,7 +67,11 @@ void FilterGraph::addGraphs()
 
     for (int i = 0; i < 4; i++)
         myGraphs[i]->setMyBounds();
-
+    
+    this->setCutoff(9000);
+    myGraphs[0]->setCutoff(9000);
+    this->setResonance(0.7f);
+    myGraphs[0]->setResonance(0.7f);
     addAndMakeVisible(myGraphs[0]);
 
 
@@ -80,4 +87,18 @@ void FilterGraph::setResonance(float resonance)
     this->resonance = resonance;
 }
 
+void FilterGraph::mouseDown(const MouseEvent& event) {
+    triggerDistance = 50;
+    float minDistance = 0;
 
+    Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(cutoff, resonance / 2);
+    float currentDistance = mousePos.getDistanceFrom(cutoffDrag);
+    if (currentDistance < triggerDistance) {
+        cutoff = mousePos.getX();
+        resonance = mousePos.getY() * 2;
+        myGraphs[selectedGraph]->setCutoff(cutoff);
+        myGraphs[selectedGraph]->setResonance(resonance);
+    }
+
+
+}

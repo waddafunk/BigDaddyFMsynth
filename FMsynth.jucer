@@ -18,6 +18,7 @@
         <GROUP id="{CC80DCC6-3698-FE9D-6360-0EA06646B4F6}" name="FilterGraphics">
           <FILE id="WQQxcM" name="MyBandPass.cpp" compile="1" resource="0" file="Source/MyBandPass.cpp"/>
           <FILE id="hKeGXl" name="MyBandPass.h" compile="0" resource="0" file="Source/MyBandPass.h"/>
+          <FILE id="WbYkYh" name="MyFilter.h" compile="0" resource="0" file="Source/MyFilter.h"/>
           <FILE id="dEKqyC" name="MyHighPass.cpp" compile="1" resource="0" file="Source/MyHighPass.cpp"/>
           <FILE id="fOxQpc" name="MyHighPass.h" compile="0" resource="0" file="Source/MyHighPass.h"/>
           <FILE id="VLnnDz" name="MyLowPass.cpp" compile="1" resource="0" file="Source/MyLowPass.cpp"/>

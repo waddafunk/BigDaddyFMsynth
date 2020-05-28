@@ -33,6 +33,7 @@ public:
 
     void addMyFilter(FilterGraph* painter);
 
+
 private:
     std::vector<FilterGraph*> myFilters;
 

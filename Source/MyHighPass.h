@@ -11,12 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include"ModuleGui.h"
+#include"MyFilter.h"
 
 //==============================================================================
 /*
 */
-class MyHighPass    : public ModuleGui
+class MyHighPass    : public MyFilter
 {
 public:
     MyHighPass();

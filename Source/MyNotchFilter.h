@@ -11,12 +11,12 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include"ModuleGui.h"
+#include"MyFilter.h"
 
 //==============================================================================
 /*
 */
-class MyNotchFilter    : public ModuleGui
+class MyNotchFilter    : public MyFilter
 {
 public:
     MyNotchFilter();

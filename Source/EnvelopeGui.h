@@ -43,7 +43,6 @@ private:
                                             //used to set boundaries in dragging
 
 
-    int envToInt(envelope enve);
 
 
 

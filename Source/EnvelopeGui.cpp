@@ -85,9 +85,9 @@ void EnvelopeGui::resized()
 //if mouse down is close to one of the points of the envelope the magnet that point to the mouse pointer
 //if 2 points or more points are close enought to the mouse pointer magnat the closest
 //if 2 points or more points are close enought have the same distance from the mouse pointer then magnet the first one
-//TODO decay cannot be higher in value than attack
-//TODO sustain cannot be higher in value than decay
-//TODO release has the same height as sustan but can be moved in the x axis
+//decay cannot be higher in value than attack
+//sustain cannot be higher in value than decay
+//release has the same height as sustan but can be moved in the x axis
 
 
 void EnvelopeGui::mouseDown(const MouseEvent& event){
@@ -218,6 +218,15 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
         if (isLegalX) {
             if (mousePos.getX() > 0) {
                 currentPoint->setX(mousePos.getX());
+            }
+        }
+        else {
+            switch (currentEnv)
+            {
+            case envelope::attack : currentPoint->setX(env[envelope::decay]->getX());
+                break;
+            default:
+                break;
             }
         }
         

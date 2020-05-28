@@ -51,7 +51,7 @@ void KnobSection::addKnobs(int nKnob)
     Slider* temp;
 
     for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::Rotary, Slider::TextBoxBelow);
+        temp = new Slider(Slider::Rotary,Slider::NoTextBox);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
     }

@@ -31,10 +31,14 @@ MatrixGui::MatrixGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
-    addKnobSection(0, 0 * height / 4, width, height / 4, 8);
-    addKnobSection(0, 1 * height / 4, width, height / 4, 8);
-    addKnobSection(0, 2 * height / 4, width, height / 4, 8);
-    addKnobSection(0, 3 * height / 4, width, height / 4, 8);
+    addKnobSection(0, 0 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 1 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 2 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 3 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 4 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 5 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 6 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 7 * height / 8, width, height / 8, 8);
 }
 
 MatrixGui::~MatrixGui()

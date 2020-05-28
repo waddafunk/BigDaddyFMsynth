@@ -56,6 +56,7 @@ public:
     bool toggleTriggered() { this->triggered = !this->triggered; }
 
     void pushPainted(float pos);
+    void clearWavePainted();
     std::vector<float>* getPaintedAddress() { return &wavePainted; };
 
 

@@ -120,3 +120,8 @@ void WavePainter::pushPainted(float pos)
     wavePainted.push_back(pos);
 }
 
+void WavePainter::clearWavePainted()
+{
+    this->wavePainted.clear();
+}
+

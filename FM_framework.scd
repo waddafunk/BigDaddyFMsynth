@@ -1,13 +1,16 @@
 // OUR SYNTH
+MIDIClient.init;
+MIDIIn.connectAll;
+
 (
 SynthDef.new(\fmSynth, {
-	arg  freq, mRatio = 1, cRatio = 1,
+	arg  freq = 200, mRatio = 1, cRatio = 1,
 	index =1, iScale = 5,
 	atk = 0.01, rel = 3, cAtk = 4, cRel = (-4),
 	outBus = 0,direct = 0.33,
 	amp = 0.2, pan = 0, a = 1,
 	effectBus,
-	lpCutoff, hpCutoff;
+	lpCutoff = 300, hpCutoff= 30;
 
 	var car, mod, env, iEnv, out;
 	// iENV for synthesisation of acoustic like instruments
@@ -28,7 +31,6 @@ SynthDef.new(\fmSynth, {
 	// THERE ARE TWO FILTERS ALWAYS ACTING; AN HIGHPASS AND A LOWPASS
 	out = LPF.ar(car,lpCutoff,1,0);
 	out = HPF.ar(out,hpCutoff,1,0);
-
 	Out.ar(effectBus,out * (1 - direct));
 	Out.ar(out,(out * direct).dup);
 }).add;
@@ -69,3 +71,49 @@ OSCdef('OSCreceiver', {
 },
 "FMsynth/NoteOn")
 )
+
+
+
+
+// MIDI STUFF
+
+
+(
+var keys;
+keys = Array.newClear(128);
+
+~noteOnFunc = {
+	arg src, chan, num, vel;
+	var node;
+	node = keys.at(num);
+
+	// to deal with notes playing in the same moment
+	if (node.notNil, {
+		node.release;
+		keys.put(num,nil);
+	});
+
+	node = Synth.tail(nil, \fmSynth, [\freq, num.midicps, \amp, vel/127]);
+
+	keys.put(num, node);
+	[chan,num,vel/127].postln;
+};
+
+MIDIIn.addFuncTo(\noteOn, ~noteOnFunc);
+
+~noteOffFunc = {
+	arg src, chan, num , vel;
+	var node;
+	node = keys.at(num);
+	if(node.notNil, {
+		node.set(\gate,0);
+		node.release;
+		keys.put(num,nil);}
+	);
+};
+
+MIDIIn.addFuncTo(\noteOff, ~noteOffFunc);
+)
+
+MIDIIn.removeFuncFrom(\noteOn, ~noteOnFunc);
+MIDIIn.removeFuncFrom(\noteOff, ~noteOffFunc);

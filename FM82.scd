@@ -2,6 +2,30 @@ MIDIClient.init;
 MIDIIn.connectAll;
 
 
+
+NetAddr("127.0.0.1", 57120);
+
+(
+var bus = Bus.audio(s);
+x =
+Synth(\fmSynth,[\freq,300,\index,2,\modratiol,2.4,\outBus,0,\level,0.1, \effectBus, bus,\lpCutoff,600, \hpCutoff, 350 ]);
+
+//y =
+//Synth.after(x,\reverb,[\inBus,bus,\outBus,0]);
+
+a = Synth.tail(s, \delay);
+c = Synth.tail(s, \flanger);
+d = Synth.tail(s, \limiter);
+
+OSCdef('OSCreceiver', {
+	arg msg;
+	msg.postln;
+	//if(msg[0] == "FmSynth/test")
+},
+"FmSynth/test")
+)
+
+
 (
 
 Task({s.waitForBoot{

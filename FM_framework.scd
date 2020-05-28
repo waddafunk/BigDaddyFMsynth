@@ -25,9 +25,13 @@ SynthDef.new(\fmSynth, {
 	env = EnvGen.kr(
 		Env.perc(atk, rel, curve: [cAtk, cRel]), doneAction: 2);
 
+
+
 	mod = SinOsc.ar(freq * mRatio, mul:freq * mRatio * iEnv);   // modAmp * index
 	car = SinOsc.ar(freq * cRatio + mod) * env * amp;
 	car = Pan2.ar(car,pan);
+
+
 
 	// THERE ARE TWO FILTERS ALWAYS ACTING; AN HIGHPASS AND A LOWPASS
 	out = LPF.ar(car,lpCutoff,1,0);
@@ -97,10 +101,10 @@ ReplaceOut.ar(0,effect); //replaces bus 0 where original signal is already playi
 
 
 
-
-
-
 // SYNTH INSTANTATION 1 : only OSC STUFF
+
+NetAddr("127.0.0.1", 57120);
+
 (
 var bus = Bus.audio(s);
 x =
@@ -115,10 +119,9 @@ d = Synth.tail(s, \limiter);
 
 OSCdef('OSCreceiver', {
 	arg msg;
-	x.set(\freq, msg[1]);
-
+	msg.postln;
 },
-"FMsynth/NoteOn")
+"FmSynth/test")
 )
 
 
@@ -146,7 +149,7 @@ keys = Array.newClear(128);
 	y = Synth.tail(node,\reverb,[\inBus,bus,\outBus,0]);
 	z = Synth.tail(y, \delay, [\inBus,bus,\outBus,0]);
 	keys.put(num, node);
-	[chan,num,vel/127].postln;
+    [chan,num,vel/127].postln;
 };
 
 MIDIIn.addFuncTo(\noteOn, ~noteOnFunc);

@@ -46,6 +46,7 @@ OscillatorGui::~OscillatorGui()
     for (auto& painter : painters) {
         delete painter;
     }
+    paintedWaves.clear();
 }
 
 void OscillatorGui::paint (Graphics& g)

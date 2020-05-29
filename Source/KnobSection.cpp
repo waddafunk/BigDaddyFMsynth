@@ -67,7 +67,7 @@ void KnobSection::addKnobs(int nKnob)
 
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
-        String knobName = getSocketName() + std::to_string(i);
+        String knobName = getSocketName() + ">=" + std::to_string(i);
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
         temp->setLookAndFeel(&KnobLAF);
@@ -83,7 +83,8 @@ void KnobSection::addKnobs(int nKnob, int row)
 
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
-        String knobName = getSocketName() + std::to_string(row) + std::to_string(i);
+        String knobName = getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
+        std::string stdName = knobName.toStdString();
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
         temp->setLookAndFeel(&KnobLAF);
@@ -146,8 +147,11 @@ void KnobSection::checkDirection() {
 String KnobSection::getSocketName()
 {
     switch (type) {
-    case tSection::filter: return "/FmSynth/Filter";
+    //case tSection::filter: return "/FmSynth/Filter";
     case tSection::matrix: return "/FmSynth/Matrix";
+    case tSection::lfo: return "/Fm/Synth/Lfo";
+    case tSection::oscillator: return "/FmSynth/Oscillator";
+    case tSection::master: return "/FmSynth/Master";
     default:
         break;
     }
@@ -169,11 +173,19 @@ void KnobSection::resized()
 
 void KnobSection::sliderValueChanged(Slider* slider)
 {
-    String name = slider->getName();
-    if (name.toStdString().find("Matrix") != std::string::npos)
-        name.dropLastCharacters(2);
+    String name = slider->getName(), token1, token2, token3;
+    std::string delimiter = ">=", strTok3, stdName = name.toStdString(); //cast to std string
+    token1 = String(stdName.substr(0, stdName.find(">="))); //module name
+    stdName.erase(0, stdName.find(delimiter) + delimiter.length());
+    token2 = String(stdName.substr(0, stdName.find(">="))); 
+    stdName.erase(0, stdName.find(delimiter) + delimiter.length());
+    if ((stdName.find("Matrix") != std::string::npos) || (stdName.find("Oscillator") != std::string::npos)) { //if matrix
+        token3 = String(stdName.substr(0, stdName.find(">=")));
+    }
+        
+        
     float value = slider->getValue();
-    sender.send(name, value);
+    sender.send(token1, value);
  
 }
 

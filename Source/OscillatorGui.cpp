@@ -23,6 +23,10 @@ OscillatorGui::OscillatorGui()
     height = 300;
     width = 300;
     addPainters(width, height);
+    addKnobSection(0, 0, width * 2 / 3, height / 4, 3, tSection::filter, 0);
+    addKnobSection(0, height / 4, width * 2 / 3, height / 4, 3, tSection::filter, 1);
+    addKnobSection(0, height / 2, width * 2 / 3, height / 4, 3, tSection::filter, 2);
+    addKnobSection(0, height * 3 / 4, width * 2 / 3, height / 4, 3, tSection::filter, 3);
 }
 
 OscillatorGui::OscillatorGui(int x, int y)
@@ -30,6 +34,10 @@ OscillatorGui::OscillatorGui(int x, int y)
     xPos = x;
     yPos = y;
     addPainters(width, height);
+    addKnobSection(0, 0, width * 2 / 3, height / 4, 3, tSection::filter, 0);
+    addKnobSection(0, height / 4, width * 2 / 3, height / 4, 3, tSection::filter, 1);
+    addKnobSection(0, height / 2, width * 2 / 3, height / 4, 3, tSection::filter, 2);
+    addKnobSection(0, height * 3 / 4, width * 2 / 3, height / 4, 3, tSection::filter, 3);
 }
 
 OscillatorGui::OscillatorGui(int x, int y, int w, int h)
@@ -39,6 +47,10 @@ OscillatorGui::OscillatorGui(int x, int y, int w, int h)
     height = h;
     width = w;
     addPainters(w,h);
+    addKnobSection(0, 0, width * 2 / 3, height / 4, 3, tSection::filter, 0);
+    addKnobSection(0, height / 4, width * 2 / 3, height / 4, 3, tSection::filter, 1);
+    addKnobSection(0, height / 2, width * 2 / 3, height / 4, 3, tSection::filter, 2);
+    addKnobSection(0, height * 3 / 4, width * 2 / 3, height / 4, 3, tSection::filter, 3);
 }
 
 OscillatorGui::~OscillatorGui()
@@ -47,6 +59,9 @@ OscillatorGui::~OscillatorGui()
         delete painter;
     }
     //paintedWaves.clear();
+    for (auto& knobSection : knobSections) {
+        delete knobSection;
+    }
 }
 
 void OscillatorGui::paint (Graphics& g)

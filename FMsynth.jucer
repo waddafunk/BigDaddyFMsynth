@@ -6,6 +6,8 @@
   <MAINGROUP id="It8PsJ" name="FMsynth">
     <GROUP id="{EEE764A2-426D-8D6F-B2BD-98E4F3C1D40E}" name="Source">
       <GROUP id="{AC544877-3D8F-1719-2502-57A93CE4609D}" name="Utils">
+        <FILE id="uxeAdq" name="Converter.cpp" compile="1" resource="0" file="Source/Converter.cpp"/>
+        <FILE id="ZrXucv" name="Converter.h" compile="0" resource="0" file="Source/Converter.h"/>
         <FILE id="FQ1hgH" name="Coordinate.cpp" compile="1" resource="0" file="Source/Coordinate.cpp"/>
         <FILE id="dNrbJn" name="Coordinate.h" compile="0" resource="0" file="Source/Coordinate.h"/>
         <FILE id="i2tGjn" name="MyMouseListener.cpp" compile="1" resource="0"

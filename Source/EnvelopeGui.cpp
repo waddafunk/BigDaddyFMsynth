@@ -360,15 +360,18 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
         {
         case envelope::attack: 
             attackTime = computeAttackTime();
+            decayTime = computeDecayTime();
             attackValue = computeAttackValue();
             break;
         case envelope::decay:
             decayTime = computeDecayTime();
+            sustainTime = computeSustainTime();
             decayValue = computeDecayValue();
             sustainValue = decayValue;
             break;
         case envelope::sustain:
             sustainTime = computeSustainTime();
+            releaseTime = computeReleaseTime();
             sustainValue = computeSustainValue();
             decayValue = sustainValue;
             break;

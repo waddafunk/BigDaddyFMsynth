@@ -119,7 +119,7 @@ void OscillatorGui::addPainters() {
 void OscillatorGui::addOscillatorKnobs()
 {
     for (size_t i = 0; i < numOfOsc; ++i) {
-        addKnobSection(0, height * i / numOfOsc, width * 2 / 5 *  2 / 3, height / numOfOsc, 4, tSection::filter, i);
+        addKnobSection(0, height * i / numOfOsc, width * 2 / 5 *  2 / 3, height / numOfOsc, 4, tSection::oscillator, i);
     }
         
 }

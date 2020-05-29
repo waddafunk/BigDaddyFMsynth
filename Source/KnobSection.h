@@ -19,7 +19,6 @@
 */
 
 enum class direction {horizontal, vertical};
-enum class tSection {filter, matrix, oscillator, lfo, master};
 
 class KnobSection    : public Component, public Slider::Listener
 {
@@ -45,7 +44,6 @@ public:
     void addKnobs(int nKnob);
     void addKnobs(int nKnob, int row);
 
-    void send();
 
     
 
@@ -57,16 +55,13 @@ private:
     int width;
     int height;
     direction dir;
-    tSection type = tSection::matrix;
 
 
     void arrange();
     void checkDirection();
 
-    MySender sender;
+    MySender *sender;
 
-
-    String getSocketName();
     KnobLookAndFeel KnobLAF;
 
 

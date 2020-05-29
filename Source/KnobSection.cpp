@@ -25,26 +25,27 @@ KnobSection::KnobSection()
 
 KnobSection::KnobSection(int x, int y, int w, int h) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
-   
+    sender = new MySender(tSection::matrix);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
+    sender = new MySender(tSection::matrix);
     addKnobs(nKnob);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
+    sender = new MySender(type);
     addKnobs(nKnob);
-    this->type = type;
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
+    sender = new MySender(type);
     addKnobs(nKnob, row);
-    this->type = type;
 
 }
 
@@ -52,6 +53,7 @@ KnobSection::~KnobSection(){
     for (auto& knob : knobs) {
         delete knob;
     }
+    delete sender;
 }
 
 
@@ -60,6 +62,8 @@ void KnobSection::setMyBounds() {
 }
 
 
+/*
+
 //-----------------------ADD KNOBS-----------
 void KnobSection::addKnobs(int nKnob)
 {
@@ -67,7 +71,7 @@ void KnobSection::addKnobs(int nKnob)
 
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
-        String knobName = getSocketName() + ">=" + std::to_string(i);
+        String knobName = sender->getSocketName() + ">=" + std::to_string(i);
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
         temp->setLookAndFeel(&KnobLAF);
@@ -76,14 +80,27 @@ void KnobSection::addKnobs(int nKnob)
     }
     arrange();
 }
+*/
+
+void KnobSection::addKnobs(int nKnob)
+{
+    addKnobs(nKnob, -1);
+}
 
 void KnobSection::addKnobs(int nKnob, int row)
 {
     Slider* temp;
+    String knobName;
 
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
-        String knobName = getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
+        if (row < 0) {
+            knobName = sender->getSocketName() + ">=" + std::to_string(i);
+        }
+        else {
+            knobName = sender->getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
+        }
+        
         std::string stdName = knobName.toStdString();
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
@@ -95,9 +112,6 @@ void KnobSection::addKnobs(int nKnob, int row)
 }
 
 
-void KnobSection::send(){
-    sender.send(getSocketName(), 10);
-}
 
 //TODO IMPLEMENT AUTOMATIC AND SCALABLE SETBOUND FOR KNOBS 
 void KnobSection::arrange() {
@@ -144,19 +158,7 @@ void KnobSection::checkDirection() {
     }
 }
 
-String KnobSection::getSocketName()
-{
-    switch (type) {
-    //case tSection::filter: return "/FmSynth/Filter";
-    case tSection::matrix: return "/FmSynth/Matrix";
-    case tSection::lfo: return "/Fm/Synth/Lfo";
-    case tSection::oscillator: return "/FmSynth/Oscillator";
-    case tSection::master: return "/FmSynth/Master";
-    default:
-        break;
-    }
-    return "StandardSocket"; //error case
-}
+
 
 
 void KnobSection::paint (Graphics& g)
@@ -171,6 +173,7 @@ void KnobSection::resized()
 
 }
 
+/*
 void KnobSection::sliderValueChanged(Slider* slider)
 {
     String name = slider->getName();
@@ -209,10 +212,18 @@ void KnobSection::sliderValueChanged(Slider* slider)
  
 }
 
+
+*/
 void KnobSection::sliderDragStarted(Slider*)
 {
 }
 
 void KnobSection::sliderDragEnded(Slider*)
 {
+}
+
+
+void KnobSection::sliderValueChanged(Slider* slider)
+{
+    sender->mySend(slider->getName(), slider->getValue());
 }

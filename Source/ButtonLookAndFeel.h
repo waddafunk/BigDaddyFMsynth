@@ -12,18 +12,16 @@
 
 #include <JuceHeader.h>
 
-//==============================================================================
-/*
-*/
-class ButtonLookAndFeel    : public Component
+class ButtonLookAndFeel : public LookAndFeel_V4
 {
 public:
-    ButtonLookAndFeel();
-    ~ButtonLookAndFeel();
 
-    void paint (Graphics&) override;
-    void resized() override;
+    ButtonLookAndFeel();
+
+    void drawToggleButton(Graphics&, ToggleButton&,
+                          bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonLookAndFeel)
+    Image img1;
+
 };

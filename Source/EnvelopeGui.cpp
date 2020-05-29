@@ -18,6 +18,7 @@ EnvelopeGui::EnvelopeGui()
     height = 300;
     width = 300;
     currentPoint = nullptr;
+    sender = new MySender(tSection::envelope);
     env[envelope::attack]->setCoordinates(width / 4, height / 4);
     env[envelope::decay]->setCoordinates(width * 2 / 4, height * 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
@@ -33,6 +34,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height )
     this->width = width;
     this->height = height;
     currentPoint = nullptr;
+    sender = new MySender(tSection::envelope);
     env[envelope::attack]->setCoordinates(width/4,height/4);
     env[envelope::decay]->setCoordinates(width *2 /4,height* 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4,height * 2 / 4);
@@ -47,6 +49,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeReleas
     this->width = width;
     this->height = height;
     currentPoint = nullptr;
+    sender = new MySender(tSection::envelope);
     env[envelope::attack]->setCoordinates(width / 4, height / 4);
     env[envelope::decay]->setCoordinates(width * 2 / 4, height * 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
@@ -56,6 +59,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeReleas
 
 EnvelopeGui::~EnvelopeGui()
 {
+    delete sender;
 }
 
 void EnvelopeGui::paint (Graphics& g)
@@ -300,6 +304,7 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
             default:
                 break;
             }
+
         }
         
         if (isLegalY) {
@@ -349,8 +354,32 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
                 break;
             }
         }
-        
-           
+
+        //sets all envelope times and values
+        switch (currentEnv)
+        {
+        case envelope::attack: 
+                attackTime = computeAttackTime();
+                attackValue = computeAttackValue();
+                break;
+        case envelope::decay:
+            attackTime = computeDecayTime();
+            attackValue = computeDecayValue();
+            break;
+        case envelope::sustain:
+            attackTime = computeSustainTime();
+            attackValue = computeSustainValue();
+            break;
+        case envelope::release:
+            attackTime = computeReleaseTime();
+            attackValue = computeReleaseValue();
+            break;
+        default:
+            break;
+        }
+
+        sendData(); // sends the data to the server
+   
     }
 
 }
@@ -378,4 +407,68 @@ int envToInt(envelope enve) {
 void EnvelopeGui::mouseUp(const MouseEvent& event)
 {
     currentPoint = nullptr;
+}
+
+void EnvelopeGui::sendData()
+{
+    //se invece vuole un messaggio solo per il movimento di un singolo punto
+    switch (currentEnv)
+    {
+    case envelope::attack: sender->send(sender->getSocketName() << "/attack", attackTime, attackValue);
+        break;
+    case envelope::decay: sender->send(sender->getSocketName() << "/decay", decayTime, decayValue);
+        break;
+    case envelope::sustain: sender->send(sender->getSocketName() << "/sustain", sustainTime, sustainValue);
+        break;
+    case envelope::release: sender->send(sender->getSocketName() << "/release", releaseTime, releaseValue);
+        break;
+    default:
+        break;
+    }
+}
+
+void EnvelopeGui::sendAllData()
+{
+    sender->send(sender->getSocketName(), attackTime, attackValue, decayTime, decayValue,
+        sustainTime, sustainValue, releaseTime, releaseValue);
+}
+
+float EnvelopeGui::computeAttackTime()
+{
+    return env[envelope::attack]->getX();
+}
+
+float EnvelopeGui::computeAttackValue()
+{
+    return height - env[envelope::attack]->getY();
+}
+
+float EnvelopeGui::computeDecayTime()
+{
+    return env[envelope::decay]->getX() - computeAttackTime();
+}
+
+float EnvelopeGui::computeDecayValue()
+{
+    return height - env[envelope::decay]->getY();
+}
+
+float EnvelopeGui::computeSustainTime()
+{
+    return env[envelope::sustain]->getX() - computeDecayTime();
+}
+
+float EnvelopeGui::computeSustainValue()
+{
+    return height - env[envelope::sustain]->getY();
+}
+
+float EnvelopeGui::computeReleaseTime()
+{
+    return env[envelope::release]->getX() - computeSustainTime();
+}
+
+float EnvelopeGui::computeReleaseValue()
+{
+    return height - env[envelope::release]->getY();
 }

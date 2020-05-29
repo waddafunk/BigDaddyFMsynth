@@ -68,6 +68,7 @@ String MySender::getSocketName()
     case tSection::lfo: return "/Fm/Synth/Lfo";
     case tSection::oscillator: return "/FmSynth/Oscillator";
     case tSection::master: return "/FmSynth/Master";
+    case tSection::envelope: return "/FmSynth/Envelope";
     default:
         break;
     }

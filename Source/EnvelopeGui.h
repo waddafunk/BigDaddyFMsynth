@@ -35,6 +35,9 @@ public:
     void mouseDrag(const MouseEvent& event) override;
     void mouseUp(const MouseEvent& event) override;
 
+    void sendData();
+    void sendAllData();
+
 private:
     std::map<envelope, Coordinate*> env{ {envelope::attack,new Coordinate()},{envelope::decay , new Coordinate()},{envelope::sustain , new Coordinate()},{envelope::release , new Coordinate()} };
     float triggerDistance = 0;
@@ -43,7 +46,18 @@ private:
     envelope currentEnv = envelope::attack; // used to store what type of point we're currently moving
                                             //used to set boundaries in dragging
     bool isForMatrix = false;
+    MySender* sender;
+    float attackTime, attackValue, decayTime, decayValue, sustainTime, sustainValue, releaseTime, releaseValue;
 
+
+    float computeAttackTime();
+    float computeAttackValue();
+    float computeDecayTime();
+    float computeDecayValue();
+    float computeSustainTime();
+    float computeSustainValue();
+    float computeReleaseTime();
+    float computeReleaseValue();
 
 
 

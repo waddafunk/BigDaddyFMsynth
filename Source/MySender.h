@@ -18,7 +18,7 @@
 */
 
 
-enum class tSection { filter, matrix, oscillator, lfo, master };
+enum class tSection { filter, matrix, oscillator, lfo, master, envelope};
 
 class MySender : public OSCSender
 {

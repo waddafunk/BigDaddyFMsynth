@@ -19,7 +19,7 @@
 */
 
 enum class direction {horizontal, vertical};
-enum class tSection {filter,matrix};
+enum class tSection {filter, matrix, oscillator, lfo, master};
 
 class KnobSection    : public Component, public Slider::Listener
 {

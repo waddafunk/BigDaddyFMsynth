@@ -20,7 +20,7 @@ FilterGui::FilterGui()
     yPos = 0;
     height = 0;
     width = 0;
-    addKnobSection(xPos, yPos, width, height, 2);
+    addKnobSection(xPos, yPos, width, height, 2, tSection::filter);
 }
 
 FilterGui::FilterGui(int x, int y)

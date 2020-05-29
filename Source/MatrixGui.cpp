@@ -31,14 +31,14 @@ MatrixGui::MatrixGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
-    addKnobSection(0, 0 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 1 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 2 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 3 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 4 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 5 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 6 * height / 8, width, height / 8, 8);
-    addKnobSection(0, 7 * height / 8, width, height / 8, 8);
+    addKnobSection(0, 0 * height / 8, width, height / 8, 8, tSection::matrix, 0);
+    addKnobSection(0, 1 * height / 8, width, height / 8, 8, tSection::matrix, 1);
+    addKnobSection(0, 2 * height / 8, width, height / 8, 8, tSection::matrix, 2);
+    addKnobSection(0, 3 * height / 8, width, height / 8, 8, tSection::matrix, 3);
+    addKnobSection(0, 4 * height / 8, width, height / 8, 8, tSection::matrix, 4);
+    addKnobSection(0, 5 * height / 8, width, height / 8, 8, tSection::matrix, 5);
+    addKnobSection(0, 6 * height / 8, width, height / 8, 8, tSection::matrix, 6);
+    addKnobSection(0, 7 * height / 8, width, height / 8, 8, tSection::matrix, 7);
 }
 
 MatrixGui::~MatrixGui()

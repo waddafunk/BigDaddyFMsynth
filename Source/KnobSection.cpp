@@ -33,6 +33,21 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPo
     addKnobs(nKnob);
 }
 
+KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
+{
+    checkDirection();
+    addKnobs(nKnob);
+    this->type = type;
+}
+
+KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
+{
+    checkDirection();
+    addKnobs(nKnob, raw);
+    this->type = type;
+
+}
+
 KnobSection::~KnobSection(){
     for (auto& knob : knobs) {
         delete knob;
@@ -52,6 +67,22 @@ void KnobSection::addKnobs(int nKnob)
 
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::Rotary,Slider::NoTextBox);
+        String knobName = getSocketName() + std::to_string(i);
+        temp->addListener(this);
+        addAndMakeVisible(temp); // makes visible each knob
+        knobs.push_back(temp);
+    }
+    arrange();
+}
+
+void KnobSection::addKnobs(int nKnob, int raw)
+{
+    Slider* temp;
+
+    for (size_t i = 0; i < nKnob; ++i) {
+        temp = new Slider(Slider::Rotary, Slider::NoTextBox);
+        String knobName = getSocketName() + std::to_string(raw) + std::to_string(i);
+        temp->addListener(this);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
     }
@@ -111,8 +142,8 @@ void KnobSection::checkDirection() {
 String KnobSection::getSocketName()
 {
     switch (type) {
-    case typeOfSection::filter: return "Fxasdasldaskd/Filter";
-    case typeOfSection::matrix: return "blaaa";
+    case tSection::filter: return "/FmSynth/Filter";
+    case tSection::matrix: return "/FmSynth/Matrix";
     default:
         break;
     }
@@ -134,6 +165,7 @@ void KnobSection::resized()
 
 void KnobSection::sliderValueChanged(Slider* slider)
 {
+ 
 }
 
 void KnobSection::sliderDragStarted(Slider*)

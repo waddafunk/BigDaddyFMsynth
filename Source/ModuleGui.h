@@ -35,6 +35,8 @@ public:
 
     void addKnobSection(int x, int y, int w, int h);
     void addKnobSection(int x, int y, int w, int h, int nKnob);
+    void addKnobSection(int x, int y, int w, int h, int nKnob, tSection type);
+    void addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw);
 
 
 

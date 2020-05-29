@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "ModuleGui.h"
 
+
 //==============================================================================
 ModuleGui::ModuleGui()
 {
@@ -80,6 +81,22 @@ void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob)
     knobSections.push_back(knobSection);
     knobSection->setMyBounds();
     addAndMakeVisible(knobSection); // each time you add a knob setion it is added in the add and make visible
+}
+
+void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection type)
+{
+    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob, type);
+    knobSections.push_back(knobSection);
+    knobSection->setMyBounds();
+    addAndMakeVisible(knobSection);
+}
+
+void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw)
+{
+    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob, type, raw);
+    knobSections.push_back(knobSection);
+    knobSection->setMyBounds();
+    addAndMakeVisible(knobSection);
 }
 
 int ModuleGui::getXPos() const

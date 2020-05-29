@@ -36,10 +36,9 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     TextButton* tempButton = new TextButton(tabNameToString(tabName::Matrix));
     tempButton->setState(Button::ButtonState::buttonDown);
     textButtons.push_back(tempButton);
-    //int divisor = 10;
-    int divisor = 5;
-    int v_divisor = 8;
-    int molt = 8;
+    int divisor = 5; //used to dra the matrix modules
+    int v_divisor = 8; //used to dra the matrix modules
+    int molt = 8; //used to dra the matrix modules
     tempButton = new TextButton(tabNameToString(tabName::Fxs));
     tempButton->setState(Button::ButtonState::buttonNormal);
     textButtons.push_back(tempButton);
@@ -49,19 +48,6 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     std::vector<ModuleGui*> fxsModules;
     std::vector<ModuleGui*> matrixModules;
 
-    /*
-    matrixModules.push_back(new EnvelopeGui(0 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(1 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(2 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(3 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(4 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(5 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(6 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(7 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
-    matrixModules.push_back(new EnvelopeGui(8 * width / divisor, barHeight, width * 2 / divisor, envelopeBarHeight));
-    matrixModules.push_back(new MasterGui(8 * width / divisor, barHeight + envelopeBarHeight, width * 2 / divisor, height - envelopeBarHeight));
-    matrixModules.push_back(new MatrixGui(0, barHeight + envelopeBarHeight, width * 8 / divisor, height - barHeight - envelopeBarHeight));
-    */
 
     matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 0 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
     matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 1 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
@@ -80,12 +66,9 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
 
 
 
-    fxsModules.push_back(new OscillatorGui(0, height / 2, width / 2, height / 2));
-    fxsModules.push_back(new MatrixGui(width / 2, height / 2, width / 2, height / 2));
-    fxsModules.push_back(new FilterGui(0, 0, width / 2, height / 2));
-    fxsModules.push_back(new EnvelopeGui(width / 2, 0, width / 4, height / 4));
-    fxsModules.push_back(new EnvelopeGui(width / 2, height / 4, width / 4, height / 4));
-    fxsModules.push_back(new EnvelopeGui(width * 3 / 4, 0, width / 4, height / 4));
+    fxsModules.push_back(new OscillatorGui(0, 0, width * 2 / divisor, height));
+   // fxsModules.push_back(new LfoGui(width / 2, height / 2, width / 2, height / 2));
+    //fxsModules.push_back(new FilterGui(0, 0, width / 2, height / 2));
     fxsModules.push_back(new EnvelopeGui(width * 3 / 4, height / 4, width / 4, height / 4));
 
     modules.push_back(fxsModules);

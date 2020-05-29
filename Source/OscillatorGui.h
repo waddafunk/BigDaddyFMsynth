@@ -35,14 +35,17 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    void addPainters(int w, int h);
-
     void addPainters(WavePainter* painter);
     //std::vector<std::vector<float>*> getPainters() { return this->paintedWaves; };
+
+
 
 private:
     std::vector<WavePainter*> painters;
     //std::vector<std::vector<float>*> paintedWaves; //TODO: set waves length to perceptual present
+
+    void addOscillators(int n);
+    void addPainters(int n);
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorGui)

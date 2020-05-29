@@ -22,22 +22,18 @@ OscillatorGui::OscillatorGui()
     yPos = 0;
     height = 300;
     width = 300;
-    addPainters(width, height);
-    addKnobSection(0, 0, width * 2 / 3, height / 4, 3, tSection::filter, 0);
-    addKnobSection(0, height / 4, width * 2 / 3, height / 4, 3, tSection::filter, 1);
-    addKnobSection(0, height / 2, width * 2 / 3, height / 4, 3, tSection::filter, 2);
-    addKnobSection(0, height * 3 / 4, width * 2 / 3, height / 4, 3, tSection::filter, 3);
+    int numOfOsc = 8;
+    addPainters(numOfOsc);
+    addOscillators(numOfOsc);
 }
 
 OscillatorGui::OscillatorGui(int x, int y)
 {
     xPos = x;
     yPos = y;
-    addPainters(width, height);
-    addKnobSection(0, 0, width * 2 / 3, height / 4, 3, tSection::filter, 0);
-    addKnobSection(0, height / 4, width * 2 / 3, height / 4, 3, tSection::filter, 1);
-    addKnobSection(0, height / 2, width * 2 / 3, height / 4, 3, tSection::filter, 2);
-    addKnobSection(0, height * 3 / 4, width * 2 / 3, height / 4, 3, tSection::filter, 3);
+    int numOfOsc = 8;
+    addPainters(numOfOsc);
+    addOscillators(numOfOsc);
 }
 
 OscillatorGui::OscillatorGui(int x, int y, int w, int h)
@@ -46,11 +42,9 @@ OscillatorGui::OscillatorGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
-    addPainters(w,h);
-    addKnobSection(0, 0, width * 2 / 3, height / 4, 3, tSection::filter, 0);
-    addKnobSection(0, height / 4, width * 2 / 3, height / 4, 3, tSection::filter, 1);
-    addKnobSection(0, height / 2, width * 2 / 3, height / 4, 3, tSection::filter, 2);
-    addKnobSection(0, height * 3 / 4, width * 2 / 3, height / 4, 3, tSection::filter, 3);
+    int numOfOsc = 8;
+    addPainters(numOfOsc);
+    addOscillators(numOfOsc);
 }
 
 OscillatorGui::~OscillatorGui()
@@ -87,11 +81,10 @@ void OscillatorGui::resized()
 }
 
 
-void OscillatorGui::addPainters(int w, int h) {
-    painters.push_back(new SquarePainter(w * 2 / 3, 0, w / 3, h / 4));
-    painters.push_back(new SinePainter(w * 2 / 3, h / 4, w / 3, h / 4));
-    painters.push_back(new TrianglePainter(w * 2 / 3, h / 2, w / 3, h / 4));
-    painters.push_back(new SawPainter(w * 2 / 3, h * 3 / 4, w / 3, h / 4));
+void OscillatorGui::addPainters(int n) {
+    for (size_t i = 0; i < n; ++i) {
+        painters.push_back(new SinePainter(width * 2 / 3, height * i / n, width / 3, height / n));
+    }
 
     for (auto& painter : painters) {
         //std::vector<float>* paintedWave = painter->getPaintedAddress();
@@ -112,3 +105,13 @@ void OscillatorGui::addPainters(WavePainter * painter) {
     painter->setMyBounds();
     addAndMakeVisible(painter);
 }
+
+void OscillatorGui::addOscillators(int n)
+{
+    for (size_t i = 0; i < n; ++i) {
+        addKnobSection(0, height * i / n, width * 2 / 3, height / n, 4, tSection::filter, i);
+    }
+        
+}
+
+

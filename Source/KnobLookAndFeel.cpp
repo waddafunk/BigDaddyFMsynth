@@ -11,41 +11,56 @@
 #include <JuceHeader.h>
 #include "KnobLookAndFeel.h"
 
+
+
 //==============================================================================
 KnobLookAndFeel::KnobLookAndFeel()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
+    img1 = ImageCache::getFromMemory(BinaryData::Carbon_png, BinaryData::Carbon_pngSize);
 }
 
-KnobLookAndFeel::~KnobLookAndFeel()
+//==============================================================================
+
+
+void KnobLookAndFeel::drawRotarySlider(Graphics& g,
+    int x, int y, int width, int height, float sliderPos,
+    float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
 {
-}
 
-void KnobLookAndFeel::paint (Graphics& g)
-{
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
+    if (img1.isValid())
+    {
+        const double rotation = (slider.getValue()
+            - slider.getMinimum())
+            / (slider.getMaximum()
+                - slider.getMinimum());
 
-       You should replace everything in this method with your own
-       drawing code..
-    */
+        const int frames = img1.getHeight() / img1.getWidth();
+        const int frameId = (int)ceil(rotation * ((double)frames - 1.0));
+        const float radius = jmin(width / 2.0f, height / 2.0f) - 10;
+        const float centerX = x + width * 0.5f;
+        const float centerY = y + height * 0.5f;
+        const float rx = centerX - radius - 1.0f;
+        const float ry = centerY - radius;
 
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
+        g.drawImage(img1,
+            (int)rx,
+            (int)ry,
+            2 * (int)radius,
+            2 * (int)radius,
+            0,
+            frameId * img1.getWidth(),
+            img1.getWidth(),
+            img1.getWidth());
+    }
+    else
+    {
+        static const float textPpercent = 0.35f;
+        Rectangle<float> text_bounds(1.0f + width * (1.0f - textPpercent) / 2.0f,
+            0.5f * height, width * textPpercent, 0.5f * height);
 
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
+        g.setColour(Colours::white);
 
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("KnobLookAndFeel", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
-}
-
-void KnobLookAndFeel::resized()
-{
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+        g.drawFittedText(String("No Image"), text_bounds.getSmallestIntegerContainer(),
+            Justification::horizontallyCentred | Justification::centred, 1);
+    }
 }

@@ -6,7 +6,7 @@
 //==============================================================================
 ButtonLookAndFeel::ButtonLookAndFeel()
 {
-    img1 = ImageCache::getFromMemory(BinaryData::switch_toggle_png, BinaryData::switch_toggle_pngSize);
+   // img1 = ImageCache::getFromMemory(BinaryData::switch_toggle_png, BinaryData::switch_toggle_pngSize);
 }
 
 //==============================================================================

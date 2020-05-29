@@ -169,6 +169,9 @@ void KnobSection::resized()
 
 void KnobSection::sliderValueChanged(Slider* slider)
 {
+    String name = slider->getName();
+    float value = slider->getValue();
+    sender.send(name, value);
  
 }
 

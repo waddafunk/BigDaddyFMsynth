@@ -30,25 +30,23 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     int heightForY = height + barHeight;
     int heightForHeight = height - barHeight;
 
-
-    currentView = tabName::Matrix;
-
-    TextButton* tempButton = new TextButton(tabNameToString(tabName::Matrix));
-    tempButton->setState(Button::ButtonState::buttonDown);
-    textButtons.push_back(tempButton);
     int divisor = 5; //used to dra the matrix modules
     int v_divisor = 8; //used to dra the matrix modules
     int molt = 8; //used to dra the matrix modules
-    tempButton = new TextButton(tabNameToString(tabName::Fxs));
-    tempButton->setState(Button::ButtonState::buttonNormal);
-    textButtons.push_back(tempButton);
+
+    currentView = tabName::oscillators;
 
 
     //modules initialization
-    std::vector<ModuleGui*> fxsModules;
+    std::vector<ModuleGui*> oscillatorModules;
     std::vector<ModuleGui*> matrixModules;
 
+    //oscillator module initialization
+    oscillatorModules.push_back(new OscillatorGui(0, barHeight, width, height - barHeight));
+    modules.push_back(oscillatorModules);
 
+
+    //matrix module initialization
     matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 0 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
     matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 1 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
     matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 2 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
@@ -62,17 +60,6 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     matrixModules.push_back(new MatrixGui(0, barHeight, width * 3 / divisor + width / (4 * divisor), height - barHeight));
 
     modules.push_back(matrixModules);
-
-
-
-
-    fxsModules.push_back(new OscillatorGui(0, 0, width * 2 / divisor, height));
-   // fxsModules.push_back(new LfoGui(width / 2, height / 2, width / 2, height / 2));
-    //fxsModules.push_back(new FilterGui(0, 0, width / 2, height / 2));
-    fxsModules.push_back(new EnvelopeGui(width * 3 / 4, height / 4, width / 4, height / 4));
-
-    modules.push_back(fxsModules);
-
 
 
     //adds and makes visible all the created modules 
@@ -90,6 +77,14 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     }
 
 
+    //textButtons initialization
+    TextButton* tempButton = new TextButton(tabNameToString(tabName::oscillators));
+    tempButton->setState(Button::ButtonState::buttonDown);
+    textButtons.push_back(tempButton);
+    tempButton = new TextButton(tabNameToString(tabName::matrix));
+    tempButton->setState(Button::ButtonState::buttonNormal);
+    textButtons.push_back(tempButton);
+
     i = 0;
     for (auto& button : textButtons) {
         button->setBounds(i * width / textButtons.size(), 0, width / textButtons.size(), barHeight);
@@ -97,6 +92,12 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
         button->addListener(this);
         i++;
     }
+
+
+
+
+
+
 
 }
 
@@ -136,8 +137,8 @@ String Fm_synthAudioProcessorEditor::tabNameToString(tabName tabname)
 {
     switch (tabname)
     {
-    case tabName::Matrix: return "Matrix";
-    case tabName::Fxs: return "Fxs";
+    case tabName::matrix: return "Matrix";
+    case tabName::oscillators: return "Oscillators";
     default: return "Matrix";
     }
 }
@@ -145,13 +146,13 @@ String Fm_synthAudioProcessorEditor::tabNameToString(tabName tabname)
 tabName Fm_synthAudioProcessorEditor::stringToTabName(String tabname)
 {
     if (tabname == "Matrix") {
-        return tabName::Matrix;
+        return tabName::matrix;
     }
-    if (tabname == "Fxs") {
-        return tabName::Fxs;
+    if (tabname == "Oscillators") {
+        return tabName::oscillators;
     }
 
-    return tabName::Matrix;
+    return tabName::oscillators;
 }
 
 
@@ -171,20 +172,20 @@ void Fm_synthAudioProcessorEditor::buttonClicked(Button* button) {
 //the function used to actually change the tab view
 void Fm_synthAudioProcessorEditor::changeView(tabName tabname) {
     switch (tabname) {
-    case tabName::Matrix:
-        for (auto& module : modules[1]) {
+    case tabName::matrix:
+        for (auto& module : modules[0]) {
             module->setVisible(false);
         }
-        for (auto& module : modules[0]) {
+        for (auto& module : modules[1]) {
             module->setVisible(true);
         }
 
         break;
-    case tabName::Fxs:
-        for (auto& module : modules[0]) {
+    case tabName::oscillators:
+        for (auto& module : modules[1]) {
             module->setVisible(false);
         }
-        for (auto& module : modules[1]) {
+        for (auto& module : modules[0]) {
             module->setVisible(true);
         }
         break;

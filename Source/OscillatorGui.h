@@ -44,7 +44,8 @@ private:
     std::vector<WavePainter*> painters;
     //std::vector<std::vector<float>*> paintedWaves; //TODO: set waves length to perceptual present
 
-    void addOscillators(int n);
+    void addOscillatorKnobs(int n);
+    void addOscillatorLfo(int n);
     void addPainters(int n);
 
 

@@ -24,7 +24,8 @@ OscillatorGui::OscillatorGui()
     width = 300;
     int numOfOsc = 8;
     addPainters(numOfOsc);
-    addOscillators(numOfOsc);
+    addOscillatorKnobs(numOfOsc);
+    addOscillatorLfo(numOfOsc);
 }
 
 OscillatorGui::OscillatorGui(int x, int y)
@@ -33,7 +34,8 @@ OscillatorGui::OscillatorGui(int x, int y)
     yPos = y;
     int numOfOsc = 8;
     addPainters(numOfOsc);
-    addOscillators(numOfOsc);
+    addOscillatorKnobs(numOfOsc);
+    addOscillatorLfo(numOfOsc);
 }
 
 OscillatorGui::OscillatorGui(int x, int y, int w, int h)
@@ -44,7 +46,8 @@ OscillatorGui::OscillatorGui(int x, int y, int w, int h)
     width = w;
     int numOfOsc = 8;
     addPainters(numOfOsc);
-    addOscillators(numOfOsc);
+    addOscillatorKnobs(numOfOsc);
+    addOscillatorLfo(numOfOsc);
 }
 
 OscillatorGui::~OscillatorGui()
@@ -83,7 +86,7 @@ void OscillatorGui::resized()
 
 void OscillatorGui::addPainters(int n) {
     for (size_t i = 0; i < n; ++i) {
-        painters.push_back(new SinePainter(width * 2 / 3, height * i / n, width / 3, height / n));
+        painters.push_back(new SinePainter(width * 2 / 5 *  2 / 3, height * i / n, width * 2 / 5 * 1 / 3, height / n));
     }
 
     for (auto& painter : painters) {
@@ -106,12 +109,20 @@ void OscillatorGui::addPainters(WavePainter * painter) {
     addAndMakeVisible(painter);
 }
 
-void OscillatorGui::addOscillators(int n)
+void OscillatorGui::addOscillatorKnobs(int n)
 {
     for (size_t i = 0; i < n; ++i) {
-        addKnobSection(0, height * i / n, width * 2 / 3, height / n, 4, tSection::filter, i);
+        addKnobSection(0, height * i / n, width * 2 / 5 *  2 / 3, height / n, 4, tSection::filter, i);
     }
         
 }
 
+
+void OscillatorGui::addOscillatorLfo(int n)
+{
+    for (size_t i = 0; i < n; ++i) {
+        addKnobSection(width * 2 / 5, height * i / n, width * 2 / 5 * 2 / 3, height / n, 4, tSection::lfo, i);
+    }
+
+}
 

@@ -26,7 +26,7 @@
 #include "MasterGui.h"
 
 
-enum class tabName { Matrix, Fxs };
+enum class tabName { matrix, oscillators };
 
 //==============================================================================
 /**

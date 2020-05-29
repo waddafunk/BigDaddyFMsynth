@@ -66,7 +66,7 @@ void KnobSection::addKnobs(int nKnob)
     Slider* temp;
 
     for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::Rotary,Slider::NoTextBox);
+        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
         String knobName = getSocketName() + std::to_string(i);
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
@@ -82,7 +82,7 @@ void KnobSection::addKnobs(int nKnob, int row)
     Slider* temp;
 
     for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::Rotary, Slider::NoTextBox);
+        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
         String knobName = getSocketName() + std::to_string(row) + std::to_string(i);
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);

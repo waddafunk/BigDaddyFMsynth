@@ -359,20 +359,22 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
         switch (currentEnv)
         {
         case envelope::attack: 
-                attackTime = computeAttackTime();
-                attackValue = computeAttackValue();
-                break;
+            attackTime = computeAttackTime();
+            attackValue = computeAttackValue();
+            break;
         case envelope::decay:
-            attackTime = computeDecayTime();
-            attackValue = computeDecayValue();
+            decayTime = computeDecayTime();
+            decayValue = computeDecayValue();
+            sustainValue = decayValue;
             break;
         case envelope::sustain:
-            attackTime = computeSustainTime();
-            attackValue = computeSustainValue();
+            sustainTime = computeSustainTime();
+            sustainValue = computeSustainValue();
+            decayValue = sustainValue;
             break;
         case envelope::release:
-            attackTime = computeReleaseTime();
-            attackValue = computeReleaseValue();
+            releaseTime = computeReleaseTime();
+            releaseValue = computeReleaseValue();
             break;
         default:
             break;

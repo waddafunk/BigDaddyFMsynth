@@ -27,18 +27,18 @@
 //==============================================================================
 /**
 */
-class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor,  public Button::Listener
+class Fm_synthAudioProcessorEditor : public AudioProcessorEditor, public Button::Listener
 {
 public:
-    Fm_synthAudioProcessorEditor (Fm_synthAudioProcessor&);
+    Fm_synthAudioProcessorEditor(Fm_synthAudioProcessor&);
     ~Fm_synthAudioProcessorEditor();
 
     //==============================================================================
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
 
-   
+
     void buttonStateChanged(Button* button) override;
     void buttonClicked(Button* button) override;
 
@@ -46,11 +46,11 @@ public:
 private:
 
     Fm_synthAudioProcessor& processor;
-    std::vector<ModuleGui *> modules;
+    
+    std::vector<std::vector<ModuleGui*>> modules;
     std::vector<TextButton*> textButtons;
-    TextButton* currentButton = nullptr;
     String ModulationButtonText = "Modulation Matrix";
 
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Fm_synthAudioProcessorEditor)
 };

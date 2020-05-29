@@ -39,14 +39,21 @@ void MyHighPass::paint (Graphics& g)
 
     Path filterPath;
     Point<float> cutX(getCutoff(), (float)-getResonance() * 2.0f * height * 0.7f + height * 0.5f), 
-        preCutX(cutX.getX() - width / 50, height / 2.0f), start(preCutX.getX() * 90 / 100, (float)height),
-        endLinear(width, (float)(height / 2)), endp(cutX.getX() + width / 20, (float)height / 2);
+        preCutX(cutX.getX() - width / 50, height / 2.0f), 
+        start(preCutX.getX() * 90 / 100, (float)height),
+        endLinear(width, (float)(height / 2)),
+        endp(cutX.getX() + width / 5, (float)height / 2), 
+        smoothingPoint(endp.getX() - width / 10, endp.getY() * 8 / 10),
+        smoothingPoint2(smoothingPoint.getX() + width / 80, smoothingPoint.getY() * 120 / 100),
+        smoothingPoint3(smoothingPoint.getX() + width / 40 + 10, height / 2);
     
     if (endp.getX() > width)
         endp.setX(width);
     
     filterPath.startNewSubPath(start);  // if this is the first point, start a new path..
-    filterPath.cubicTo(preCutX, cutX, endp);
+    filterPath.cubicTo(preCutX, cutX, smoothingPoint);
+    filterPath.quadraticTo(smoothingPoint2, endp);
+
     filterPath.lineTo(endLinear);
 
 

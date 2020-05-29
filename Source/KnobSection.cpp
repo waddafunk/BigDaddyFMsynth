@@ -193,7 +193,7 @@ void KnobSection::sliderValueChanged(Slider* slider)
     float value; //slider value
 
 
-    if ((token1.toStdString().find(strTok3) != std::string::npos)){ //|| (stdName.find(strTok3) != std::string::npos)) { //if matrix
+    if ((token1.toStdString().find(strTok3) != std::string::npos) || (token1.toStdString().find("Oscillator") != std::string::npos)) { //if matrix
 
         token3 = String(stdName.substr(0, stdName.find(">=")).c_str()); // additional position
         token3float = std::stoi(token3.toStdString());  

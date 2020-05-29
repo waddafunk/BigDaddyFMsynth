@@ -68,7 +68,9 @@ void KnobSection::addKnobs(int nKnob)
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::Rotary,Slider::NoTextBox);
         String knobName = getSocketName() + std::to_string(i);
+        temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
+        temp->setLookAndFeel(&KnobLAF);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
     }
@@ -82,7 +84,9 @@ void KnobSection::addKnobs(int nKnob, int raw)
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::Rotary, Slider::NoTextBox);
         String knobName = getSocketName() + std::to_string(raw) + std::to_string(i);
+        temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
+        temp->setLookAndFeel(&KnobLAF);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
     }

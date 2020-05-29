@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "MySender.h"
+#include "KnobLookAndFeel.h"
 
 //==============================================================================
 /*
@@ -66,6 +67,7 @@ private:
 
 
     String getSocketName();
+    KnobLookAndFeel KnobLAF;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobSection)

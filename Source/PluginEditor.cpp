@@ -18,26 +18,65 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
 {
 
 
-    int height = 900;
-    int width = 1200;
+    int height = 750;
+    int width = 1000;
 
     setSize(width, height);
 
 
     int barHeight = 20;
+    int envelopeBarHeight = height * 2 / 12;
 
     int heightForY = height + barHeight;
     int heightForHeight = height - barHeight;
 
-    textButtons.push_back(new TextButton("Modulation Matrix"));
-    textButtons.push_back(new TextButton("Fxs"));
+
+    currentView = tabName::Matrix;
+
+    TextButton* tempButton = new TextButton(tabNameToString(tabName::Matrix));
+    tempButton->setState(Button::ButtonState::buttonDown);
+    textButtons.push_back(tempButton);
+    //int divisor = 10;
+    int divisor = 5;
+    int v_divisor = 8;
+    int molt = 8;
+    tempButton = new TextButton(tabNameToString(tabName::Fxs));
+    tempButton->setState(Button::ButtonState::buttonNormal);
+    textButtons.push_back(tempButton);
+
 
     //modules initialization
     std::vector<ModuleGui*> fxsModules;
     std::vector<ModuleGui*> matrixModules;
 
-    matrixModules.push_back(new MatrixGui(0, barHeight, width, height-barHeight));
+    /*
+    matrixModules.push_back(new EnvelopeGui(0 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(1 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(2 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(3 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(4 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(5 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(6 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(7 * width / divisor, barHeight, width / divisor, envelopeBarHeight));
+    matrixModules.push_back(new EnvelopeGui(8 * width / divisor, barHeight, width * 2 / divisor, envelopeBarHeight));
+    matrixModules.push_back(new MasterGui(8 * width / divisor, barHeight + envelopeBarHeight, width * 2 / divisor, height - envelopeBarHeight));
+    matrixModules.push_back(new MatrixGui(0, barHeight + envelopeBarHeight, width * 8 / divisor, height - barHeight - envelopeBarHeight));
+    */
+
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 0 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 1 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 2 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 3 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 4 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 5 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 6 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 7 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor));
+    matrixModules.push_back(new EnvelopeGui(width * 4 / divisor + width / (molt * divisor), barHeight , width / divisor - width / (molt * divisor), envelopeBarHeight));
+    matrixModules.push_back(new MasterGui(width * 4 / divisor + width / (molt * divisor), barHeight + envelopeBarHeight, width / divisor - width / (molt * divisor), height - envelopeBarHeight));
+    matrixModules.push_back(new MatrixGui(0, barHeight, width * 3 / divisor + width / (4 * divisor), height - barHeight));
+
     modules.push_back(matrixModules);
+
 
 
 
@@ -72,6 +111,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     for (auto& button : textButtons) {
         button->setBounds(i * width / textButtons.size(), 0, width / textButtons.size(), barHeight);
         addAndMakeVisible(button);
+        button->addListener(this);
         i++;
     }
 
@@ -105,27 +145,69 @@ void Fm_synthAudioProcessorEditor::paint(Graphics& g)
 
 void Fm_synthAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-
-    /**setResizable(true, true);
-
-
-    for (auto &module : modules) {
-       // module->setBounds(module->getX(), module->getY(), module->width, module->height);
-        module->setMyBounds();
-        addAndMakeVisible(module);
-    } */
-
+  
 }
+
+
+String Fm_synthAudioProcessorEditor::tabNameToString(tabName tabname)
+{
+    switch (tabname)
+    {
+    case tabName::Matrix: return "Matrix";
+    case tabName::Fxs: return "Fxs";
+    default: return "Matrix";
+    }
+}
+
+tabName Fm_synthAudioProcessorEditor::stringToTabName(String tabname)
+{
+    if (tabname == "Matrix") {
+        return tabName::Matrix;
+    }
+    if (tabname == "Fxs") {
+        return tabName::Fxs;
+    }
+
+    return tabName::Matrix;
+}
+
+
+
 
 void Fm_synthAudioProcessorEditor::buttonStateChanged(Button* button)
 {
 }
 
 void Fm_synthAudioProcessorEditor::buttonClicked(Button* button) {
-    if (button->getButtonText() == "ciao") {
+    if (stringToTabName(button->getButtonText()) != currentView) {
+        changeView(stringToTabName(button->getButtonText()));
+    } 
+}
 
+
+//the function used to actually change the tab view
+void Fm_synthAudioProcessorEditor::changeView(tabName tabname) {
+    switch (tabname) {
+    case tabName::Matrix:
+        for (auto& module : modules[1]) {
+            module->setVisible(false);
+        }
+        for (auto& module : modules[0]) {
+            module->setVisible(true);
+        }
+
+        break;
+    case tabName::Fxs:
+        for (auto& module : modules[0]) {
+            module->setVisible(false);
+        }
+        for (auto& module : modules[1]) {
+            module->setVisible(true);
+        }
+        break;
+    default:
+        break;
     }
-
+    currentView = tabname;
+//    repaint();
 }

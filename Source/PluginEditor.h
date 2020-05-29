@@ -23,6 +23,10 @@
 #include "OscillatorGui.h"
 #include "EnvelopeGui.h"
 #include "MatrixGui.h"
+#include "MasterGui.h"
+
+
+enum class tabName { Matrix, Fxs };
 
 //==============================================================================
 /**
@@ -37,10 +41,16 @@ public:
     void paint(Graphics&) override;
     void resized() override;
 
+    String tabNameToString(tabName tabname);
+
+    tabName stringToTabName(String tabname);
+
 
 
     void buttonStateChanged(Button* button) override;
     void buttonClicked(Button* button) override;
+
+    void changeView(tabName tabname);
 
 
 private:
@@ -49,7 +59,7 @@ private:
     
     std::vector<std::vector<ModuleGui*>> modules;
     std::vector<TextButton*> textButtons;
-    String ModulationButtonText = "Modulation Matrix";
+    tabName currentView;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Fm_synthAudioProcessorEditor)

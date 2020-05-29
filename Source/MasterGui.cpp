@@ -19,6 +19,14 @@ MasterGui::MasterGui()
 
 }
 
+MasterGui::MasterGui(int x, int y, int width, int height)
+{
+    this->xPos = x;
+    this->yPos = y;
+    this->width = width;
+    this->height = height;
+}
+
 MasterGui::~MasterGui()
 {
 }

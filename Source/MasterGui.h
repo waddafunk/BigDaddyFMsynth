@@ -20,6 +20,7 @@ class MasterGui    : public ModuleGui
 {
 public:
     MasterGui();
+    MasterGui(int x, int y, int width, int height);
     ~MasterGui();
 
     void paint (Graphics&) override;

@@ -91,9 +91,9 @@ void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection t
     addAndMakeVisible(knobSection);
 }
 
-void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw)
+void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row)
 {
-    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob, type, raw);
+    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob, type, row);
     knobSections.push_back(knobSection);
     knobSection->setMyBounds();
     addAndMakeVisible(knobSection);

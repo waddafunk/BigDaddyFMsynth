@@ -12,11 +12,12 @@
 
 #include <JuceHeader.h>
 #include "ModuleGui.h"
+#include "KnobSection.h"
 
 //==============================================================================
 /*
 */
-class MasterGui    : public ModuleGui
+class MasterGui    : public ModuleGui, public Slider::Listener
 {
 public:
     MasterGui();
@@ -26,6 +27,14 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+
+
+    void sliderValueChanged(Slider* slider) override;
+    void sliderDragStarted(Slider* slider) override;
+    void sliderDragEnded(Slider* slider) override;
+
 private:
+
+    Slider fader;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MasterGui)
 };

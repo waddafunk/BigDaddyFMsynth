@@ -25,10 +25,20 @@ MasterGui::MasterGui(int x, int y, int width, int height)
     this->yPos = y;
     this->width = width;
     this->height = height;
+    addKnobSection(0, 0, width, height/3, 3, tSection::master);
+    fader.setBounds(0, height/3, width, height * 2 / 3 -30);
+    fader.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    fader.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
+    fader.addListener(this);
+    addAndMakeVisible(fader);
 }
 
 MasterGui::~MasterGui()
 {
+    for (auto& knobSection : knobSections)
+    {
+        delete knobSection;
+    }
 }
 
 void MasterGui::paint (Graphics& g)
@@ -45,10 +55,7 @@ void MasterGui::paint (Graphics& g)
     g.setColour (Colours::grey);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("MasterGui", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+    
 }
 
 void MasterGui::resized()
@@ -56,4 +63,16 @@ void MasterGui::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
 
+}
+
+void MasterGui::sliderValueChanged(Slider* slider)
+{
+}
+
+void MasterGui::sliderDragStarted(Slider* slider)
+{
+}
+
+void MasterGui::sliderDragEnded(Slider* slider)
+{
 }

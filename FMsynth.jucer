@@ -91,10 +91,6 @@
         <FILE id="Sx762F" name="OscillatorGui.h" compile="0" resource="0" file="Source/OscillatorGui.h"/>
       </GROUP>
       <FILE id="HVoZvt" name="MyAnime.h" compile="0" resource="0" file="Source/MyAnime.h"/>
-      <FILE id="Y5NhdF" name="AnimatedEditor.h" compile="0" resource="0"
-            file="Source/AnimatedEditor.h"/>
-      <FILE id="tT4BTF" name="AnimatedEditor.cpp" compile="1" resource="0"
-            file="Source/AnimatedEditor.cpp"/>
       <FILE id="PxoobG" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="dhyoYi" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>

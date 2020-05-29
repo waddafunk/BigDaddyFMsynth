@@ -173,19 +173,39 @@ void KnobSection::resized()
 
 void KnobSection::sliderValueChanged(Slider* slider)
 {
-    String name = slider->getName(), token1, token2, token3;
+    String name = slider->getName();
+    String token1, token2, token3; // token1 module name, token 2 position and token3 additional position if matrix
     std::string delimiter = ">=", strTok3, stdName = name.toStdString(); //cast to std string
-    token1 = String(stdName.substr(0, stdName.find(">="))); //module name
+
+
+    token1 = String(stdName.substr(0, stdName.find(">=")).c_str()); //module name
+    stdName.erase(0, stdName.find(delimiter) + delimiter.length()); //erase delimiter
+    token2 = String(stdName.substr(0, stdName.find(">=")).c_str()); //position
+
+
+    float token2float = std::stoi(token2.toStdString());  //cast position to float
+    float token3float;
+
+
     stdName.erase(0, stdName.find(delimiter) + delimiter.length());
-    token2 = String(stdName.substr(0, stdName.find(">="))); 
-    stdName.erase(0, stdName.find(delimiter) + delimiter.length());
+
+
+    float value; //slider value
+
+
     if ((stdName.find("Matrix") != std::string::npos) || (stdName.find("Oscillator") != std::string::npos)) { //if matrix
-        token3 = String(stdName.substr(0, stdName.find(">=")));
+
+        token3 = String(stdName.substr(0, stdName.find(">=")).c_str()); // additional position
+        token3float = std::stoi(token3.toStdString());  
+        value = slider->getValue();
+        sender.send(token1, token2float, token3float, value); //send
+    }
+    else {
+        sender.send(token1, token2float, value); //send
     }
         
         
-    float value = slider->getValue();
-    sender.send(token1, value);
+    
  
 }
 

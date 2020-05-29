@@ -12,7 +12,6 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include"AnimatedEditor.h"
 #include "ModuleGui.h"
 #include "WavePainter.h"
 #include "SinePainter.h"

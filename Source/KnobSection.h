@@ -28,7 +28,7 @@ public:
     KnobSection(int x,int y, int w, int h);
     KnobSection(int x, int y, int w, int h, int nKnob);
     KnobSection(int x, int y, int w, int h, int nKnob, tSection type);
-    KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw);
+    KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row);
 
     ~KnobSection();
 
@@ -43,7 +43,7 @@ public:
 
     void setMyBounds();
     void addKnobs(int nKnob);
-    void addKnobs(int nKnob, int raw);
+    void addKnobs(int nKnob, int row);
 
     void send();
 

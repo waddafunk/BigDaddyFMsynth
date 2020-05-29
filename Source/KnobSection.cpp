@@ -40,10 +40,10 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) :
     this->type = type;
 }
 
-KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
+KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
-    addKnobs(nKnob, raw);
+    addKnobs(nKnob, row);
     this->type = type;
 
 }
@@ -77,13 +77,13 @@ void KnobSection::addKnobs(int nKnob)
     arrange();
 }
 
-void KnobSection::addKnobs(int nKnob, int raw)
+void KnobSection::addKnobs(int nKnob, int row)
 {
     Slider* temp;
 
     for (size_t i = 0; i < nKnob; ++i) {
         temp = new Slider(Slider::Rotary, Slider::NoTextBox);
-        String knobName = getSocketName() + std::to_string(raw) + std::to_string(i);
+        String knobName = getSocketName() + std::to_string(row) + std::to_string(i);
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);
         temp->setLookAndFeel(&KnobLAF);

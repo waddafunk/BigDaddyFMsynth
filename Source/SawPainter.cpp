@@ -48,7 +48,7 @@ void SawPainter::paint(Graphics& g)
 
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
-    clearWavePainted();
+    //clearWavePainted();
 
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
@@ -65,7 +65,7 @@ void SawPainter::paint(Graphics& g)
         float pos = (std::fmod(sign * traslpos, 2 * height) / 2 + height * (float)(1 - 1 / 8)) * 3 / 4 + height / 8;
         Point<float> p(i * width / (numberOfDots - 2),pos);
 
-        pushPainted(pos / height);
+        //pushPainted(pos / height);
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..

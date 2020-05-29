@@ -46,7 +46,7 @@ OscillatorGui::~OscillatorGui()
     for (auto& painter : painters) {
         delete painter;
     }
-    paintedWaves.clear();
+    //paintedWaves.clear();
 }
 
 void OscillatorGui::paint (Graphics& g)
@@ -79,8 +79,8 @@ void OscillatorGui::addPainters(int w, int h) {
     painters.push_back(new SawPainter(w * 2 / 3, h * 3 / 4, w / 3, h / 4));
 
     for (auto& painter : painters) {
-        std::vector<float>* paintedWave = painter->getPaintedAddress();
-        paintedWaves.push_back(paintedWave);
+        //std::vector<float>* paintedWave = painter->getPaintedAddress();
+        //paintedWaves.push_back(paintedWave);
         painter->setFramesPerSecond(60);
         painter->setMyBounds();
         addAndMakeVisible(painter);

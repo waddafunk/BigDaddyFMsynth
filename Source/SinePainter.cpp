@@ -61,7 +61,7 @@ void SinePainter::paint(Graphics& g)
     int amplitude = (height-40)/2;
     float freq = 0.02f;
 
-    clearWavePainted();
+    //clearWavePainted();
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
@@ -70,7 +70,7 @@ void SinePainter::paint(Graphics& g)
             pos = height / 2.0f + amplitude * std::cos(i * freq);
         Point<float> p(i * width / (numberOfDots - 2), pos);
 
-        pushPainted(pos / height);
+        //pushPainted(pos / height);
 
         if (i == 0)
             spinePath.startNewSubPath(p);  // if this is the first point, start a new path..

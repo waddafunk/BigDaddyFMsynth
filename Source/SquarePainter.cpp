@@ -58,7 +58,7 @@ void SquarePainter::paint(Graphics& g)
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
 
-    clearWavePainted();
+    //clearWavePainted();
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {   
@@ -68,7 +68,7 @@ void SquarePainter::paint(Graphics& g)
             check = std::cos(i * freq);
         if(check < dutyCycle - 0.5)
             pos = -pos;
-        pushPainted(pos / height);
+        // pushPainted(pos / height);
         Point<float> p(i * width / (numberOfDots - 2), pos + height / 2);
 
         if (i == 0)

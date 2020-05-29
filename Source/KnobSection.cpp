@@ -170,6 +170,8 @@ void KnobSection::resized()
 void KnobSection::sliderValueChanged(Slider* slider)
 {
     String name = slider->getName();
+    if (name.toStdString().find("Matrix") != std::string::npos)
+        name.dropLastCharacters(2);
     float value = slider->getValue();
     sender.send(name, value);
  

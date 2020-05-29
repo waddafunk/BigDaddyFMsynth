@@ -115,7 +115,7 @@ void WavePainter::setTriggered(bool isTriggered)
     this->triggered = isTriggered;
 }
 
-void WavePainter::pushPainted(float pos)
+/*void WavePainter::pushPainted(float pos)
 {
     wavePainted.push_back(pos);
 }
@@ -124,4 +124,4 @@ void WavePainter::clearWavePainted()
 {
     this->wavePainted.clear();
 }
-
+*/

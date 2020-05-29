@@ -51,7 +51,7 @@ void TrianglePainter::paint(Graphics& g)
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
     float amplitude = height / 2;
-    clearWavePainted();
+    //clearWavePainted();
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
@@ -59,7 +59,7 @@ void TrianglePainter::paint(Graphics& g)
         if (getTriggered())
             traslpos = i;
         float pos = std::abs(std::fmod(traslpos, height) - height / 2) * 2 * 3 / 4 + height / 8;
-        pushPainted(pos / height);
+       // pushPainted(pos / height);
         
         Point<float> p(i * width / (numberOfDots - 2),
             pos);

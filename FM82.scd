@@ -6,7 +6,6 @@ NetAddr("127.0.0.1", 57120);
 
 Task({s.waitForBoot{
 	var
-	win,envs,envwin,envwins,envbuts,modboxs,rround,times,ratios,levs,view,winopen,testFreq,testBut,
 	noSynths,synthArray,synTest,synTestArray,polyphon,reltime,debug,nodecoll;
 
 	SynthDef(\feedback, {
@@ -18,7 +17,6 @@ Task({s.waitForBoot{
 
 		Out.ar(out,input);
 	}
-
 	).send(s);
 
 	SynthDef(\fmTex,
@@ -61,7 +59,7 @@ Task({s.waitForBoot{
 
 	s.sync;
 
-	~synth =  Group.new(~feedback,\addAfter);
+	~synth =  Group.new(~feedback,\addAfter).postln;
 
 	s.sync;
 
@@ -82,9 +80,6 @@ Task({s.waitForBoot{
 	synthArray = Array.newClear(128);
 	nodecoll = 128.collect{List[]};
 
-	winopen = [0,0,0,0,0,0,0,0];
-
-	envwins = [0,0,0,0,0,0,0,0];
 
 	~envtimes = 8.collect{[0.0,0.1,0.5,0.7,1.0]}.postln;
 
@@ -134,7 +129,7 @@ Task({s.waitForBoot{
 			synthArray.put(num,
 				8.collect{|i| var syn;
 
-				r =
+				syn =
 					Synth(\fmTex,
 						[
 							\lev1,~envlevs[i][0],
@@ -175,9 +170,12 @@ Task({s.waitForBoot{
 
 						],target:~synth
 					);
+
+
 				}
 			);
 
+			//z = Synth.after(s, \flanger, [\inBus,[0,1],\outBus,[0,1]]);
 
 			reltime = 8.collect{|i|(~envtimes[i][3]-~envtimes[i][2])*~times[i]};
 			reltime = reltime.maxItem;
@@ -305,7 +303,7 @@ OSCdef('OSCfilter', {
 SynthDef(\delay, {arg delaytime=0.4;
 var input, effect;
 input=In.ar(0,2); //get two channels of input starting (and ending) on bus 0
-effect= DelayN.ar(input, 1,delaytime); //max delay of one second
+effect= DelayN.ar(input, 1,delaytime, mul: 0.2); //max delay of one second
 Out.ar(0,effect); //adds to bus 0
 }).add;
 )

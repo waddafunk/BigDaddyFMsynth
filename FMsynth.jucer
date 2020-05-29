@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="CAcYrn" name="FMsynth" projectType="audioplug" jucerVersion="5.4.7"
-              pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              includeBinaryInJuceHeader="1">
   <MAINGROUP id="It8PsJ" name="FMsynth">
     <GROUP id="{EEE764A2-426D-8D6F-B2BD-98E4F3C1D40E}" name="Source">
       <GROUP id="{AC544877-3D8F-1719-2502-57A93CE4609D}" name="Utils">
@@ -26,6 +27,9 @@
           <FILE id="AJFboQ" name="MyNotchFilter.cpp" compile="1" resource="0"
                 file="Source/MyNotchFilter.cpp"/>
           <FILE id="UtVNpw" name="MyNotchFilter.h" compile="0" resource="0" file="Source/MyNotchFilter.h"/>
+        </GROUP>
+        <GROUP id="{64A3947B-EF73-731B-FD78-3B0C096D09F1}" name="images">
+          <FILE id="tqIrPA" name="Carbon.png" compile="0" resource="1" file="images/Carbon.png"/>
         </GROUP>
         <FILE id="Z6z5zh" name="SpectrogramGui.cpp" compile="1" resource="0"
               file="Source/SpectrogramGui.cpp"/>

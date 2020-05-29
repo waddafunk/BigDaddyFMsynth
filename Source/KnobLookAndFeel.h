@@ -12,18 +12,16 @@
 
 #include <JuceHeader.h>
 
-//==============================================================================
-/*
-*/
-class KnobLookAndFeel    : public Component
+class KnobLookAndFeel : public LookAndFeel_V4
 {
 public:
-    KnobLookAndFeel();
-    ~KnobLookAndFeel();
 
-    void paint (Graphics&) override;
-    void resized() override;
+    KnobLookAndFeel();
+
+    void drawRotarySlider(Graphics& g, int x, int y, int width, int height, float sliderPos,
+        float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobLookAndFeel)
+    Image img1;
+
 };

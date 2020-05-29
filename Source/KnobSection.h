@@ -12,13 +12,14 @@
 
 #include <JuceHeader.h>
 #include "MySender.h"
+#include "KnobLookAndFeel.h"
 
 //==============================================================================
 /*
 */
 
 enum class direction {horizontal, vertical};
-enum class typeOfSection {filter,matrix};
+enum class tSection {filter,matrix};
 
 class KnobSection    : public Component, public Slider::Listener
 {
@@ -26,7 +27,8 @@ public:
     KnobSection();
     KnobSection(int x,int y, int w, int h);
     KnobSection(int x, int y, int w, int h, int nKnob);
-    KnobSection(int x, int y, int w, int h, int nKnob,typeOfSection type);
+    KnobSection(int x, int y, int w, int h, int nKnob, tSection type);
+    KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int raw);
 
     ~KnobSection();
 
@@ -41,6 +43,7 @@ public:
 
     void setMyBounds();
     void addKnobs(int nKnob);
+    void addKnobs(int nKnob, int raw);
 
     void send();
 
@@ -54,7 +57,7 @@ private:
     int width;
     int height;
     direction dir;
-    typeOfSection type;
+    tSection type = tSection::matrix;
 
 
     void arrange();
@@ -64,6 +67,7 @@ private:
 
 
     String getSocketName();
+    KnobLookAndFeel KnobLAF;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobSection)

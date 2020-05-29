@@ -16,7 +16,7 @@
 //==============================================================================
 KnobLookAndFeel::KnobLookAndFeel()
 {
- //   img1 = ImageCache::getFromMemory(BinaryData::Carbon_png, BinaryData::Carbon_pngSize);
+    img1 = ImageCache::getFromMemory(BinaryData::Carbon_png, BinaryData::Carbon_pngSize);
 }
 
 //==============================================================================

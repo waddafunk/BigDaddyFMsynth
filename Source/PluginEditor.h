@@ -39,8 +39,8 @@ public:
 
 
    
-    void buttonStateChanged(Button*) override;
-    void buttonClicked(Button*) override;
+    void buttonStateChanged(Button* button) override;
+    void buttonClicked(Button* button) override;
 
 
 private:
@@ -48,7 +48,8 @@ private:
     Fm_synthAudioProcessor& processor;
     std::vector<ModuleGui *> modules;
     std::vector<TextButton*> textButtons;
-    TextButton* currentButton = nullptr;;
+    TextButton* currentButton = nullptr;
+    String ModulationButtonText = "Modulation Matrix";
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)

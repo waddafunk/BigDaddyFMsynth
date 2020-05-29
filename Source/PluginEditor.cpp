@@ -95,16 +95,13 @@ void Fm_synthAudioProcessorEditor::resized()
     
 }
 
-void Fm_synthAudioProcessorEditor::buttonStateChanged(Button*)
+void Fm_synthAudioProcessorEditor::buttonStateChanged(Button* button)
 {
 }
 
-void Fm_synthAudioProcessorEditor::buttonClicked(Button*){
-    /*
-    if (button != currentButton) {
-        for (auto& textButton : textButtons) {
-            textButton.set
-        }
+void Fm_synthAudioProcessorEditor::buttonClicked(Button* button){
+    if (button->getButtonText() == "ciao") {
+
     }
-    */
+      
 }

@@ -17,6 +17,7 @@
 #include "SquarePainter.h"
 #include "TrianglePainter.h"
 #include "WavePainter.h"
+#include "FilterGui.h"
 
 
 
@@ -42,11 +43,17 @@ public:
 
 private:
     std::vector<WavePainter*> painters;
+    std::vector<FilterGui*> filters;
+    int numOfOsc = 8;
     //std::vector<std::vector<float>*> paintedWaves; //TODO: set waves length to perceptual present
 
-    void addOscillatorKnobs(int n);
-    void addOscillatorLfo(int n);
-    void addPainters(int n);
+    void addOscillatorKnobs();
+    void addOscillatorLfo();
+    void addPainters();
+    void addFilter(int x, int y, int w, int h);
+    void addFilters();
+
+
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscillatorGui)

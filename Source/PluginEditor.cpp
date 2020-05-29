@@ -18,24 +18,37 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
 {
 
 
-    //sets windows attributes
-   // setResizable(true, false);
-   // setResizeLimits(300, 250, 10000, 10000);
-    //setSize (1920/2, 1200*5/8);
-    setSize(1200, 900);
+    int height=900;
+    int width = 1200;
+
+    setSize(width, height);
+    
+
+    int barHeight = 20;
+
+    int heightForY = height + barHeight;
+    int heightForHeight = height - barHeight;
     //modules initialization
-    modules.push_back(new OscillatorGui(0, getHeight()/2,getWidth() / 2, getHeight()/2));
-    modules.push_back(new MatrixGui(getWidth() / 2, getHeight() / 2, getWidth() / 2, getHeight() / 2));
-    modules.push_back(new FilterGui(0, 0, getWidth() / 2, getHeight() / 2));
-    modules.push_back(new EnvelopeGui(getWidth() / 2, 0, getWidth() / 4, getHeight() / 4));
-    modules.push_back(new EnvelopeGui(getWidth() / 2, getHeight() / 4, getWidth() / 4, getHeight() / 4));
-    modules.push_back(new EnvelopeGui(getWidth() * 3 / 4, 0, getWidth() / 4, getHeight() / 4));
-    modules.push_back(new EnvelopeGui(getWidth() * 3 / 4, getHeight() / 4, getWidth() / 4, getHeight() / 4));
+    textButtons.push_back(new TextButton("Modulation Matrix"));
+    textButtons.push_back(new TextButton("Fxs"));
+    modules.push_back(new OscillatorGui(0, height/2,width / 2, height/2));
+    modules.push_back(new MatrixGui(width / 2, height / 2, width / 2, height / 2));
+    modules.push_back(new FilterGui(0, 0, width / 2, height / 2));
+    modules.push_back(new EnvelopeGui(width / 2, 0, width / 4, height / 4));
+    modules.push_back(new EnvelopeGui(width / 2, height / 4, width / 4, height / 4));
+    modules.push_back(new EnvelopeGui(width * 3 / 4, 0, width / 4, height / 4));
+    modules.push_back(new EnvelopeGui(width * 3 / 4, height / 4, width / 4, height / 4));
     //adds and makes visible all the created modules 
     for (auto& module : modules) {
         module->setFramesPerSecond(60);
         module->setMyBounds();
         addAndMakeVisible(module);
+    }
+    size_t i = 0.;
+    for (auto& button : textButtons) {
+        button->setBounds(i * width / textButtons.size(), 0, width / textButtons.size(), barHeight);
+        addAndMakeVisible(button);
+        i++;
     }
 
 }
@@ -43,8 +56,21 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor (Fm_synthAudioProcess
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()
 {
     for (auto& module : modules) {
-        delete module;
+        if (module != nullptr) {
+            delete module;
+        }
+        
     }
+    for (auto& button : textButtons) {
+        if (button != nullptr) {
+            delete button;
+        }
+        
+    }
+    if (currentButton != nullptr) {
+        delete currentButton;
+    }
+    
 }
 
 //==============================================================================
@@ -62,9 +88,23 @@ void Fm_synthAudioProcessorEditor::resized()
     
 
     for (auto &module : modules) {
-       // module->setBounds(module->getX(), module->getY(), module->getWidth(), module->getHeight());
+       // module->setBounds(module->getX(), module->getY(), module->width, module->height);
         module->setMyBounds();
         addAndMakeVisible(module);
     } */
     
+}
+
+void Fm_synthAudioProcessorEditor::buttonStateChanged(Button*)
+{
+}
+
+void Fm_synthAudioProcessorEditor::buttonClicked(Button*){
+    /*
+    if (button != currentButton) {
+        for (auto& textButton : textButtons) {
+            textButton.set
+        }
+    }
+    */
 }

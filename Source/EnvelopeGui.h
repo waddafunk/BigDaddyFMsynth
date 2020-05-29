@@ -26,6 +26,7 @@ class EnvelopeGui    : public ModuleGui
 public:
     EnvelopeGui();
     EnvelopeGui(int x, int y, int width, int height);
+    EnvelopeGui(int x, int y, int width, int height, bool negativeRelease);
     ~EnvelopeGui();
 
     void paint (Graphics&) override;
@@ -41,7 +42,7 @@ private:
     Coordinate* currentPoint = nullptr; //used to position of the point we're ecurrently moving
     envelope currentEnv = envelope::attack; // used to store what type of point we're currently moving
                                             //used to set boundaries in dragging
-
+    bool isForMatrix = false;
 
 
 

@@ -27,7 +27,7 @@
 //==============================================================================
 /**
 */
-class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor
+class Fm_synthAudioProcessorEditor  : public AudioProcessorEditor,  public Button::Listener
 {
 public:
     Fm_synthAudioProcessorEditor (Fm_synthAudioProcessor&);
@@ -38,10 +38,17 @@ public:
     void resized() override;
 
 
+   
+    void buttonStateChanged(Button*) override;
+    void buttonClicked(Button*) override;
+
+
 private:
 
     Fm_synthAudioProcessor& processor;
     std::vector<ModuleGui *> modules;
+    std::vector<TextButton*> textButtons;
+    TextButton* currentButton = nullptr;;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Fm_synthAudioProcessorEditor)

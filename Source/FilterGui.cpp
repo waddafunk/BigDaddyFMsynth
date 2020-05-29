@@ -40,7 +40,7 @@ FilterGui::FilterGui(int x, int y, int w, int h)
     width = w;
 
     addMyFilters(width, height * 3 / 4);
-    addKnobSection(0, 3 * height / 4, width, height/4, 8);
+    addKnobSection(0, 3 * height / 4, width, height/4, 2);
 
 }
 

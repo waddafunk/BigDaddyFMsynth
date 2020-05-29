@@ -14,7 +14,7 @@
 //==============================================================================
 EnvelopeGui::EnvelopeGui()
 {
-
+    isForMatrix = false;
     height = 300;
     width = 300;
     currentPoint = nullptr;
@@ -27,6 +27,7 @@ EnvelopeGui::EnvelopeGui()
 
 EnvelopeGui::EnvelopeGui(int x, int y, int width, int height )
 {
+    isForMatrix = false;
     this->xPos = x;
     this->yPos = y;
     this->width = width;
@@ -36,6 +37,20 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height )
     env[envelope::decay]->setCoordinates(width *2 /4,height* 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4,height * 2 / 4);
     env[envelope::release]->setCoordinates(width,height);
+}
+
+EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeRelease)
+{
+    isForMatrix = negativeRelease;
+    this->xPos = x;
+    this->yPos = y;
+    this->width = width;
+    this->height = height;
+    currentPoint = nullptr;
+    env[envelope::attack]->setCoordinates(width / 4, height / 4);
+    env[envelope::decay]->setCoordinates(width * 2 / 4, height * 2 / 4);
+    env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
+    env[envelope::release]->setCoordinates(width, height);
 }
 
 
@@ -226,8 +241,10 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
 
         case release:
             isLegalY = false; // so that we don't change the y of the release
-            if (mousePos.hasLowerXThan(*env[envelope::sustain])) {
-                isLegalX = false;
+            if (!isForMatrix) {
+                if (mousePos.hasLowerXThan(*env[envelope::sustain])) {
+                    isLegalX = false;
+                }
             }
             if (mousePos.getX() > width) {
                 isLegalX = false;

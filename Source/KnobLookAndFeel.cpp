@@ -62,5 +62,18 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
 
         g.drawFittedText(String("No Image"), text_bounds.getSmallestIntegerContainer(),
             Justification::horizontallyCentred | Justification::centred, 1);
+
+
     }
+}
+
+
+
+Label* KnobLookAndFeel::createSliderTextBox(Slider& slider)
+{
+    Label* l = LookAndFeel_V3::createSliderTextBox(slider);
+ //   l->setBorderSize(BorderSize<int>(2, 2, 40, 2));
+    l->setColour(Label::outlineColourId, Colours::transparentWhite);
+    l->setColour(Label::outlineWhenEditingColourId, Colours::transparentWhite);
+    return l;
 }

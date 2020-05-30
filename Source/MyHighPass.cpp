@@ -38,7 +38,7 @@ void MyHighPass::paint (Graphics& g)
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
     Path filterPath;
-    Point<float> cutX(getCutoff(), (float)-getResonance() * 2.0f * height * 0.7f + height * 0.5f), 
+    Point<float> cutX(cutoff, (float)-resonance * 2.0f * height * 0.7f + height * 0.5f), 
         preCutX(cutX.getX() - width / 50, height / 2.0f), 
         start(preCutX.getX() * 90 / 100, (float)height),
         endLinear(width, (float)(height / 2)),
@@ -59,7 +59,7 @@ void MyHighPass::paint (Graphics& g)
 
     // draw an outline around the path that we have created
     g.strokePath(filterPath, PathStrokeType(2.0f)); // [4]
-    g.fillEllipse(cutX.getX(), height * (1.0f - getResonance()) - 10.0f, 10.0f, 10.0f);
+    g.fillEllipse(cutX.getX()-5, height * (1.0f - resonance) - 5.0f, 10.0f, 10.0f);
 
     g.setColour(Colours::grey);
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component

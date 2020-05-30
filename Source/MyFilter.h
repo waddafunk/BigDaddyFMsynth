@@ -11,6 +11,7 @@
 #pragma once
 #include "ModuleGui.h"
 #include "Coordinate.h"
+#include "Converter.h"
 
 class MyFilter : public ModuleGui{
 public:
@@ -66,19 +67,56 @@ public:
 
         Coordinate mousePos;
         mousePos.setCoordinates(event.getMouseDownX(), event.getMouseDownY());
-        setCutoffFromHz(mousePos.getX());
-        setResonance(mousePos.getY());
-        std::cout << " mouse X : " << mousePos.getX() << " mouse Y : " << mousePos.getY() << "cutoff : " << cutoff << "resonance : "<<resonance << std::endl;
-
+        setCutoffFromHz(Converter::map(mousePos.getX(), 0, width, 20, 10000));
+        setResonance( -1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1 ));
     }
+   
+    void mouseDrag(const MouseEvent& event) override {
+        Coordinate mousePos;
+        bool isLegalX = true;
+        bool isLegalY = true;
+        mousePos.setCoordinates(event.getPosition().getX(), event.getPosition().getY());
+
+        if (mousePos.getX() < 0) {
+            setCutoffFromHz(20);
+            isLegalX = false;
+        }
+        else {
+            if (mousePos.getX() > width) {
+                setCutoffFromHz(10000);
+                isLegalX = false;
+            }
+        }
+
+        if (mousePos.getY() > height) {
+            setResonance(0);
+            isLegalY = false;
+        }
+        else {
+            if (mousePos.getY() < 0) {
+                setResonance(1);
+                isLegalY = false;
+            }
+        }
+
+        if (isLegalX) {
+            setCutoffFromHz(Converter::map(mousePos.getX(), 0, width, 20, 10000));
+        }
+        if (isLegalY) {
+            setResonance(-1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1));
+        }
+        
+        
+        
+    }
+    
 
 
-
-private:
+protected:
 
     float cutoff = 440 * width / 10000.0f;
     float resonance = 0.7f * height;
-
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyFilter)
 };

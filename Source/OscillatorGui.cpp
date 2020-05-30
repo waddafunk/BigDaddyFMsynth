@@ -14,8 +14,6 @@
 //==============================================================================
 OscillatorGui::OscillatorGui()
 {
-
-
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     xPos = 0;
@@ -120,8 +118,9 @@ void OscillatorGui::addOscillatorKnobs()
 {
     for (size_t i = 0; i < numOfOsc; ++i) {
         addKnobSection(0, height * i / numOfOsc, width * 2 / 5 *  2 / 3, height / numOfOsc, 4, tSection::oscillator, i);
-    }
         
+    }
+    
 }
 
 

@@ -97,6 +97,20 @@ void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection t
     knobSections.push_back(knobSection);
     knobSection->setMyBounds();
     addAndMakeVisible(knobSection);
+
+    switch (type)
+    {
+    case tSection::oscillator:
+        knobSection->setMyOscillatorRange();
+        break;
+
+    case tSection::lfo:
+        knobSection->setMyLFORange();
+        break;
+
+    default:
+        break;
+    }
 }
 
 int ModuleGui::getXPos() const

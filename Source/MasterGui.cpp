@@ -16,7 +16,6 @@ MasterGui::MasterGui()
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-
 }
 
 MasterGui::MasterGui(int x, int y, int width, int height)
@@ -31,6 +30,8 @@ MasterGui::MasterGui(int x, int y, int width, int height)
     fader.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
     fader.addListener(this);
     addAndMakeVisible(fader);
+
+    sender = new MySender(tSection::master);
 }
 
 MasterGui::~MasterGui()
@@ -39,6 +40,8 @@ MasterGui::~MasterGui()
     {
         delete knobSection;
     }
+
+    delete sender;
 }
 
 void MasterGui::paint (Graphics& g)
@@ -67,6 +70,8 @@ void MasterGui::resized()
 
 void MasterGui::sliderValueChanged(Slider* slider)
 {
+    float value = slider->getValue();
+   sender->send("/FmSynth/Master",3, value );
 }
 
 void MasterGui::sliderDragStarted(Slider* slider)

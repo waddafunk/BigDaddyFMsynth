@@ -46,14 +46,15 @@ void MySender::mySend(String name, float value) {
     stdName.erase(0, stdName.find(delimiter) + delimiter.length());
 
     if ((token1.toStdString().find(tSectionToString(tSection::matrix)) != std::string::npos) || 
-        (token1.toStdString().find(tSectionToString(tSection::oscillator)) != std::string::npos)) { //if matrix
+        (token1.toStdString().find(tSectionToString(tSection::oscillator)) != std::string::npos) ||
+        (token1.toStdString().find(tSectionToString(tSection::lfo)) != std::string::npos)) { //if matrix
 
         token3 = String(stdName.substr(0, stdName.find(">=")).c_str()); // additional position
         token3float = std::stoi(token3.toStdString());
-        send(token1, token2float, token3float, value); //send
+        send(token1, int(token2float), int(token3float), value); //send
     }
     else {
-        send(token1, token2float, value); //send
+        send(token1, int(token2float), value); //send
     }
 
 }
@@ -64,10 +65,10 @@ String MySender::getSocketName()
 {
     switch (type) {
         //case tSection::filter: return "/FmSynth/Filter";
-    case tSection::matrix: return "/FmSynth/Matrix";
-    case tSection::lfo: return "/Fm/Synth/Lfo";
-    case tSection::oscillator: return "/FmSynth/Oscillator";
-    case tSection::master: return "/FmSynth/Master";
+    case tSection::matrix: return "/FmSynth/Matrix";          // receiving
+    case tSection::lfo: return "/FmSynth/Lfo";                // receiving
+    case tSection::oscillator: return "/FmSynth/Oscillator";  // receiving
+    case tSection::master: return "/FmSynth/Master";          // receiving
     case tSection::envelope: return "/FmSynth/Envelope";
     default:
         break;

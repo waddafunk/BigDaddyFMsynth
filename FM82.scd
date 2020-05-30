@@ -30,7 +30,7 @@ Task({s.waitForBoot{
 			cur1,cur2,cur3,cur4,gate = 1,
 			lfoPitDepth=0,lfoFade=0,envPitDepth,
 			lpCutoff = 7000, lpRes = 1, hpCutoff = 30, hpRes = 1,
-			strtv, atkv, decv, susv, relv,
+			strtv = 0, atkv, decv, susv, relv,
 			tm1,tm2,tm3,tm4, masterEnv, lfophase, masterGain
 			|
 
@@ -88,15 +88,12 @@ Task({s.waitForBoot{
 	nodecoll = 128.collect{List[]};
 
 
-	~envtimes = 8.collect{[0.1,0.5,0.7,1.0]}.postln;
+	~envtimes = 9.collect{[0.1,0.5,0.7,1.0]}.postln;
 
-	~envlevs = 8.collect{[1.0,0.5,0.5,0.0]}.postln;
+	~envlevs = 9.collect{[1.0,0.5,0.5,0.0]}.postln;
 
 	~masterLev = 1;
 
-	~masterEnvTimes = [0, 2, 0.5, 0.7, 1.0];
-
-	~masterEnvLevs = [0.0, 1.0, 0.8, 0.5, 0];
 
 	~envPitDepth = 8.collect{0}.postln;
 
@@ -110,13 +107,13 @@ Task({s.waitForBoot{
 
 	~modlevs = 8.collect{8.collect{0}};
 
-	~amplevs = 8.collect{0};
+	~amplevs = 8.collect{1};
 	~fratio = 8.collect{|i| 8-i};
 	~oscphase = 8.collect{0};
 
-	~lpFilter = [1400, 1];
+	~lpFilter = 8.collect{[1400, 1]};
 
-	~hpFilter = [40, 1];
+	~hpFilter = 8.collect{[40, 1]};
 
 
 
@@ -146,10 +143,10 @@ Task({s.waitForBoot{
 							\lev3,~envlevs[i][1],
 							\lev4,~envlevs[i][2],
 							\lev5,~envlevs[i][3],
-							\t1,(~envtimes[i][1]-~envtimes[i][0]),
-							\t2,(~envtimes[i][2]-~envtimes[i][1]),
-							\t3,(~envtimes[i][3]-~envtimes[i][2]),
-							\t4,(~envtimes[i][3]-~envtimes[i][2]),
+							\t1,(~envtimes[i][0]),
+							\t2,(~envtimes[i][1]),
+							\t3,(~envtimes[i][2]),
+							\t4,(~envtimes[i][3]),
 							\cur1,~envcurves[i][0],
 							\cur2,~envcurves[i][1],
 							\cur3,~envcurves[i][2],
@@ -176,20 +173,19 @@ Task({s.waitForBoot{
 							\amp,~amplevs[i]/8,
 							\phase, ~oscphase[i],
 
-							\lpCutoff, ~lpFilter[0],
-							\lpRes , ~lpFilter[1],
-							\hpCutoff ,~hpFilter[0],
-							\hpRes , ~hpFilter[1],
+							\lpCutoff, ~lpFilter[i][0],
+							\lpRes , ~lpFilter[i][1],
+							\hpCutoff ,~hpFilter[i][0],
+							\hpRes , ~hpFilter[i][1],
 
-							\startv,~masterEnvLevs[0],
-						    \atkv,~masterEnvLevs[1],
-						    \decv,~masterEnvLevs[2],
-						    \susv,~masterEnvLevs[3],
-						    \relv,~masterEnvLevs[4],
-						    \tm1,(~masterEnvTimes[1]-~masterEnvTimes[0]),
-						    \tm2,(~masterEnvTimes[2]-~masterEnvTimes[1]),
-						    \tm3,(~masterEnvTimes[3]-~masterEnvTimes[2]),
-						    \tm4,(~masterEnvTimes[3]-~masterEnvTimes[2]),
+							\atkv,~envlevs[8][1],
+						    \decv,~envlevs[8][2],
+						    \susv,~envlevs[8][3],
+						    \relv,~envlevs[8][4],
+						    \tm1,(~envtimes[8][0]),
+						    \tm2,(~envtimes[8][1]),
+						    \tm3,(~envtimes[8][2]),
+						    \tm4,(~envtimes[8][3]),
 							\masterGain, ~masterLev
 
 						],target:~synth
@@ -225,7 +221,7 @@ Task({s.waitForBoot{
 // =======================================================================================
 
 // msg[1] tells me the column  // msg[2] tells me the row // msg[3] tells me the value
-OSCdef('OSCmodlev', {
+OSCdef('OSCmatrix', {
 	arg msg;
 	msg.postln;
 
@@ -236,9 +232,7 @@ OSCdef('OSCmodlev', {
 
 // =====================================================================================
 
-// msg[1] tells me the input, // msg[2] tells me the amplitude
-
-OSCdef('OSCOscillator', {
+OSCdef('OSCoscillator', {
 	arg msg;
 	var discriminator = msg[2], index = msg[1], value = msg[3];
 		msg.postln;
@@ -276,105 +270,58 @@ OSCdef('OSCmaster', {
 
 // ========================================================================================
 
+	OSCdef('OSCenvAtk', {
+	arg msg;
+	var index = msg[1], atklev = msg[2], atktime = msg[3], dectime = msg[4];
+		~envlevs[index][0] = atklev;
+		~envtimes[index][0] = atktime;
+		~envtimes[index][1] = dectime;
+		~envlevs[index].postln;
+		~envtimes[index].postln;
+},
+"FmSynth/Envelope/Attack");
+
+
+OSCdef('OSCenvDec', {
+	arg msg;
+	var index = msg[1], declev = msg[2], dectime = msg[3], sustime = msg[4];
+		~envlevs[index][1] = declev;
+		~envtimes[index][1] = dectime;
+		~envtimes[index][2] = sustime;
+		~envlevs[index].postln;
+},
+"FmSynth/Envelope/Decay");
+
+
+OSCdef('OSCenvSus', {
+	arg msg;
+	var index = msg[1], suslev = msg[2], sustime = msg[3], reltime = msg[4];
+		~envlevs[index][2] = suslev;
+		~envtimes[index][2] = sustime;
+		~envtimes[index][3] = reltime;
+		msg.postln;
+},
+"FmSynth/Envelope/Sustain");
+
+
+
+OSCdef('OSCenvRel', {
+	arg msg;
+	var index = msg[1], rellev = msg[2], reltime = msg[3];
+		~envlevs[index][3] = rellev;
+		~envtimes[index][3] = reltime;
+		msg.postln;
+},
+"FmSynth/Envelope/Release");
+
+// ===============================================================================
+
 }},AppClock).play);
 
 
 
-~oscphase.postln;
 
 
-
-
-
-// =======================================================================================
-
-// msg[1] tells me the column  // msg[2] tells me the row // msg[3] tells me the value
-OSCdef('OSCmodlev', {
-	arg msg;
-	msg.postln;
-	~modlevels[msg[1]][msg[2]] = msg[3];
-	~modlevs.postln;
-},
-"FmSynth/Matrix");
-
-// ========================================================================================
-
-// time format of envelopes = duration of each segment
-// [start, atcktime, dectime, sustime, reltime]
-// therefore we need to pass him the distance between adjacent points , not the absolute x
-
-//msg[1] column//msg[2] row//msg[3] new level//msg[4] new time
-OSCdef('OSCmodenv', {
-	arg msg;
-	~envlevs[msg[1] = msg[3];
-	~envtimes[msg[1] = msg[4];
-},
-"FmSynth/Envelope");
-
-// ========================================================================================
-
-// The only the value in the message
-
-OSCdef('OSCmasterGain', {
-	arg msg;
-	masterGain = msg[1];
-},
-"FmSynth/masterGain");
-
-// ========================================================================================
-// The first message tells me the index, the second one the levels , the third one the times
-
-OSCdef('OSCmasterenv', {
-	arg msg;
-	~masterenvlevs[msg[1]] = msg[2]
-	~masterenvtimes[msg[1]] = msg[3]
-},
-"FmSynth/masterEnv");
-
-
-// ========================================================================================
-
-// msg[1] tells me the input, // msg[2] tells me the amp
-
-OSCdef('OSCLFOpit', {
-	arg msg;
-	var index = msg[1];
-	~lfoPitDepth[index] = msg[2];
-},
-"FmSynth/lfoPitch");
-
-// ========================================================================================
-
-// msg[1] tells me the input, // msg[2] tells me the rate
-
-OSCdef('OSCLFOrate', {
-	arg msg;
-	var index = msg[1];
-	~lfoRate[index] = msg[2];
-},
-"FmSynth/lfoRate");
-
-// ========================================================================================
-
-// msg[1] tells me the input, // msg[2] tells me the value
-
-OSCdef('OSCfRatio', {
-	arg msg;
-	var index = msg[1];
-	~fRatio[index] = msg[2];
-},
-"FmSynth/fRatio");
-
-// ========================================================================================
-
-// msg[1] tells me the input, // msg[2] tells me the amplitude
-
-OSCdef('OSCOscillator', {
-	arg msg;
-	var index = msg[1];
-
-},
-"FmSynth/Oscillator");
 
 // ========================================================================================
 
@@ -392,7 +339,7 @@ OSCdef('OSCfilter', {
 // =======================================================================================
 
 ~lpFilter = [1200,1];
-~amplevs[3] = 1;
+~envlevs[1][2] = 3;
 
 
 // =======================================================================================

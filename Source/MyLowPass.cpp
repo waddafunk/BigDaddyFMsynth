@@ -39,13 +39,13 @@ void MyLowPass::paint (Graphics& g)
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
     Path filterPath;
-    Point<float> start((float)0, (float)(height / 2)), cutX(getCutoff(), (float)-getResonance() * 2.0f * height * 0.7f + height * 0.5f), 
-        preCutX(cutX.getX() * 99.0f / 100.0f, height / 2.0f), 
+    Point<float> start((float)0, (float)(height / 2)), cutX(getCutoff(), (float)-getResonance() * 2.0f * height * 0.7f + height * 0.5f),
+        preCutX(cutX.getX() * 99.0f / 100.0f, height / 2.0f),
         endLinear(preCutX.getX() * 95.0f / 100.0f, (float)(height / 2)), endp(cutX.getX() + width / 10, (float)height);
-    
+
     if (endp.getX() > width)
         endp.setX(width);
-    
+
     filterPath.startNewSubPath(start);  // if this is the first point, start a new path..
     filterPath.lineTo(endLinear);
     filterPath.cubicTo(preCutX, cutX, endp);
@@ -74,7 +74,7 @@ void MyLowPass::mouseDown(const MouseEvent& event) {
     Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(getCutoff(), getResonance() / 2);
     float currentDistance = mousePos.getDistanceFrom(cutoffDrag);
     if (currentDistance < triggerDistance) {
-       // setCutoff(mousePos.getX());
+        //setCutoff(mousePos.getX());
         setResonance(mousePos.getY() * 2);
     }
 }

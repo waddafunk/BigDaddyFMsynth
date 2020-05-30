@@ -50,6 +50,8 @@ public:
     void setMyLFORange();
     void setMyMatrixRange();
 
+    std::vector<float> getLastSent() { return this->lastSent; };
+
 private:
     std::vector<Slider*> knobs;
     int xPos;
@@ -66,6 +68,8 @@ private:
     MySender *sender;
 
     KnobLookAndFeel KnobLAF;
+
+    std::vector<float> lastSent;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KnobSection)

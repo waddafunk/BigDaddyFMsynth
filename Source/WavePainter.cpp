@@ -110,6 +110,16 @@ void WavePainter::setYPos(int yPos)
     this->yPos = yPos;
 }
 
+void WavePainter::setAmolitude(float amplitude)
+{
+    this->amplitude = amplitude;
+}
+
+void WavePainter::setPhase(float phase)
+{
+    this->phase = phase;
+}
+
 void WavePainter::setTriggered(bool isTriggered)
 {
     this->triggered = isTriggered;

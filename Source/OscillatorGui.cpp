@@ -20,6 +20,7 @@ OscillatorGui::OscillatorGui()
     yPos = 0;
     height = 300;
     width = 300;
+    setFramesPerSecond(60);
     addPainters();
     addOscillatorKnobs();
     addOscillatorLfo();
@@ -30,6 +31,7 @@ OscillatorGui::OscillatorGui(int x, int y)
 {
     xPos = x;
     yPos = y;
+    setFramesPerSecond(60);
     addPainters();
     addOscillatorKnobs();
     addOscillatorLfo();
@@ -42,6 +44,7 @@ OscillatorGui::OscillatorGui(int x, int y, int w, int h)
     yPos = y;
     height = h;
     width = w;
+    setFramesPerSecond(60);
     addPainters();
     addOscillatorKnobs();
     addOscillatorLfo();
@@ -83,6 +86,23 @@ void OscillatorGui::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
 
+}
+
+void OscillatorGui::update()
+{
+    int i = 0;
+
+    for (auto& knobsection : knobSections) {
+            
+        if (i < painters.size()) {
+            if (knobsection->getLastSent().size() > 2) {
+                painters[i]->setAmolitude(knobsection->getLastSent()[0]);
+                painters[i]->setFreq(knobsection->getLastSent()[1]);
+                painters[i]->setPhase(knobsection->getLastSent()[2]);
+            }
+        }
+        i++;
+    }
 }
 
 

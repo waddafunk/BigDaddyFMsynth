@@ -51,6 +51,12 @@ public:
     int getYPos() const;
     void setYPos(int yPos);
 
+    void setAmolitude(float amplitude);
+    float getAmplitude() { return this->amplitude; };
+
+    void setPhase(float phase);
+    float getPhase() { return this->phase; };
+
     void setTriggered(bool isTriggered);
     bool getTriggered() { return triggered; }
     bool toggleTriggered() { this->triggered = !this->triggered; }
@@ -62,7 +68,9 @@ public:
 
 
 protected:
+    float amplitude;
     float freq =0.02f;
+    float phase;
     float height = 300;
     float width = 300;
     int xPos;

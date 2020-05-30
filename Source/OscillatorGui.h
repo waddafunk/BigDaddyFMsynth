@@ -35,6 +35,7 @@ public:
 
     void paint (Graphics&) override;
     void resized() override;
+    void update() override;
 
     void addPainters(WavePainter* painter);
     //std::vector<std::vector<float>*> getPainters() { return this->paintedWaves; };

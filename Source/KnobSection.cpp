@@ -32,6 +32,9 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPo
     checkDirection();
     sender = new MySender(tSection::matrix);
     addKnobs(nKnob, sender);
+    for (auto& knob : knobs) {
+        lastSent.push_back(knob->getValue());
+    }
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
@@ -39,6 +42,9 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) :
     checkDirection();
     sender = new MySender(type); 
     addKnobs(nKnob, sender);
+    for (auto& knob : knobs) { 
+        lastSent.push_back(knob->getValue());
+    }
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
@@ -46,6 +52,9 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, i
     checkDirection();
     sender = new MySender(type);
     addKnobs(nKnob, row, sender);
+    for (auto& knob : knobs) {
+        lastSent.push_back(knob->getValue());
+    }
 }
 
 KnobSection::~KnobSection(){
@@ -220,6 +229,30 @@ void KnobSection::sliderDragEnded(Slider*)
 void KnobSection::sliderValueChanged(Slider* slider)
 {
     sender->mySend(slider->getName(), slider->getValue());
+
+
+    if (slider->getName().toStdString().find(sender->tSectionToString(tSection::oscillator)) != std::string::npos) {
+        String token1, token2, token3; // token1 module name, token 2 position and token3 additional position if matrix
+        std::string delimiter = ">=", strTok3, stdName = sender->getSocketName().toStdString(); //cast to std string
+
+
+        token1 = String(stdName.substr(0, stdName.find(">=")).c_str()); //module name
+        stdName.erase(0, stdName.find(delimiter) + delimiter.length()); //erase delimiter
+        token2 = String(stdName.substr(0, stdName.find(">=")).c_str()); //position
+
+
+        float token2float = std::stoi(token2.toStdString());  //cast position to float
+        float token3float;
+
+
+        stdName.erase(0, stdName.find(delimiter) + delimiter.length());
+
+        token3 = String(stdName.substr(0, stdName.find(">=")).c_str()); // additional position
+        token3float = std::stoi(token3.toStdString());
+
+        if(token2float < lastSent.size())
+            lastSent[token2float] = token3float;
+    }
 }
 
 void KnobSection::setMyOscillatorRange() 
@@ -257,4 +290,3 @@ void KnobSection::setMyMatrixRange()
         knobs[i]->setRange(min, max, step);
     }
 }
-

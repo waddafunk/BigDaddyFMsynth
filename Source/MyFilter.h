@@ -13,11 +13,16 @@
 #include "Coordinate.h"
 #include "Converter.h"
 
+enum class filterType {highpass, lowpass};
+
 class MyFilter : public ModuleGui{
 public:
     //==============================================================================
     MyFilter()
     {
+    }
+    MyFilter(float cutOff, float gain, float resonance) : cutoff{ cutoff }, gain{ gain }, resonance{ resonance } {
+
     }
 
 
@@ -65,6 +70,9 @@ public:
 
     float getResonance() {
         return this->resonance;
+    }
+    float getGain() {
+        return this->gain;
     }
 
 
@@ -125,25 +133,34 @@ public:
         
     }
     
-    float computeStartingPointX(Point<float> cutPoint) {
-        float m = Converter::map(resonance,0,1,std::tan(45),std::tan(60)); //* (resonance + 1)/*Converter::map(resonance,0,1,1,2)*/);
+    float computeZeroCrossingPointX(Point<float> cutPoint, filterType type) {
+        float m = 0;
+        if (type == filterType::highpass) {
+            m = Converter::map(resonance, 0, 1, std::tan(45), std::tan(60)); //* (resonance + 1)/*Converter::map(resonance,0,1,1,2)*/);
+        }
+        else {
+            if (type == filterType::lowpass){
+                m = -Converter::map(resonance, 0, 1, std::tan(45), std::tan(60)); //* (resonance + 1)/*Converter::map(resonance,0,1,1,2)*/);
+            }
+        }
+        
         float x2 = cutPoint.getX();
         float y2 = height - cutPoint.getY();
         float y1 = 0;
         float x1 = (y1 - y2) / m + x2;
         //y = mx + q
         //y - y' = m(x - x')
-
-
         return x1;
     }
    
+
 
 protected:
 
     float cutoff = 440 * width / 10000.0f;
     float resonance = 0.7f * height;
     float gain = 0.7f * height;
+    filterType type;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyFilter)

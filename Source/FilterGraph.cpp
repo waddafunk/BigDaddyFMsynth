@@ -67,24 +67,11 @@ void FilterGraph::addGraphs()
 
     for (auto& graph : myGraphs) {
         graph->setMyBounds();
-        graph->setCutoffFromHz(100);
-        graph->setResonance(0.7f);
     }
 
-    this->setCutoff(100);   
-    this->setResonance(0.7f);
 
-    addAndMakeVisible(myGraphs[1]);
+    addAndMakeVisible(myGraphs[0]);
 
 
 }
 
-void FilterGraph::setCutoff(float cutoff)
-{
-    this->cutoff = cutoff;
-}
-
-void FilterGraph::setResonance(float resonance)
-{
-    this->resonance = resonance;
-}

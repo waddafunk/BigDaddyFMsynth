@@ -26,12 +26,18 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
     yPos = y;
     this->width = w;
     this->height = h;
+    setGain(0.5);
+    setResonance(0);
+    setCutoffFromHz(4000);
+    type = filterType::lowpass;
 }
 
 MyLowPass::~MyLowPass()
 {
 }
 
+
+/*
 void MyLowPass::paint (Graphics& g)
 {
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
@@ -58,6 +64,40 @@ void MyLowPass::paint (Graphics& g)
     g.setColour(Colours::grey);
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
+*/
+
+void MyLowPass::paint(Graphics& g) {
+
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
+
+    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
+
+    Path filterPath;
+    Point<float> cutPoint(cutoff, height - Converter::map(gain, 0, 1, 0, height));
+
+    //if resonance is 0 then 45 degrees .. else idk
+    //Point <float> startingPoint(computeStartingPointX(cutPoint), height);
+    Point <float> startingPoint(0, cutPoint.getY());
+    Point <float> preCut(cutPoint.getX() - (width - cutPoint.getX()) / 2 * (1 - resonance * gain), cutPoint.getY() - resonance / 4 * height * gain);
+    Point <float> resCut(cutPoint.getX(), cutPoint.getY() - (resonance * height / 2) * gain);
+    Point <float> posCut(cutPoint.getX() + resonance * (width / 20) * gain, cutPoint.getY() - (resonance / 4 * height) * gain);
+    Point <float> endPoint(computeZeroCrossingPointX(cutPoint,type), height);
+
+    filterPath.startNewSubPath(startingPoint);
+    filterPath.quadraticTo(preCut, resCut);
+    filterPath.quadraticTo(posCut, endPoint);
+    //filterPath.lineTo(cutPoint);
+    //filterPath.lineTo(width, cutPoint.getY());
+
+    // draw an outline around the path that we have created
+    g.strokePath(filterPath, PathStrokeType(2.0f)); // [4]
+    g.fillEllipse(cutPoint.getX() - 5, height * (1.0f - gain) - 5.0f, 10.0f, 10.0f);
+
+    g.setColour(Colours::grey);
+    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
+
+}
+
 
 void MyLowPass::resized()
 {
@@ -67,14 +107,4 @@ void MyLowPass::resized()
 }
 
 
-void MyLowPass::mouseDown(const MouseEvent& event) {
-    float triggerDistance = 50.0;
-    float minDistance = 0;
 
-    Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(getCutoff(), getResonance() / 2);
-    float currentDistance = mousePos.getDistanceFrom(cutoffDrag);
-    if (currentDistance < triggerDistance) {
-        //setCutoff(mousePos.getX());
-        setResonance(mousePos.getY() * 2);
-    }
-}

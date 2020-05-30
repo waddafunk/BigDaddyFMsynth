@@ -33,11 +33,6 @@ public:
     void setSelectedGraph(int selectedGraph); //0 lowpass, 1 highpass, 2 bandpass, 3 notch
     int getSelectedGraph() { return this->selectedGraph; }
 
-    void setCutoff(float cutoff);
-    float getCutoff() { return this->cutoff; };
-
-    void setResonance(float resonance);
-    float getResonance() { return this->resonance; };
 
 private:
 
@@ -46,8 +41,6 @@ private:
     std::vector <MyFilter*> myGraphs;
 
     int selectedGraph = 0; //0 lowpass, 1 highpass, 2 bandpass, 3 notch
-    float cutoff;
-    float resonance;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterGraph)
 };

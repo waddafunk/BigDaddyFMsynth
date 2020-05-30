@@ -27,6 +27,8 @@ MyHighPass::MyHighPass(int x, int y, int w, int h)
     this->height = h;
     setGain(0.5);
     setResonance(0);
+    setCutoffFromHz(400);
+    type = filterType::highpass;
 }
 
 MyHighPass::~MyHighPass()
@@ -84,7 +86,7 @@ void MyHighPass::paint(Graphics& g)
     Point<float> cutPoint(cutoff, height - Converter::map(gain, 0, 1, 0, height));
 
     //if resonance is 0 then 45 degrees .. else idk
-    Point <float> startingPoint(computeStartingPointX(cutPoint), height);
+    Point <float> startingPoint(computeZeroCrossingPointX(cutPoint,type), height);
     Point <float> preCut(cutPoint.getX() - resonance * (width/20) * gain,cutPoint.getY() - (resonance / 4 * height)* gain);
     Point <float> resCut(cutPoint.getX(), cutPoint.getY() - (resonance * height/2) * gain);
     Point <float> posCut(cutPoint.getX() + (width - cutPoint.getX()) /2 * (1 - resonance * gain), cutPoint.getY() - resonance / 4 * height * gain);

@@ -74,7 +74,7 @@ void MyLowPass::mouseDown(const MouseEvent& event) {
     Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(getCutoff(), getResonance() / 2);
     float currentDistance = mousePos.getDistanceFrom(cutoffDrag);
     if (currentDistance < triggerDistance) {
-        setCutoff(mousePos.getX());
+        //setCutoff(mousePos.getX());
         setResonance(mousePos.getY() * 2);
     }
 }

@@ -26,6 +26,8 @@ EnvelopeGui::EnvelopeGui()
     env[envelope::release]->setCoordinates(width, height);
     id = 0;
     computeValuesAndTimes();
+
+    sendData();
 }
 
 
@@ -44,6 +46,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
     env[envelope::release]->setCoordinates(width,height);
     computeValuesAndTimes();
     this->id = id;
+
     sendData();
 }
 
@@ -62,6 +65,8 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negati
     env[envelope::release]->setCoordinates(width, height);
 //    counter++;
     this->id = id;
+
+    computeValuesAndTimes();
     sendData();
 }
 

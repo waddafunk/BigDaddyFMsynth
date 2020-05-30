@@ -57,7 +57,7 @@ void MyLowPass::paint(Graphics& g) {
     Point <float> preCut2(cutPoint.getX() - (width / 40), resCut.getY() *(1 + resonance * 0.3));
     Point <float> endQuadratic(preCut.getX() + (preCut2.getX() - preCut.getX()) * 2 / 3 , preCut.getY() - height * resonance / 4);
     Point <float> posCut(cutPoint.getX() + (width / 20), cutPoint.getY() + (1 - resonance)*height/10 );
-    Point <float> endPoint(computeZeroCrossingPointX(cutPoint, type) - width / 20, height);
+    Point <float> endPoint(computeZeroCrossingPointX(cutPoint, type), height);
 
 
 

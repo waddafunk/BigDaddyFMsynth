@@ -90,6 +90,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     for (auto& button : textButtons) {
         button->setBounds(i * width / textButtons.size(), 0, width / textButtons.size(), barHeight);
         addAndMakeVisible(button);
+        button->setLookAndFeel(&buttonLAF);
         button->addListener(this);
         i++;
     }

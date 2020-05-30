@@ -26,7 +26,6 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
     int x, int y, int width, int height, float sliderPos,
     float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
 {
-
     if (img1.isValid())
     {
         const double rotation = (slider.getValue()
@@ -41,6 +40,9 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
         const float centerY = y + height * 0.5f;
         const float rx = centerX - radius - 1.0f;
         const float ry = centerY - radius;
+        
+        auto rw = radius * 2.0f;
+        auto angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
 
         g.drawImage(img1,
             (int)rx,
@@ -51,6 +53,25 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
             frameId * img1.getWidth(),
             img1.getWidth(),
             img1.getWidth());
+        
+        float startY = height / 2 + rw * std::cos(rotaryStartAngle);
+        float endX = width / 2 + radius* std::sin(rotaryEndAngle);
+
+
+            ColourGradient* gradient = new ColourGradient(Colours::grey.brighter(0.2), rx, y, Colours::aliceblue, endX, startY, false);
+            gradient->clearColours();
+            gradient->addColour(0, Colours::deepskyblue.darker(0.9));
+            gradient->addColour(0.3, Colours::deepskyblue.darker(0.9));
+            gradient->addColour(0.6, Colours::crimson.darker(0.3));
+            gradient->addColour(0.9, Colours::crimson.darker(0.8));
+
+            Path filledArc;
+            filledArc.addPieSegment(rx , ry , rw , rw , rotaryStartAngle*0.98, angle*1.02, 0.8);
+            g.setGradientFill(*gradient);
+            g.fillPath(filledArc);
+         
+            delete gradient;
+       
     }
     else
     {
@@ -62,8 +83,6 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
 
         g.drawFittedText(String("No Image"), text_bounds.getSmallestIntegerContainer(),
             Justification::horizontallyCentred | Justification::centred, 1);
-
-
     }
 }
 

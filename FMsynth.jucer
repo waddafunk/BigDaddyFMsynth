@@ -31,8 +31,6 @@
           <FILE id="UtVNpw" name="MyNotchFilter.h" compile="0" resource="0" file="Source/MyNotchFilter.h"/>
         </GROUP>
         <GROUP id="{64A3947B-EF73-731B-FD78-3B0C096D09F1}" name="images">
-          <FILE id="lZkvVd" name="switch_toggle.png" compile="0" resource="1"
-                file="images/switch_toggle.png"/>
           <FILE id="tqIrPA" name="Carbon.png" compile="0" resource="1" file="images/Carbon.png"/>
         </GROUP>
         <FILE id="Z6z5zh" name="SpectrogramGui.cpp" compile="1" resource="0"

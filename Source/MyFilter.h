@@ -15,6 +15,8 @@
 
 enum class filterType {highpass, lowpass};
 
+const float M_PI = 3.14159265359;
+
 class MyFilter : public ModuleGui{
 public:
     //==============================================================================
@@ -89,6 +91,10 @@ public:
         if (resonance + wheelEvent.deltaY < 1 && resonance + wheelEvent.deltaY > 0) {
             resonance += wheelEvent.deltaY;
         }
+
+        if (slope + wheelEvent.deltaX < 1 && slope + wheelEvent.deltaX > 0) {
+            slope += wheelEvent.deltaX;
+        }
         
     }
 
@@ -134,16 +140,15 @@ public:
     }
     
     float computeZeroCrossingPointX(Point<float> cutPoint, filterType type) {
-        float m = 0;
+        float m = - std::tan(45);
         if (type == filterType::highpass) {
-            m = Converter::map(resonance, 0, 1, std::tan(45), std::tan(60)); //* (resonance + 1)/*Converter::map(resonance,0,1,1,2)*/);
+            m = Converter::map(slope, 0, 1, std::tan(45), std::tan(60));
         }
         else {
             if (type == filterType::lowpass){
-                m = -Converter::map(resonance, 0, 1, std::tan(45), std::tan(60)); //* (resonance + 1)/*Converter::map(resonance,0,1,1,2)*/);
+                m = -Converter::map(slope, 0, 1, std::tan(45), std::tan(60));
             }
-        }
-        
+        } 
         float x2 = cutPoint.getX();
         float y2 = height - cutPoint.getY();
         float y1 = 0;
@@ -154,6 +159,35 @@ public:
     }
    
 
+    double getMagnitudeAtFrequency(double freq)
+    {
+        auto f2pi = 2.0 * M_PI * freq;
+
+        std::complex<double> b0a0(0, 0);
+        std::complex<double> b1a0(0, 0);
+        std::complex<double> b2a0(0, 0);
+        std::complex<double> a1a0(0, 0);
+        std::complex<double> a2a0(4, 0);
+        
+        std::complex<double> z(cos(f2pi), sin(f2pi));
+        std::complex<double> z2 = z * z;
+
+        std::complex<double> h =
+            (b0a0 * z2 + b1a0 * z + b2a0)
+            /
+            (1.0 * z2 + a1a0 * z + a2a0);
+
+        return std::abs(h);
+    }
+
+
+
+    void computeFilter() {
+        for (size_t i = 0; i < 24000; i+=4) {
+            filter[i] = getMagnitudeAtFrequency(i);
+        }
+
+    }
 
 protected:
 
@@ -161,6 +195,8 @@ protected:
     float resonance = 0.7f * height;
     float gain = 0.7f * height;
     filterType type;
+    float slope = 0;
+    float filter[24000/4];
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyFilter)

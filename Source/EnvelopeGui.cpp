@@ -44,9 +44,10 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
     env[envelope::release]->setCoordinates(width,height);
     computeValuesAndTimes();
     this->id = id;
+    sendData();
 }
 
-EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeRelease,int id)
+EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negativeRelease)
 {
     isForMatrix = negativeRelease;
     this->xPos = x;
@@ -61,6 +62,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeReleas
     env[envelope::release]->setCoordinates(width, height);
 //    counter++;
     this->id = id;
+    sendData();
 }
 
 
@@ -242,9 +244,11 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
             if (mousePos.hasLowerXThan(*env[envelope::decay])) {
                 isLegalX = false;
             }
-            if (mousePos.hasHigherXThan(*env[envelope::release])) {
-                isLegalX = false;
-                illegalRight = true;
+            if(! isForMatrix){
+                if (mousePos.hasHigherXThan(*env[envelope::release])) {
+                    isLegalX = false;
+                    illegalRight = true;
+                }
             }
 
 

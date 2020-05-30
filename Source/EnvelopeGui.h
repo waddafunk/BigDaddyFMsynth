@@ -26,7 +26,7 @@ class EnvelopeGui    : public ModuleGui
 public:
     EnvelopeGui();
     EnvelopeGui(int x, int y, int width, int height, int id);
-    EnvelopeGui(int x, int y, int width, int height, bool negativeRelease ,int id);
+    EnvelopeGui(int x, int y, int width, int height ,int id, bool negativeRelease);
     ~EnvelopeGui();
 
     void paint (Graphics&) override;

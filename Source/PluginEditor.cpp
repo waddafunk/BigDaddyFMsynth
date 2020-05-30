@@ -48,14 +48,14 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
 
     //matrix module initialization
 
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 0 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 0));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 1 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 1));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 2 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 2));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 3 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 3));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 4 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 4));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 5 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 5));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 6 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 6));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 7 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 7));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 0 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 0,true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 1 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 1, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 2 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 2, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 3 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 3, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 4 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 4, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 5 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 5, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 6 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 6, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), barHeight + 7 * (height - barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - barHeight) / v_divisor, 7, true));
     matrixModules.push_back(new EnvelopeGui(width * 4 / divisor + width / (molt * divisor), barHeight , width / divisor - width / (molt * divisor), envelopeBarHeight,8));
     matrixModules.push_back(new MasterGui(width * 4 / divisor + width / (molt * divisor), barHeight + envelopeBarHeight, width / divisor - width / (molt * divisor), height - envelopeBarHeight));
     matrixModules.push_back(new MatrixGui(0, barHeight, width * 3 / divisor + width / (4 * divisor), height - barHeight));
@@ -93,12 +93,6 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
         button->addListener(this);
         i++;
     }
-
-
-
-
-
-
 
 }
 

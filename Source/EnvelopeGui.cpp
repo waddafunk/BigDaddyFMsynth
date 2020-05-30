@@ -27,7 +27,7 @@ EnvelopeGui::EnvelopeGui()
     id = 0;
     computeValuesAndTimes();
 
-    sendData();
+    sendAllData();
 }
 
 
@@ -47,7 +47,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
     computeValuesAndTimes();
     this->id = id;
 
-    sendData();
+    sendAllData();
 }
 
 EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negativeRelease)
@@ -67,7 +67,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negati
     this->id = id;
 
     computeValuesAndTimes();
-    sendData();
+    sendAllData();
 }
 
 
@@ -450,8 +450,10 @@ void EnvelopeGui::sendData()
 
 void EnvelopeGui::sendAllData()
 {
-    sender->send(sender->getSocketName(),id, attackTime, attackValue, decayTime, decayValue,
-        sustainTime, sustainValue, releaseTime, releaseValue);
+    sender->send(sender->getSocketName() << "/Attack", id, attackValue, attackTime, decayTime);
+    sender->send(sender->getSocketName() << "/Decay", id, decayValue, decayTime, sustainTime);
+    sender->send(sender->getSocketName() << "/Sustain", id, sustainValue, sustainTime, releaseTime);
+    sender->send(sender->getSocketName() << "/Release", id, releaseValue, releaseTime);
 }
 
 float EnvelopeGui::computeAttackTime()

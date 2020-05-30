@@ -276,8 +276,7 @@ OSCdef('OSCmaster', {
 		~envlevs[index][0] = atklev;
 		~envtimes[index][0] = atktime;
 		~envtimes[index][1] = dectime;
-		~envlevs[index].postln;
-		~envtimes[index].postln;
+	msg.postln;
 },
 "FmSynth/Envelope/Attack");
 
@@ -288,7 +287,7 @@ OSCdef('OSCenvDec', {
 		~envlevs[index][1] = declev;
 		~envtimes[index][1] = dectime;
 		~envtimes[index][2] = sustime;
-		~envlevs[index].postln;
+	msg.postln;
 },
 "FmSynth/Envelope/Decay");
 

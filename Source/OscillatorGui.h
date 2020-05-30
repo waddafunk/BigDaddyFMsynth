@@ -40,7 +40,6 @@ public:
     //std::vector<std::vector<float>*> getPainters() { return this->paintedWaves; };
 
 
-
 private:
     std::vector<WavePainter*> painters;
     std::vector<FilterGui*> filters;
@@ -51,6 +50,7 @@ private:
     void addOscillatorLfo();
     void addPainters();
     void addFilter(int x, int y, int w, int h);
+
     void addFilters();
 
 

@@ -65,10 +65,10 @@ void FilterGraph::addGraphs()
     this->myGraphs.push_back(new MyBandPass(xPos, yPos, width, height));
     this->myGraphs.push_back(new MyNotchFilter(xPos, yPos, width, height));
 
-    for (int i = 0; i < 4; i++) {
-        myGraphs[i]->setMyBounds();
-        myGraphs[i]->setCutoff(1000);
-        myGraphs[i]->setResonance(0.7f);
+    for (auto& graph : myGraphs) {
+        graph->setMyBounds();
+        graph->setCutoffFromHz(100);
+        graph->setResonance(0.7f);
     }
 
     this->setCutoff(100);   
@@ -87,20 +87,4 @@ void FilterGraph::setCutoff(float cutoff)
 void FilterGraph::setResonance(float resonance)
 {
     this->resonance = resonance;
-}
-
-void FilterGraph::mouseDown(const MouseEvent& event) {
-    triggerDistance = 50;
-    float minDistance = 0;
-
-    Point<float> mousePos(event.getMouseDownX(), event.getMouseDownY()), cutoffDrag(cutoff, resonance / 2);
-    float currentDistance = mousePos.getDistanceFrom(cutoffDrag);
-    if (currentDistance < triggerDistance) {
-        cutoff = mousePos.getX();
-        resonance = mousePos.getY() * 2;
-        myGraphs[selectedGraph]->setCutoff(cutoff);
-        myGraphs[selectedGraph]->setResonance(resonance);
-    }
-
-
 }

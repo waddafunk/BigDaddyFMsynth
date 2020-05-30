@@ -85,3 +85,5 @@ void FilterGui::addMyFilters(int w, int h) {
 void FilterGui::addMyFilter(FilterGraph* painter) {
     myFilters.push_back(painter);
 }
+
+

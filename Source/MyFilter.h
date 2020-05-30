@@ -10,8 +10,9 @@
 
 #pragma once
 #include "ModuleGui.h"
+#include "Coordinate.h"
 
-class MyFilter : public ModuleGui {
+class MyFilter : public ModuleGui{
 public:
     //==============================================================================
     MyFilter()
@@ -32,12 +33,18 @@ public:
         // update their positions.
     }
 
-    void setCutoff(float cutOff)    //float cutOff: cutoff frequency value in hertz
+    void setCutoffFromHz(float cutOff)    //float cutOff: cutoff frequency value in hertz
     {
         if(cutOff >= 20.0f && cutOff <= 10000.0f)   //unnecessary check?
             this->cutoff = cutOff * width / 10000.0f;   //adjust to component dimensions
     }
 
+    /*
+    void setCutoff(float cutOff)    //float cutOff: cutoff frequency value in hertz
+    {
+        this->cutoff = cutOff;
+    }
+    */
     void setResonance(float resonance)  //float resonance: range in [0, 1]
     {
     
@@ -55,6 +62,17 @@ public:
     }
 
 
+    void mouseDown(const MouseEvent& event) override{
+
+        Coordinate mousePos;
+        mousePos.setCoordinates(event.getMouseDownX(), event.getMouseDownY());
+        setCutoffFromHz(mousePos.getX());
+        setResonance(mousePos.getY());
+        std::cout << " mouse X : " << mousePos.getX() << " mouse Y : " << mousePos.getY() << "cutoff : " << cutoff << "resonance : "<<resonance << std::endl;
+
+    }
+
+
 
 private:
 
@@ -64,3 +82,5 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MyFilter)
 };
+
+

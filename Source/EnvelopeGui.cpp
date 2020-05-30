@@ -23,10 +23,11 @@ EnvelopeGui::EnvelopeGui()
     env[envelope::decay]->setCoordinates(width * 2 / 4, height * 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
     env[envelope::release]->setCoordinates(width, height);
+    id = 0;
 }
 
 
-EnvelopeGui::EnvelopeGui(int x, int y, int width, int height )
+EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
 {
     isForMatrix = false;
     this->xPos = x;
@@ -39,9 +40,11 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height )
     env[envelope::decay]->setCoordinates(width *2 /4,height* 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4,height * 2 / 4);
     env[envelope::release]->setCoordinates(width,height);
+ //   counter++;
+    this->id = id;
 }
 
-EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeRelease)
+EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeRelease,int id)
 {
     isForMatrix = negativeRelease;
     this->xPos = x;
@@ -54,6 +57,8 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeReleas
     env[envelope::decay]->setCoordinates(width * 2 / 4, height * 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
     env[envelope::release]->setCoordinates(width, height);
+//    counter++;
+    this->id = id;
 }
 
 
@@ -383,7 +388,7 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
             break;
         }
 
-        sendData(); // sends the data to the server
+        sendAllData(); // sends the data to the server
    
     }
 

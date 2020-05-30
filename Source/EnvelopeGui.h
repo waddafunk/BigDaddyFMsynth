@@ -25,8 +25,8 @@ class EnvelopeGui    : public ModuleGui
 {
 public:
     EnvelopeGui();
-    EnvelopeGui(int x, int y, int width, int height);
-    EnvelopeGui(int x, int y, int width, int height, bool negativeRelease);
+    EnvelopeGui(int x, int y, int width, int height, int id);
+    EnvelopeGui(int x, int y, int width, int height, bool negativeRelease ,int id);
     ~EnvelopeGui();
 
     void paint (Graphics&) override;
@@ -34,6 +34,7 @@ public:
     void mouseDown(const MouseEvent& event) override;
     void mouseDrag(const MouseEvent& event) override;
     void mouseUp(const MouseEvent& event) override;
+    //void startCount();
 
     void sendData();
     void sendAllData();
@@ -48,6 +49,7 @@ private:
     bool isForMatrix = false;
     MySender* sender;
     float attackTime, attackValue, decayTime, decayValue, sustainTime, sustainValue, releaseTime, releaseValue;
+    int id;
 
 
     float computeAttackTime();

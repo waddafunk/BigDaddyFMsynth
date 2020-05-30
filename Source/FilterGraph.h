@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "MyFilter.h"
 #include"ModuleGui.h"
+#include "Coordinate.h"
 
 //==============================================================================
 /*
@@ -28,7 +29,6 @@ public:
     void resized() override;
     void setMyBounds();
     void addGraphs();
-    void mouseDown(const MouseEvent& event) override;
 
     void setSelectedGraph(int selectedGraph); //0 lowpass, 1 highpass, 2 bandpass, 3 notch
     int getSelectedGraph() { return this->selectedGraph; }

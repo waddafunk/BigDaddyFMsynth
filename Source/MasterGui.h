@@ -34,7 +34,7 @@ public:
     void sliderDragEnded(Slider* slider) override;
 
 private:
-
     Slider fader;
+    MySender* sender;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MasterGui)
 };

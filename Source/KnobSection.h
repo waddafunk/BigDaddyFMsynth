@@ -43,10 +43,10 @@ public:
     void setMyBounds();
     void addKnobs(int nKnob);
     void addKnobs(int nKnob, int row);
-
-
     
-
+    void setMyOscillatorRange();
+    void setMyLFORange();
+    void setMyMatrixRange();
 
 private:
     std::vector<Slider*> knobs;
@@ -56,7 +56,7 @@ private:
     int height;
     direction dir;
 
-
+    
     void arrange();
     void checkDirection();
 

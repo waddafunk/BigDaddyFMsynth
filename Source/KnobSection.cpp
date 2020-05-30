@@ -46,7 +46,6 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, i
     checkDirection();
     sender = new MySender(type);
     addKnobs(nKnob, row);
-
 }
 
 KnobSection::~KnobSection(){
@@ -62,26 +61,6 @@ void KnobSection::setMyBounds() {
 }
 
 
-/*
-
-//-----------------------ADD KNOBS-----------
-void KnobSection::addKnobs(int nKnob)
-{
-    Slider* temp;
-
-    for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
-        String knobName = sender->getSocketName() + ">=" + std::to_string(i);
-        temp->setName(knobName); //set name to send to socket
-        temp->addListener(this);
-        temp->setLookAndFeel(&KnobLAF);
-        addAndMakeVisible(temp); // makes visible each knob
-        knobs.push_back(temp);
-    }
-    arrange();
-}
-*/
-
 void KnobSection::addKnobs(int nKnob)
 {
     addKnobs(nKnob, -1);
@@ -93,7 +72,8 @@ void KnobSection::addKnobs(int nKnob, int row)
     String knobName;
 
     for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::NoTextBox);
+        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::TextBoxBelow);
+        temp->setTextBoxIsEditable(true);
         if (row < 0) {
             knobName = sender->getSocketName() + ">=" + std::to_string(i);
         }
@@ -173,47 +153,6 @@ void KnobSection::resized()
 
 }
 
-/*
-void KnobSection::sliderValueChanged(Slider* slider)
-{
-    String name = slider->getName();
-    String token1, token2, token3; // token1 module name, token 2 position and token3 additional position if matrix
-    std::string delimiter = ">=", strTok3, stdName = name.toStdString(); //cast to std string
-
-
-    token1 = String(stdName.substr(0, stdName.find(">=")).c_str()); //module name
-    stdName.erase(0, stdName.find(delimiter) + delimiter.length()); //erase delimiter
-    token2 = String(stdName.substr(0, stdName.find(">=")).c_str()); //position
-
-
-    float token2float = std::stoi(token2.toStdString());  //cast position to float
-    float token3float;
-
-
-    stdName.erase(0, stdName.find(delimiter) + delimiter.length());
-
-    strTok3 = "Matrix";
-    float value; //slider value
-
-
-    if ((token1.toStdString().find(strTok3) != std::string::npos) || (token1.toStdString().find("Oscillator") != std::string::npos)) { //if matrix
-
-        token3 = String(stdName.substr(0, stdName.find(">=")).c_str()); // additional position
-        token3float = std::stoi(token3.toStdString());  
-        value = slider->getValue();
-        sender.send(token1, token2float, token3float, value); //send
-    }
-    else {
-        sender.send(token1, token2float, value); //send
-    }
-        
-        
-    
- 
-}
-
-
-*/
 void KnobSection::sliderDragStarted(Slider*)
 {
 }
@@ -227,3 +166,40 @@ void KnobSection::sliderValueChanged(Slider* slider)
 {
     sender->mySend(slider->getName(), slider->getValue());
 }
+
+void KnobSection::setMyOscillatorRange() 
+{
+    int max = 100;
+    int min = 10;
+    float step = 0.01;
+ 
+    knobs[0]->setRange(min/100, max/100, step);       // AMP
+    knobs[1]->setRange(min/500, max/10, step);         // FREQ RATIO
+    knobs[1]->setSkewFactorFromMidPoint(max/50);
+    knobs[2]->setRange(0, double_Pi, step);           //PHASE      
+}
+
+void KnobSection::setMyLFORange()
+{
+    int max = 20 ;
+    int min = 0.002 ;
+    float step = 0.1;
+
+    knobs[0]->setRange( min, max / 20 , step ); // LFOA amp
+    knobs[1]->setRange(min, max/4, step/10);       // LFOP amp
+    knobs[2]->setRange(min, max, step);            // LFO rate
+    knobs[2]->setSkewFactorFromMidPoint(max / 10);
+    knobs[3]->setRange(0, double_Pi,step);      // LFO phase
+}
+
+void KnobSection::setMyMatrixRange()
+{
+    int max = 100;
+    int min = 0;
+    float step = 0.1;
+
+    for (int i = 0; i < 8; i++) {
+        knobs[i]->setRange(min, max, step);
+    }
+}
+

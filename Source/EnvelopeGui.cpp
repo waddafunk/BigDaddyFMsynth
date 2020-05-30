@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "EnvelopeGui.h"
+#include "Converter.h"
 
 //==============================================================================
 EnvelopeGui::EnvelopeGui()
@@ -425,13 +426,13 @@ void EnvelopeGui::sendData()
     //se invece vuole un messaggio solo per il movimento di un singolo punto
     switch (currentEnv)
     {
-    case envelope::attack: sender->send(sender->getSocketName() << "/Attack", attackValue, attackTime , decayTime);
+    case envelope::attack: sender->send(sender->getSocketName() << "/Attack", id, attackValue, attackTime , decayTime);
         break;
-    case envelope::decay: sender->send(sender->getSocketName() << "/Decay", decayValue, decayTime, sustainTime);
+    case envelope::decay: sender->send(sender->getSocketName() << "/Decay", id, decayValue, decayTime, sustainTime);
         break;
-    case envelope::sustain: sender->send(sender->getSocketName() << "/Sustain", sustainValue, sustainTime, releaseTime );
+    case envelope::sustain: sender->send(sender->getSocketName() << "/Sustain", id, sustainValue, sustainTime, releaseTime );
         break;
-    case envelope::release: sender->send(sender->getSocketName() << "/Release", releaseValue, releaseTime);
+    case envelope::release: sender->send(sender->getSocketName() << "/Release", id, releaseValue, releaseTime);
         break;
     default:
         break;
@@ -446,42 +447,50 @@ void EnvelopeGui::sendAllData()
 
 float EnvelopeGui::computeAttackTime()
 {
-    return env[envelope::attack]->getX();
+    float currentTime = env[envelope::attack]->getX();
+    return Converter::map(currentTime, 0, width, 0, 8);
 }
 
 float EnvelopeGui::computeAttackValue()
 {
-    return height - env[envelope::attack]->getY();
+    float currentLev = height - env[envelope::attack]->getY();
+    return Converter::map(currentLev, 0,height, 0, 1);
 }
 
 float EnvelopeGui::computeDecayTime()
 {
-    return env[envelope::decay]->getX() - computeAttackTime();
+    float currentTime = env[envelope::decay]->getX() - env[envelope::attack]->getX();
+    return Converter::map(currentTime, 0, width, 0, 8);
 }
 
 float EnvelopeGui::computeDecayValue()
 {
-    return height - env[envelope::decay]->getY();
+    float currentLev = height - env[envelope::decay]->getY();
+    return Converter::map(currentLev, 0, height, 0, 1);
 }
 
 float EnvelopeGui::computeSustainTime()
 {
-    return env[envelope::sustain]->getX() - computeDecayTime();
+    float currentTime = env[envelope::sustain]->getX() - env[envelope::decay]->getX();
+    return  Converter::map(currentTime, 0, width, 0, 8);
 }
 
 float EnvelopeGui::computeSustainValue()
 {
-    return height - env[envelope::sustain]->getY();
+    float currentLev = height - env[envelope::sustain]->getY();
+    return Converter::map(currentLev, 0, height, 0, 1);
 }
 
 float EnvelopeGui::computeReleaseTime()
 {
-    return env[envelope::release]->getX() - computeSustainTime();
+    float currentTime = env[envelope::release]->getX() - env[envelope::sustain]->getX();
+    return Converter::map(currentTime, 0, width, 0, 8);
 }
 
 float EnvelopeGui::computeReleaseValue()
 {
-    return height - env[envelope::release]->getY();
+    float currentLev = height - env[envelope::release]->getY();
+    return Converter::map(currentLev, 0, height, 0, 1);
 }
 
 void EnvelopeGui::computeValuesAndTimes()

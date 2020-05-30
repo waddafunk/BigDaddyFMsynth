@@ -31,21 +31,21 @@ KnobSection::KnobSection(int x, int y, int w, int h) : xPos{ x }, yPos{ y }, wid
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
-    addKnobs(nKnob);
+    addKnobs(nKnob, sender);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
-    sender = new MySender(type);
-    addKnobs(nKnob);
+    sender = new MySender(type); 
+    addKnobs(nKnob, sender);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
     sender = new MySender(type);
-    addKnobs(nKnob, row);
+    addKnobs(nKnob, row, sender);
 }
 
 KnobSection::~KnobSection(){
@@ -61,9 +61,9 @@ void KnobSection::setMyBounds() {
 }
 
 
-void KnobSection::addKnobs(int nKnob)
+void KnobSection::addKnobs(int nKnob, MySender* sender)
 {
-    addKnobs(nKnob, -1);
+    addKnobs(nKnob, -1, sender);
 }
 
 void KnobSection::addKnobs(int nKnob, int row)
@@ -88,6 +88,41 @@ void KnobSection::addKnobs(int nKnob, int row)
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
     }
+
+
+    arrange();
+}
+
+void KnobSection::addKnobs(int nKnob, int row, MySender* sender)
+{
+    Slider* temp;
+    String knobName;
+
+    for (size_t i = 0; i < nKnob; ++i) {
+        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::TextBoxBelow);
+        temp->setTextBoxIsEditable(true);
+        if (row < 0) {
+            knobName = sender->getSocketName() + ">=" + std::to_string(i);
+        }
+        else {
+            knobName = sender->getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
+        }
+
+        std::string stdName = knobName.toStdString();
+        temp->setName(knobName); //set name to send to socket
+        temp->addListener(this);
+        temp->setLookAndFeel(&KnobLAF);
+        addAndMakeVisible(temp); // makes visible each knob
+        knobs.push_back(temp);
+        
+    }
+
+    checkTypeAndSetRange(sender->getTSection()); // set range of each knob
+
+    for (auto& knob : knobs) { //init supercollider
+        sender->mySend(knob->getName(), float(knob->getValue()));
+    }
+
     arrange();
 }
 
@@ -135,6 +170,26 @@ void KnobSection::checkDirection() {
     else
     {
         dir = direction::horizontal;
+    }
+}
+
+void KnobSection::checkTypeAndSetRange(tSection type)
+{
+    switch (type)
+    {
+    case tSection::oscillator:
+        setMyOscillatorRange();
+        break;
+
+    case tSection::lfo:
+        setMyLFORange();
+        break;
+
+    case tSection::matrix:
+        setMyMatrixRange();
+        break;
+    default:
+        break;
     }
 }
 

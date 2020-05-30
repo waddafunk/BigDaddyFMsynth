@@ -30,6 +30,10 @@ public:
     void mySend(String name, float value);
     String getSocketName();
 
+    tSection getTSection();
+
+
+
     std::string tSectionToString(tSection section);
     tSection stringToTSection(String section);
 

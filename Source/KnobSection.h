@@ -41,8 +41,10 @@ public:
 
 
     void setMyBounds();
-    void addKnobs(int nKnob);
-    void addKnobs(int nKnob, int row);
+    void addKnobs(int nKnob, MySender* sender);
+    void addKnobs(int nKnob, int row, MySender* sender);
+
+    void addKnobs(int nKnob, int row); //deprecating
     
     void setMyOscillatorRange();
     void setMyLFORange();
@@ -59,6 +61,7 @@ private:
     
     void arrange();
     void checkDirection();
+    void checkTypeAndSetRange(tSection type);
 
     MySender *sender;
 

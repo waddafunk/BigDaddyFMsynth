@@ -76,6 +76,11 @@ String MySender::getSocketName()
     return "/StandardSocket"; //error case
 }
 
+tSection MySender::getTSection()
+{
+	return this->type;
+}
+
 std::string MySender::tSectionToString(tSection section)
 {
     switch (section)

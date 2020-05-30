@@ -60,6 +60,7 @@ private:
     float computeSustainValue();
     float computeReleaseTime();
     float computeReleaseValue();
+    void computeValuesAndTimes();
 
 
 

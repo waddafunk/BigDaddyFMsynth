@@ -85,9 +85,9 @@ void MyHighPass::paint(Graphics& g)
 
     //if resonance is 0 then 45 degrees .. else idk
     Point <float> startingPoint(computeStartingPointX(cutPoint), height);
-    Point <float> preCut(cutPoint.getX() - width / 50,cutPoint.getY() - (resonance *2/3 * height));
-    Point <float> resCut(cutPoint.getX(), cutPoint.getY() - (resonance * height));
-    Point <float> posCut(width - width/50, cutPoint.getY() - (resonance / 3 * height));
+    Point <float> preCut(cutPoint.getX() - resonance * (width/20) * gain,cutPoint.getY() - (resonance / 4 * height)* gain);
+    Point <float> resCut(cutPoint.getX(), cutPoint.getY() - (resonance * height/2) * gain);
+    Point <float> posCut(cutPoint.getX() + (width - cutPoint.getX()) /2 * (1 - resonance * gain), cutPoint.getY() - resonance / 4 * height * gain);
     Point <float> endPoint(width, cutPoint.getY());
 
     filterPath.startNewSubPath(startingPoint);

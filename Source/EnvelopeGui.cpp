@@ -24,6 +24,7 @@ EnvelopeGui::EnvelopeGui()
     env[envelope::sustain]->setCoordinates(width * 3 / 4, height * 2 / 4);
     env[envelope::release]->setCoordinates(width, height);
     id = 0;
+    computeValuesAndTimes();
 }
 
 
@@ -40,7 +41,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
     env[envelope::decay]->setCoordinates(width *2 /4,height* 2 / 4);
     env[envelope::sustain]->setCoordinates(width * 3 / 4,height * 2 / 4);
     env[envelope::release]->setCoordinates(width,height);
- //   counter++;
+    computeValuesAndTimes();
     this->id = id;
 }
 
@@ -388,7 +389,7 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
             break;
         }
 
-        sendAllData(); // sends the data to the server
+        sendData(); // sends the data to the server
    
     }
 
@@ -424,13 +425,13 @@ void EnvelopeGui::sendData()
     //se invece vuole un messaggio solo per il movimento di un singolo punto
     switch (currentEnv)
     {
-    case envelope::attack: sender->send(sender->getSocketName() << "/attack", attackTime, attackValue);
+    case envelope::attack: sender->send(sender->getSocketName() << "/Attack", attackValue, attackTime , decayTime);
         break;
-    case envelope::decay: sender->send(sender->getSocketName() << "/decay", decayTime, decayValue);
+    case envelope::decay: sender->send(sender->getSocketName() << "/Decay", decayValue, decayTime, sustainTime);
         break;
-    case envelope::sustain: sender->send(sender->getSocketName() << "/sustain", sustainTime, sustainValue);
+    case envelope::sustain: sender->send(sender->getSocketName() << "/Sustain", sustainValue, sustainTime, releaseTime );
         break;
-    case envelope::release: sender->send(sender->getSocketName() << "/release", releaseTime, releaseValue);
+    case envelope::release: sender->send(sender->getSocketName() << "/Release", releaseValue, releaseTime);
         break;
     default:
         break;
@@ -482,3 +483,17 @@ float EnvelopeGui::computeReleaseValue()
 {
     return height - env[envelope::release]->getY();
 }
+
+void EnvelopeGui::computeValuesAndTimes()
+{
+    attackTime = computeAttackTime();
+    decayTime = computeDecayTime();
+    sustainTime = computeSustainTime();
+    releaseTime = computeReleaseTime();
+    attackValue = computeAttackValue();
+    decayValue = computeDecayValue();
+    sustainValue = computeSustainValue();
+    releaseValue = computeReleaseValue();
+}
+
+

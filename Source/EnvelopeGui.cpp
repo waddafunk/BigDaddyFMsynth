@@ -46,7 +46,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
     this->id = id;
 }
 
-EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,bool negativeRelease,int id)
+EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negativeRelease)
 {
     isForMatrix = negativeRelease;
     this->xPos = x;
@@ -242,9 +242,11 @@ void EnvelopeGui::mouseDrag(const MouseEvent& event)
             if (mousePos.hasLowerXThan(*env[envelope::decay])) {
                 isLegalX = false;
             }
-            if (mousePos.hasHigherXThan(*env[envelope::release])) {
-                isLegalX = false;
-                illegalRight = true;
+            if(! isForMatrix){
+                if (mousePos.hasHigherXThan(*env[envelope::release])) {
+                    isLegalX = false;
+                    illegalRight = true;
+                }
             }
 
 

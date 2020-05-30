@@ -46,6 +46,7 @@ public:
     
     void setMyOscillatorRange();
     void setMyLFORange();
+    void setMyMatrixRange();
 
 private:
     std::vector<Slider*> knobs;

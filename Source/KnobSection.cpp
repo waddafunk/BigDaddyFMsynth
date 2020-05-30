@@ -171,24 +171,35 @@ void KnobSection::setMyOscillatorRange()
 {
     int max = 100;
     int min = 10;
-    int step = 1;
+    float step = 0.01;
  
-    knobs[0]->setRange(min/100, max/100, step/100); // AMP
-    knobs[1]->setRange(min/10, max/10, step/10);                   // FREQRATIO
+    knobs[0]->setRange(min/100, max/100, step);       // AMP
+    knobs[1]->setRange(min/500, max/10, step);         // FREQ RATIO
     knobs[1]->setSkewFactorFromMidPoint(max/50);
-    knobs[2]->setRange(0, double_Pi, step/100);           //PHASE      
+    knobs[2]->setRange(0, double_Pi, step);           //PHASE      
 }
 
 void KnobSection::setMyLFORange()
 {
     int max = 20 ;
     int min = 0.002 ;
-    int step = 0.1;
+    float step = 0.1;
 
-    knobs[0]->setRange( min, max / 20 , step/10 ); // LFOA amp
-    knobs[1]->setRange(min, max/4, step/10);
-    knobs[2]->setRange(min, max, step);
+    knobs[0]->setRange( min, max / 20 , step ); // LFOA amp
+    knobs[1]->setRange(min, max/4, step/10);       // LFOP amp
+    knobs[2]->setRange(min, max, step);            // LFO rate
     knobs[2]->setSkewFactorFromMidPoint(max / 10);
-    knobs[3]->setRange(0, double_Pi,step/10);
+    knobs[3]->setRange(0, double_Pi,step);      // LFO phase
+}
+
+void KnobSection::setMyMatrixRange()
+{
+    int max = 100;
+    int min = 0;
+    float step = 0.1;
+
+    for (int i = 0; i < 8; i++) {
+        knobs[i]->setRange(min, max, step);
+    }
 }
 

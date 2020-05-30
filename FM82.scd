@@ -1,6 +1,8 @@
 MIDIClient.init;
 MIDIIn.connectAll;
 NetAddr("127.0.0.1", 57120);
+s.options.memSize = 80000;
+FreqScope.new;
 
 (
 
@@ -22,12 +24,14 @@ Task({s.waitForBoot{
 	SynthDef(\fmTex,
 		{
 			|
-			t1,t2,t3,t4,in,out=0,amp=0,lev1,lev2,lev3,lev4,lev5,
-			lfrate,lfoAmpDepth=0,freq,phase=0,pan=0,fmout=8,
+			t1,t2,t3,t4,in,out=0,amp=0,lev1 = 0,lev2,lev3,lev4,lev5,
+			lfrate,lfoAmpDepth=0,freq,phase,pan=0,fmout=8,
 			s1,m1,m2,m3,m4,m5,m6,m7,m8,fmouts,inbus=8,
 			cur1,cur2,cur3,cur4,gate = 1,
 			lfoPitDepth=0,lfoFade=0,envPitDepth,
-			lpCutoff = 7000, lpRes = 1, hpCutoff = 30, hpRes = 1
+			lpCutoff = 7000, lpRes = 1, hpCutoff = 30, hpRes = 1,
+			strtv, atkv, decv, susv, relv,
+			tm1,tm2,tm3,tm4, masterEnv, lfophase, masterGain
 			|
 
 			var env,osc,input,lfo,lfofade;
@@ -35,19 +39,18 @@ Task({s.waitForBoot{
 			input = In.ar(inbus,1);
 
 			env = EnvGen.kr(Env.new([lev1,lev2,lev3,lev4,lev5],[t1,t2,t3,t4],[cur1,cur2,cur3,cur4],3,4),gate,doneAction:2);
-
+            masterEnv = EnvGen.kr(Env.new([strtv, atkv, decv, susv, relv],[tm1,tm2,tm3,tm4],[cur1,cur2,cur3,cur4],3,4),gate,doneAction:2);
 			lfofade = Line.kr(0.0001,1,lfoFade);
 
-			lfo = SinOsc.ar(lfrate,0,lfofade);
+			lfo = SinOsc.ar(lfrate,lfophase,lfofade);
 
-			osc = SinOsc.ar(freq+(input)+(lfo*lfoPitDepth)+(env*envPitDepth),phase,1+(lfo*lfoAmpDepth),0)*env;
+			osc = SinOsc.ar(freq+(input)+(lfo*lfoPitDepth)+(env*envPitDepth),phase,1+(lfo*lfoAmpDepth),0)*env * masterEnv;
 
 			osc = RLPF.ar(osc,lpCutoff,lpRes,1);
 			osc = RHPF.ar(osc,hpCutoff,hpRes,1);
-
 			Out.ar(s1,[osc*m1,osc*m2,osc*m3,osc*m4,osc*m5,osc*m6,osc*m7,osc*m8]);
 
-			Out.ar(out,Pan2.ar(osc,pan,amp));
+			Out.ar(out,Pan2.ar(osc,pan,amp*masterGain));
 		}
 
 	).send(s);
@@ -63,12 +66,16 @@ Task({s.waitForBoot{
 
 	s.sync;
 
-	polyphon = 12;
+	~effects = Group.new(~synth, \addAfter);
+
+	s.sync;
+
+	polyphon = 6;
 	polyphon.do{|o|
 		8.do{
 			|i|
-			Synth(\feedback,[\in,((8+i)+(16*o)),\out,((16+i)+(16*o))],target:~feedback)
-		}
+			Synth(\feedback,[\in,((8+i)+(16*o)),\out,((16+i)+(16*o))],target:~feedback);
+		};
 	};
 
 	noSynths = 0;
@@ -81,29 +88,31 @@ Task({s.waitForBoot{
 	nodecoll = 128.collect{List[]};
 
 
-	~envtimes = 8.collect{[0.0,0.1,0.5,0.7,1.0]}.postln;
+	~envtimes = 8.collect{[0.1,0.5,0.7,1.0]}.postln;
 
-	~envlevs = 8.collect{[0.0,1.0,0.5,0.5,0.0]}.postln;
+	~envlevs = 8.collect{[1.0,0.5,0.5,0.0]}.postln;
+
+	~masterLev = 1;
+
+	~masterEnvTimes = [0, 2, 0.5, 0.7, 1.0];
+
+	~masterEnvLevs = [0.0, 1.0, 0.8, 0.5, 0];
 
 	~envPitDepth = 8.collect{0}.postln;
 
 	~lfoAmpDepth = 8.collect{0.5}.postln;
-
 	~lfoPitDepth = 8.collect{1}.postln;
-
 	~lfoRate = 8.collect{3};
-
 	~lfoFadeTime = 8.collect{4};
+	~lfoPhase = 8.collect{0};
 
 	~envcurves = 8.collect{[0,0,0,0]};
 
 	~modlevs = 8.collect{8.collect{0}};
 
-	~times = 8.collect{1};
-
+	~amplevs = 8.collect{0};
 	~fratio = 8.collect{|i| 8-i};
-
-	~amplevs = 8.collect{0.1};
+	~oscphase = 8.collect{0};
 
 	~lpFilter = [1400, 1];
 
@@ -132,25 +141,28 @@ Task({s.waitForBoot{
 				syn =
 					Synth(\fmTex,
 						[
-							\lev1,~envlevs[i][0],
-							\lev2,~envlevs[i][1],
-							\lev3,~envlevs[i][2],
-							\lev4,~envlevs[i][3],
-							\lev5,~envlevs[i][4],
-							\t1,(~envtimes[i][1]-~envtimes[i][0])*~times[i],
-							\t2,(~envtimes[i][2]-~envtimes[i][1])*~times[i],
-							\t3,(~envtimes[i][3]-~envtimes[i][2])*~times[i],
-							\t4,(~envtimes[i][3]-~envtimes[i][2])*~times[i],
+							\masterGain,~masterlev,
+							\lev2,~envlevs[i][0],
+							\lev3,~envlevs[i][1],
+							\lev4,~envlevs[i][2],
+							\lev5,~envlevs[i][3],
+							\t1,(~envtimes[i][1]-~envtimes[i][0]),
+							\t2,(~envtimes[i][2]-~envtimes[i][1]),
+							\t3,(~envtimes[i][3]-~envtimes[i][2]),
+							\t4,(~envtimes[i][3]-~envtimes[i][2]),
 							\cur1,~envcurves[i][0],
 							\cur2,~envcurves[i][1],
 							\cur3,~envcurves[i][2],
 							\cur4,~envcurves[i][3],
 							\freq,num.midicps*~fratio[i],
 							\inbus,(16+i)+(synTest*16),
+
 							\lfoPitDepth,~lfoPitDepth[i],
 							\lfoAmpDepth,~lfoAmpDepth[i],
 							\lfoFade,~lfoFadeTime[i],
 							\lfrate,~lfoRate[i],
+							\lfophase, ~lfoPhase[i],
+
 							\envPitDepth,~envPitDepth[i],
 							\s1,8+(synTest*16),
 							\m1,(num.midicps/10)*~modlevs[i][0],
@@ -162,22 +174,31 @@ Task({s.waitForBoot{
 							\m7,(num.midicps/10)*~modlevs[i][6],
 							\m8,(num.midicps/10)*~modlevs[i][7],
 							\amp,~amplevs[i]/8,
+							\phase, ~oscphase[i],
 
 							\lpCutoff, ~lpFilter[0],
 							\lpRes , ~lpFilter[1],
 							\hpCutoff ,~hpFilter[0],
-							\hpRes , ~hpFilter[1]
+							\hpRes , ~hpFilter[1],
+
+							\startv,~masterEnvLevs[0],
+						    \atkv,~masterEnvLevs[1],
+						    \decv,~masterEnvLevs[2],
+						    \susv,~masterEnvLevs[3],
+						    \relv,~masterEnvLevs[4],
+						    \tm1,(~masterEnvTimes[1]-~masterEnvTimes[0]),
+						    \tm2,(~masterEnvTimes[2]-~masterEnvTimes[1]),
+						    \tm3,(~masterEnvTimes[3]-~masterEnvTimes[2]),
+						    \tm4,(~masterEnvTimes[3]-~masterEnvTimes[2]),
+							\masterGain, ~masterLev
 
 						],target:~synth
 					);
 
-
 				}
 			);
 
-			//z = Synth.after(s, \flanger, [\inBus,[0,1],\outBus,[0,1]]);
-
-			reltime = 8.collect{|i|(~envtimes[i][3]-~envtimes[i][2])*~times[i]};
+			reltime = 8.collect{|i|(~envtimes[i][3]-~envtimes[i][2])};
 			reltime = reltime.maxItem;
 			noSynths = noSynths +1;
 		}
@@ -201,7 +222,69 @@ Task({s.waitForBoot{
 
 	);
 
+// =======================================================================================
+
+// msg[1] tells me the column  // msg[2] tells me the row // msg[3] tells me the value
+OSCdef('OSCmodlev', {
+	arg msg;
+	msg.postln;
+
+	~modlevs[msg[1]][msg[2]] = msg[3];
+	~modlevs.postln;
+},
+"FmSynth/Matrix");
+
+// =====================================================================================
+
+// msg[1] tells me the input, // msg[2] tells me the amplitude
+
+OSCdef('OSCOscillator', {
+	arg msg;
+	var discriminator = msg[2], index = msg[1], value = msg[3];
+		msg.postln;
+	if(discriminator == 0, {~amplevs[index] = value});
+	if(discriminator == 1, {~fratio[index] = value});
+	if(discriminator == 2, {~oscphase[index] = value});
+},
+"FmSynth/Oscillator");
+
+// ========================================================================================
+
+// msg[1] tells me the input, // msg[2] tells me the amp
+
+OSCdef('OSCLfo', {
+	arg msg;
+	var discriminator = msg[2], index = msg[1], value = msg[3];
+		msg.postln;
+	if(discriminator == 0, {~lfoAmpDepth[index] = value});
+	if(discriminator == 1, {~lfoPitDepth[index] = value});
+	if(discriminator == 2, {~lfoRate[index] = value});
+	if(discriminator == 3, {~lfoPhase[index] = value});
+},
+"FmSynth/Lfo");
+
+// ========================================================================================
+// The first message tells me the index, the second one the levels , the third one the times
+
+OSCdef('OSCmaster', {
+	arg msg;
+	var discriminator = msg[1], value = msg[2];
+		msg.postln;
+    if(discriminator == 3, {~masterLev = value  });
+},
+"FmSynth/Master");
+
+// ========================================================================================
+
 }},AppClock).play);
+
+
+
+~oscphase.postln;
+
+
+
+
 
 // =======================================================================================
 
@@ -210,30 +293,44 @@ OSCdef('OSCmodlev', {
 	arg msg;
 	msg.postln;
 	~modlevels[msg[1]][msg[2]] = msg[3];
+	~modlevs.postln;
 },
-"FmSynth/modLev");
+"FmSynth/Matrix");
 
 // ========================================================================================
 
-// msg[1] says me the row   // msg[2] tells me the row // msg[3] the new level // msg[4] the new time
+// time format of envelopes = duration of each segment
+// [start, atcktime, dectime, sustime, reltime]
+// therefore we need to pass him the distance between adjacent points , not the absolute x
 
+//msg[1] column//msg[2] row//msg[3] new level//msg[4] new time
 OSCdef('OSCmodenv', {
 	arg msg;
-	~envlevs[msg[1]][msg[2]] = msg[3]
-	~envtimes[msg[1]][msg[2]] = msg[4]
+	~envlevs[msg[1] = msg[3];
+	~envtimes[msg[1] = msg[4];
 },
-"FmSynth/modEnv");
+"FmSynth/Envelope");
 
 // ========================================================================================
 
-// msg[1] tells me the input, // msg[2] tells me the amp
+// The only the value in the message
 
-OSCdef('OSCLFOamp', {
+OSCdef('OSCmasterGain', {
 	arg msg;
-	var index = msg[1];
-	~lfoAmpDepth[index] = msg[2];
+	masterGain = msg[1];
 },
-"FmSynth/lfoAmp");
+"FmSynth/masterGain");
+
+// ========================================================================================
+// The first message tells me the index, the second one the levels , the third one the times
+
+OSCdef('OSCmasterenv', {
+	arg msg;
+	~masterenvlevs[msg[1]] = msg[2]
+	~masterenvtimes[msg[1]] = msg[3]
+},
+"FmSynth/masterEnv");
+
 
 // ========================================================================================
 
@@ -272,12 +369,12 @@ OSCdef('OSCfRatio', {
 
 // msg[1] tells me the input, // msg[2] tells me the amplitude
 
-OSCdef('OSCamps', {
+OSCdef('OSCOscillator', {
 	arg msg;
 	var index = msg[1];
-	~amplevs[index] = msg[2];
+
 },
-"FmSynth/amps");
+"FmSynth/Oscillator");
 
 // ========================================================================================
 
@@ -295,6 +392,7 @@ OSCdef('OSCfilter', {
 // =======================================================================================
 
 ~lpFilter = [1200,1];
+~amplevs[3] = 1;
 
 
 // =======================================================================================
@@ -303,7 +401,7 @@ OSCdef('OSCfilter', {
 SynthDef(\delay, {arg delaytime=0.4;
 var input, effect;
 input=In.ar(0,2); //get two channels of input starting (and ending) on bus 0
-effect= DelayN.ar(input, 1,delaytime, mul: 0.2); //max delay of one second
+effect= DelayN.ar(input, 1,delaytime, mul: 0.1); //max delay of one second
 Out.ar(0,effect); //adds to bus 0
 }).add;
 )

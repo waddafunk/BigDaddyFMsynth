@@ -108,6 +108,9 @@ void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection t
         knobSection->setMyLFORange();
         break;
 
+    case tSection::matrix:
+        knobSection->setMyMatrixRange();
+        break;
     default:
         break;
     }

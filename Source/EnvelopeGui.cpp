@@ -439,7 +439,7 @@ void EnvelopeGui::sendData()
 
 void EnvelopeGui::sendAllData()
 {
-    sender->send(sender->getSocketName(), attackTime, attackValue, decayTime, decayValue,
+    sender->send(sender->getSocketName(),id, attackTime, attackValue, decayTime, decayValue,
         sustainTime, sustainValue, releaseTime, releaseValue);
 }
 

@@ -64,6 +64,11 @@ FilterGui::~FilterGui()
     for (auto& filter : myFilters) {
         delete filter;
     }
+
+    for(auto& button : buttons )
+    {
+        delete button;
+    }
 }
 
 void FilterGui::paint (Graphics& g)
@@ -108,6 +113,14 @@ void FilterGui::addMyFilters(int n) {
         addAndMakeVisible(filter);
     }
     
+}
+
+void FilterGui::buttonStateChanged(Button* button)
+{
+}
+
+void FilterGui::buttonClicked(Button* button)
+{
 }
 
 /*

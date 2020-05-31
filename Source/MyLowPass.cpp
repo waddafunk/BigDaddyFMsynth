@@ -27,7 +27,7 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
     this->width = w;
     this->height = h;
     setGain(0.5);
-    setResonance(0);
+    setResonance(0.4);
     setCutoffFromHz(6000);
     type = filterType::lowpass;
     cutoffSendValue = convertLog(cutoff);
@@ -37,7 +37,7 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
 
 MyLowPass::~MyLowPass()
 {
-    delete sender;
+   // delete sender;
 }
 
 

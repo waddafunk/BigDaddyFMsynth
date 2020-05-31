@@ -21,7 +21,7 @@
 //==============================================================================
 /*
 */
-class FilterGui    : public ModuleGui
+class FilterGui    : public ModuleGui, public Button::Listener
 {
 public:
     FilterGui();
@@ -34,6 +34,9 @@ public:
     void resized() override;
 
     void addMyFilters(int n);
+
+    void buttonStateChanged(Button* button) override;
+    void buttonClicked(Button* button) override;
 
    // void addMyFilter(FilterGraph* painter);
 

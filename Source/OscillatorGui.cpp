@@ -172,7 +172,6 @@ void OscillatorGui::addTriggers()
     for (size_t i = 0; i < numOfOsc; ++i) {
         button = new ToggleButton();
         button->setName(std::to_string(i));
-        button->setToggleState(false, false);
         button->setLookAndFeel(new ToggleButtonLookAndFeel());
         button->addListener(this);
         buttons.push_back(button);

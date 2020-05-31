@@ -52,7 +52,8 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, i
 {
     checkDirection();
     sender = new MySender(type);
-    addKnobs(nKnob, row, listener);
+   // Component * c = dynamic_cast<listener
+    addKnobs(nKnob, row,listener);
 }
 
 KnobSection::~KnobSection(){
@@ -100,6 +101,7 @@ void KnobSection::addKnobs(int nKnob, int row,Slider:: Listener* listener)
         if (listener != this) {
             temp->addListener(this);
         }
+
         temp->setLookAndFeel(&KnobLAF);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);

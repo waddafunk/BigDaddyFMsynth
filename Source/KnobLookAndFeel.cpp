@@ -82,8 +82,7 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
 Label* KnobLookAndFeel::createSliderTextBox(Slider& slider)
 {
     Label* l = LookAndFeel_V3::createSliderTextBox(slider);
- //   l->setBorderSize(BorderSize<int>(2, 2, 40, 2));
-    l->setColour(Label::textColourId, Colours::black);
+    l->setColour(Label::textColourId, Colour::fromRGB(243,243,245).darker(0.3));
     daFont.setHeight(22);
     l->setFont(daFont);
     l->setColour(Label::outlineColourId, Colours::transparentWhite);

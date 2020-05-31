@@ -40,69 +40,18 @@
           <FILE id="tqIrPA" name="Carbon.png" compile="0" resource="1" file="images/Carbon.png"/>
         </GROUP>
         <GROUP id="{618BAB25-25AD-8874-721A-32178195D57A}" name="fonts">
-          <FILE id="ihD6UE" name="alienleague.ttf" compile="0" resource="1" file="fonts/alienleague.ttf"/>
-          <FILE id="SKYFyG" name="alienleaguebold.ttf" compile="0" resource="1"
-                file="fonts/alienleaguebold.ttf"/>
-          <FILE id="KPquAf" name="alienleaguebolditalic.ttf" compile="0" resource="1"
-                file="fonts/alienleaguebolditalic.ttf"/>
-          <FILE id="Fmlakw" name="alienleaguecond.ttf" compile="0" resource="1"
-                file="fonts/alienleaguecond.ttf"/>
-          <FILE id="Q45uA0" name="alienleaguecondital.ttf" compile="0" resource="1"
-                file="fonts/alienleaguecondital.ttf"/>
-          <FILE id="CSDaUZ" name="alienleagueexpand.ttf" compile="0" resource="1"
-                file="fonts/alienleagueexpand.ttf"/>
-          <FILE id="vtIV67" name="alienleaguegrad.ttf" compile="0" resource="1"
-                file="fonts/alienleaguegrad.ttf"/>
-          <FILE id="zUgNoG" name="alienleaguegradbold.ttf" compile="0" resource="1"
-                file="fonts/alienleaguegradbold.ttf"/>
-          <FILE id="g2G5yA" name="alienleagueii.ttf" compile="0" resource="1"
-                file="fonts/alienleagueii.ttf"/>
-          <FILE id="ChAPaD" name="alienleagueii3d.ttf" compile="0" resource="1"
-                file="fonts/alienleagueii3d.ttf"/>
-          <FILE id="r1g8gO" name="alienleagueii3dital.ttf" compile="0" resource="1"
-                file="fonts/alienleagueii3dital.ttf"/>
-          <FILE id="w5iUGA" name="alienleagueiibold.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiibold.ttf"/>
-          <FILE id="OccY9T" name="alienleagueiiboldital.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiiboldital.ttf"/>
-          <FILE id="ZK1IZG" name="alienleagueiicond.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiicond.ttf"/>
-          <FILE id="VeC0Jr" name="alienleagueiicondital.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiicondital.ttf"/>
-          <FILE id="LgyQfa" name="alienleagueiiexpand.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiiexpand.ttf"/>
-          <FILE id="GRKvON" name="alienleagueiiexpandital.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiiexpandital.ttf"/>
-          <FILE id="bst5K2" name="alienleagueiigrad.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiigrad.ttf"/>
-          <FILE id="FncMPL" name="alienleagueiigradbold.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiigradbold.ttf"/>
-          <FILE id="u52ESe" name="alienleagueiiital.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiiital.ttf"/>
-          <FILE id="th7zsW" name="alienleagueiileft.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiileft.ttf"/>
-          <FILE id="VLs6cV" name="alienleagueiiout.ttf" compile="0" resource="1"
-                file="fonts/alienleagueiiout.ttf"/>
-          <FILE id="aahHh2" name="alienleagueital.ttf" compile="0" resource="1"
-                file="fonts/alienleagueital.ttf"/>
-          <FILE id="SZOXKd" name="alienleagueleft.ttf" compile="0" resource="1"
-                file="fonts/alienleagueleft.ttf"/>
-          <FILE id="sjL8Ce" name="alienleagueout.ttf" compile="0" resource="1"
-                file="fonts/alienleagueout.ttf"/>
           <FILE id="ZMHXfd" name="Brotherline.ttf" compile="0" resource="1" file="fonts/Brotherline.ttf"/>
-          <FILE id="y7dXQX" name="Electromagnetic Lungs.otf" compile="0" resource="1"
-                file="fonts/Electromagnetic Lungs.otf"/>
+          <FILE id="LsC2Tt" name="Asgalt-Regular.ttf" compile="0" resource="1"
+                file="fonts/Asgalt-Regular.ttf"/>
+          <FILE id="QLiluM" name="neuropolxrg.ttf" compile="0" resource="1" file="fonts/neuropolxrg.ttf"/>
+          <FILE id="emxUmQ" name="Quicksand_Bold.otf" compile="0" resource="1"
+                file="fonts/Quicksand_Bold.otf"/>
+          <FILE id="d2hmZ5" name="spaceage.ttf" compile="0" resource="1" file="fonts/spaceage.ttf"/>
+          <FILE id="GDHHLr" name="UrbanBrushZone.ttf" compile="0" resource="1"
+                file="fonts/UrbanBrushZone.ttf"/>
           <FILE id="lPdGjV" name="LaksOner.ttf" compile="0" resource="1" file="fonts/LaksOner.ttf"/>
-          <FILE id="cmBqsM" name="neuropol x rg.ttf" compile="0" resource="1"
-                file="fonts/neuropol x rg.ttf"/>
+          <FILE id="RRbgkc" name="steelfish.ttf" compile="0" resource="1" file="fonts/steelfish.ttf"/>
           <FILE id="IsiJvA" name="neuropol.ttf" compile="0" resource="1" file="fonts/neuropol.ttf"/>
-          <FILE id="GO2Mer" name="space age.ttf" compile="0" resource="1" file="fonts/space age.ttf"/>
-          <FILE id="XA4yxH" name="The Gunslinger_DEMO.otf" compile="0" resource="1"
-                file="fonts/The Gunslinger_DEMO.otf"/>
-          <FILE id="qG4MVG" name="The Gunslinger_DEMO.ttf" compile="0" resource="1"
-                file="fonts/The Gunslinger_DEMO.ttf"/>
-          <FILE id="Trwf5r" name="Urban Brush Zone.ttf" compile="0" resource="1"
-                file="fonts/Urban Brush Zone.ttf"/>
         </GROUP>
         <FILE id="Z6z5zh" name="SpectrogramGui.cpp" compile="1" resource="0"
               file="Source/SpectrogramGui.cpp"/>

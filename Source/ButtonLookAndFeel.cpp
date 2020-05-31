@@ -6,6 +6,8 @@
 //==============================================================================
 ButtonLookAndFeel::ButtonLookAndFeel()
 {
+    daFont = Typeface::createSystemTypefaceFor(BinaryData::Quicksand_Bold_otf, BinaryData::Quicksand_Bold_otfSize);
+    daFont.setHeight(14);
 }
 
 void ButtonLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
@@ -58,6 +60,27 @@ void ButtonLookAndFeel::drawTickBox(Graphics & g, Component & component,
             g.fillPath(tickPath, transform);
         }
     }
+
+void ButtonLookAndFeel::drawButtonText(Graphics& g, TextButton&button, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
+{
+    g.setFont(daFont);
+    g.setColour(button.findColour(button.getToggleState() ? TextButton::textColourOnId
+        : TextButton::textColourOffId)
+        .withMultipliedAlpha(button.isEnabled() ? 1.0f : 0.5f));
+
+    const int yIndent = jmin(4, button.proportionOfHeight(0.3f));
+    const int cornerSize = jmin(button.getHeight(), button.getWidth()) / 2;
+
+    const int fontHeight = roundToInt(daFont.getHeight() * 0.7f);
+    const int leftIndent = jmin(fontHeight, 2 + cornerSize / (button.isConnectedOnLeft() ? 4 : 2));
+    const int rightIndent = jmin(fontHeight, 2 + cornerSize / (button.isConnectedOnRight() ? 4 : 2));
+    const int textWidth = button.getWidth() - leftIndent - rightIndent;
+
+    if (textWidth > 0)
+        g.drawFittedText(button.getButtonText(),
+            leftIndent, yIndent, textWidth, button.getHeight() - yIndent * 2,
+            Justification::centred, 2);
+}
 
 
 ToggleButtonLookAndFeel::ToggleButtonLookAndFeel()

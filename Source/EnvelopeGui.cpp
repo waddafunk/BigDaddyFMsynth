@@ -495,7 +495,10 @@ float EnvelopeGui::computeSustainValue()
 float EnvelopeGui::computeReleaseTime()
 {
     float currentTime = env[envelope::release]->getX() - env[envelope::sustain]->getX();
-    return Converter::map(currentTime, 0, width, 0, 10);
+    if (!isForMatrix)
+        return Converter::map(currentTime, 0, width, 0, 14);
+    else 
+        return Converter::map(currentTime, -width, width, -12, 12);
 }
 
 float EnvelopeGui::computeReleaseValue()

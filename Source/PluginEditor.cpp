@@ -16,9 +16,9 @@
 Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcessor& p)
     : AudioProcessorEditor(&p), processor(p)
 {
-    daFont = Typeface::createSystemTypefaceFor(BinaryData::LaksOner_ttf, BinaryData::LaksOner_ttfSize);
+    daFont = Typeface::createSystemTypefaceFor(BinaryData::Quicksand_Bold_otf, BinaryData::Quicksand_Bold_otfSize);
     
-    daFont.setHeight(20);
+    daFont.setHeight(14);
     int height = 675;
     int width = 900;
 
@@ -109,6 +109,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     i = 0;
     for (auto& label : elementLabels) {
         label->setFont(daFont);
+        label->setColour(Label::textColourId, Colour::fromRGB(243, 243, 245).darker(0.3));
         if (i < 4){
             label->setBounds(15 + i * width * 0.7 / elementLabels.size(), barHeight, width * 0.7 / elementLabels.size() + 18, barHeight);
             addAndMakeVisible(label);
@@ -117,17 +118,25 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
             if (i > 4 && i < 9) {
                 label->setBounds(97 + i * width * 0.67 / elementLabels.size(), barHeight, width * 0.67 / elementLabels.size() + 100, barHeight);
                 addAndMakeVisible(label);
-            }else{
-                if (i == 9) {
+            }
+            else
+            {
+                if (i == 4) {
                     label->setBounds(i * width * 0.85 / elementLabels.size(), barHeight, width * 0.85 / elementLabels.size(), barHeight);
                     addAndMakeVisible(label);
                 }
-                else //i==10
+                else 
                 {
-                    label->setBounds(i * width * 0.95 / elementLabels.size(), barHeight, width * 0.95 / elementLabels.size(), barHeight);
-                    addAndMakeVisible(label);
+                    if (i == 9) {
+                        label->setBounds(i * width * 0.91 / elementLabels.size(), barHeight, width * 0.91 / elementLabels.size(), barHeight);
+                        addAndMakeVisible(label);
+                    }
+                    else
+                    {
+                        label->setBounds(i * width / elementLabels.size(), barHeight, width * 0.95 / elementLabels.size(), barHeight);
+                        addAndMakeVisible(label);
+                    }
                 }
-
             }
         }
              
@@ -137,18 +146,19 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     Label* label = nullptr;
 
     for (i = 0; i < 10; ++i) {
+        
         if (i < 8) {
             label = new Label("title", "Osc" + std::to_string(i + 1));
             matrixLabels.push_back(label);
-            label->setBounds(15 + i * width * 0.895 / elementLabels.size(), barHeight, width * 0.895 / elementLabels.size() + 18, barHeight);
+            label->setBounds(16 + i * width * 0.895 / elementLabels.size(), barHeight, width * 0.895 / elementLabels.size() + 18, barHeight);
             addAndMakeVisible(label);
             label->setVisible(false);
         }
         else {
             if (i == 8) {
-                label = new Label("title", "Mod. index envs");
+                label = new Label("title", "Index envs");
                 matrixLabels.push_back(label);
-                label->setBounds(i * 0.95 * width / elementLabels.size(), barHeight, width / elementLabels.size(), barHeight);
+                label->setBounds(i * 0.96 * width / elementLabels.size(), barHeight, width / elementLabels.size(), barHeight);
                 addAndMakeVisible(label);
                 label->setVisible(false);
             }
@@ -160,10 +170,9 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
                 label->setVisible(false);
             }
         }
-
-
+        label->setFont(daFont);
+        label->setColour(Label::textColourId, Colour::fromRGB(243, 243, 245).darker(0.3));
     }
-
 }
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()

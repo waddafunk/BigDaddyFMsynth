@@ -23,7 +23,15 @@ public:
     void drawTickBox(Graphics& g, Component& component, float x, float y, float w, float h,
         bool ticked, bool isEnabled, bool isMouseOverButton, bool isButtonDown) override;
     
+
+    void drawButtonText(Graphics&,
+        TextButton&,
+        bool 	shouldDrawButtonAsHighlighted,
+        bool 	shouldDrawButtonAsDown
+        ) override;
+
 private:
+    Font daFont;
 
 };
 
@@ -40,5 +48,4 @@ public:
 
 private:
     Image img1;
-
 };

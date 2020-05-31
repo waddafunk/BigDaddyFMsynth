@@ -78,7 +78,7 @@ void SinePainter::paint(Graphics& g)
     {
         float pos = height / 2.0f + amplitude * std::cos(i * getBasefreq() * freq + getTraslationalVelocity() * getFrameCounter() + phase);
         if (getTriggered())
-            pos = height / 2.0f + amplitude * std::cos(i * freq + phase);
+            pos = height / 2.0f + amplitude * std::cos(i * freq * getBasefreq() + phase);
         Point<float> p(i * width / (numberOfDots - 2), pos);
 
         //pushPainted(pos / height);

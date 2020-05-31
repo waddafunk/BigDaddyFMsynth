@@ -37,8 +37,16 @@ public:
 
 
 //--------------------Setters And Getters-----------
+
     float getFreq() const;
     void setFreq(float freq);
+
+    float getAmp() const;
+    void setAmp(float amp);
+
+    float getPhase() const;
+    void setPhase(float phase);
+
     float getHeight() const;
     void setHeight(float height);
 
@@ -51,30 +59,31 @@ public:
     int getYPos() const;
     void setYPos(int yPos);
 
-    void setTriggered(bool isTriggered);
-    bool getTriggered() { return triggered; }
-    bool toggleTriggered() { this->triggered = !this->triggered; }
+    std::vector<float> getWavePainted() const;
+    void setWavePainted(std::vector<float> wavePainted);
 
-    //void pushPainted(float pos);
-    //void clearWavePainted();
-    //std::vector<float>* getPaintedAddress() { return &wavePainted; };
+    bool getTriggered() const;
+    void setTriggered(bool triggered);
 
+    void toggle();
 
 
 protected:
     float freq =0.02f;
+    float amp = 1.0f;
+    float phase = 0.0f;
     float height = 300;
     float width = 300;
+    bool triggered = false;
     int xPos;
     int yPos;
 
 
 private:
     std::vector<float> wavePainted;
-    bool triggered = false;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WavePainter)
 
-public:
 
 
 };

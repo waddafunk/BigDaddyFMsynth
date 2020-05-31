@@ -24,6 +24,7 @@
 #include "MatrixGui.h"
 #include "MasterGui.h"
 #include "ButtonLookAndFeel.h"
+#include "MyKnob.h"
 
 
 enum class tabName { matrix, oscillators };

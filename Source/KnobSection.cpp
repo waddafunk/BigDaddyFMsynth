@@ -26,26 +26,40 @@ KnobSection::KnobSection()
 KnobSection::KnobSection(int x, int y, int w, int h) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
+    myListener = this;
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
-    addKnobs(nKnob, sender);
+    myListener = this;
+    addKnobs(nKnob);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
     sender = new MySender(type); 
-    addKnobs(nKnob, sender);
+    myListener = this;
+    //addKnobs(nKnob);
+    addKnobs(nKnob, -1, myListener);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
     sender = new MySender(type);
-    addKnobs(nKnob, row, sender);
+    //addKnobs(nKnob, row);
+    myListener = this;
+    addKnobs(nKnob, row, myListener);
+}
+
+KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener* listener) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
+{
+    checkDirection();
+    sender = new MySender(type);
+    myListener = this;
+    addKnobs(nKnob, row, myListener);
 }
 
 KnobSection::~KnobSection(){
@@ -61,45 +75,24 @@ void KnobSection::setMyBounds() {
 }
 
 
-void KnobSection::addKnobs(int nKnob, MySender* sender)
+void KnobSection::addKnobs(int nKnob)
 {
-    addKnobs(nKnob, -1, sender);
+    addKnobs(nKnob, -1,this);
 }
 
 void KnobSection::addKnobs(int nKnob, int row)
 {
-    Slider* temp;
-    String knobName;
-
-    for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::TextBoxBelow);
-        temp->setTextBoxIsEditable(true);
-        if (row < 0) {
-            knobName = sender->getSocketName() + ">=" + std::to_string(i);
-        }
-        else {
-            knobName = sender->getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
-        }
-        
-        std::string stdName = knobName.toStdString();
-        temp->setName(knobName); //set name to send to socket
-        temp->addListener(this);
-        temp->setLookAndFeel(&KnobLAF);
-        addAndMakeVisible(temp); // makes visible each knob
-        knobs.push_back(temp);
-    }
-
-
-    arrange();
+    addKnobs(nKnob, row, this);
 }
 
-void KnobSection::addKnobs(int nKnob, int row, MySender* sender)
+
+void KnobSection::addKnobs(int nKnob, int row,Slider:: Listener* listener)
 {
-    Slider* temp;
+    MyKnob* temp;
     String knobName;
 
     for (size_t i = 0; i < nKnob; ++i) {
-        temp = new Slider(Slider::RotaryHorizontalVerticalDrag, Slider::TextBoxBelow);
+        temp = new MyKnob(Slider::RotaryHorizontalVerticalDrag, Slider::TextBoxBelow);
         temp->setTextBoxIsEditable(true);
         if (row < 0) {
             knobName = sender->getSocketName() + ">=" + std::to_string(i);
@@ -107,14 +100,18 @@ void KnobSection::addKnobs(int nKnob, int row, MySender* sender)
         else {
             knobName = sender->getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
         }
-        temp->setRange(0,10,0.1);
+        temp->setRange(0, 10, 0.1);
         std::string stdName = knobName.toStdString();
         temp->setName(knobName); //set name to send to socket
-        temp->addListener(this);
+        temp->addListener(listener);
+        if (listener != this) {
+            temp->addListener(this);
+        }
+
         temp->setLookAndFeel(&KnobLAF);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
-        
+
     }
 
     checkTypeAndSetRange(sender->getTSection()); // set range of each knob
@@ -125,7 +122,6 @@ void KnobSection::addKnobs(int nKnob, int row, MySender* sender)
 
     arrange();
 }
-
 
 
 //TODO IMPLEMENT AUTOMATIC AND SCALABLE SETBOUND FOR KNOBS 

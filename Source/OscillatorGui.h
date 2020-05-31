@@ -21,7 +21,6 @@
 
 
 
-
 //==============================================================================
 /*
 */
@@ -39,6 +38,10 @@ public:
     void addPainters(WavePainter* painter);
     //std::vector<std::vector<float>*> getPainters() { return this->paintedWaves; };
 
+
+    void sliderValueChanged(Slider* slider) override;
+    void sliderDragStarted(Slider*) override;
+    void sliderDragEnded(Slider*) override;
 
 private:
     std::vector<WavePainter*> painters;

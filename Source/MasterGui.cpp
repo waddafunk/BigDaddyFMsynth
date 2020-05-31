@@ -24,9 +24,9 @@ MasterGui::MasterGui(int x, int y, int width, int height)
     this->yPos = y;
     this->width = width;
     this->height = height;
-    addKnobSection(0, 0, width, height / 3, 3, tSection::master);
+    addKnobSection(0, 0, width, height * 3 / 7, 3, tSection::master);
 
-    fader.setBounds(0, height / 3, width, height * 2 / 3 - 30);
+    fader.setBounds(0, height * 3 / 7, width, height * 4 / 7 );
     fader.setSliderStyle(Slider::SliderStyle::LinearVertical);
     fader.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
     fader.addListener(this);

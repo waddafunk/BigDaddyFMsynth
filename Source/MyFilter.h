@@ -26,11 +26,27 @@ public:
     }
     MyFilter(float cutOff, float gain, float resonance) : cutoff{ cutoff }, gain{ gain }, resonance{ resonance } {
         sender = new MySender(tSection::filter);
+        cutoffSendValue = convertLog(cutoff);
+        setGain(0.5);
+        setResonance(0);
+        setCutoffFromHz(400);
+        type = filterType::highpass;
+        cutoffSendValue = convertLog(cutoff);
     }
 
     MyFilter(float cutOff, float gain, float resonance, int row) : cutoff{ cutoff }, gain{ gain }, resonance{ resonance } {
         sender = new MySender(tSection::filter);
         this->row = row;
+        setGain(0.5);
+        setResonance(0);
+        setCutoffFromHz(400);
+        type = filterType::highpass;
+        cutoffSendValue = convertLog(cutoff);
+    }
+
+
+    ~MyFilter() {
+        delete sender;
     }
 
     void paint(Graphics& g) override
@@ -112,8 +128,6 @@ public:
         bool isLegalY = true;
         mousePos.setCoordinates(event.getPosition().getX(), event.getPosition().getY());
          
-        
-
         if (mousePos.getX() < 0) {
             setCutoffFromHz(20);
             isLegalX = false;
@@ -192,14 +206,6 @@ public:
     }
 
 
-
-    void computeFilter() {
-        for (size_t i = 0; i < 24000; i+=4) {
-            filter[i] = getMagnitudeAtFrequency(i);
-        }
-
-    }
-
     float convertLog(float ctf) {
         return std::log10(ctf) * 10000 / std::log10(width);
     }
@@ -217,13 +223,12 @@ public:
 protected:
 
     float cutoff = 440 * width / 10000.0f;
-    float cutoffSendValue = convertLog(cutoff);
+    float cutoffSendValue;
     float resonance = 0.7f * height;
     float gain = 0.7f * height;
     float gainSendValue;
     filterType type;
     float slope = 0;
-    float filter[24000/4];
     int row = 0;
     
     MySender* sender;

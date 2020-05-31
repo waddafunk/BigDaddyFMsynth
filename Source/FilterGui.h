@@ -14,6 +14,9 @@
 #include "ModuleGui.h"
 #include "KnobSection.h"
 #include "FilterGraph.h"
+#include "MyHighPass.h"
+#include "MylowPass.h"
+#include "MyFilter.h"
 
 //==============================================================================
 /*
@@ -24,18 +27,20 @@ public:
     FilterGui();
     FilterGui(int x, int y);
     FilterGui(int x, int y, int w, int h);
+    FilterGui(int x, int y, int w, int h, int n);
     ~FilterGui();
 
     void paint (Graphics&) override;
     void resized() override;
 
-    void addMyFilters(int w, int h);
+    void addMyFilters(int n);
 
-    void addMyFilter(FilterGraph* painter);
+   // void addMyFilter(FilterGraph* painter);
 
 
 private:
-    std::vector<FilterGraph*> myFilters;
+    std::vector<MyFilter*> myFilters;
+    std::vector<ToggleButton*> buttons;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterGui)
 };

@@ -28,12 +28,15 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
     this->height = h;
     setGain(0.5);
     setResonance(0);
-    setCutoffFromHz(4000);
+    setCutoffFromHz(6000);
     type = filterType::lowpass;
+    cutoffSendValue = convertLog(cutoff);
+    sender = new MySender(tSection::filter);
 }
 
 MyLowPass::~MyLowPass()
 {
+    delete sender;
 }
 
 

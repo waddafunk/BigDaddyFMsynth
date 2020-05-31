@@ -39,8 +39,19 @@ FilterGui::FilterGui(int x, int y, int w, int h)
     height = h;
     width = w;
 
-    addMyFilters(width, height);
+    addMyFilters(2);
   //  addKnobSection(0, 3 * height / 4, width, height/4, 2);
+
+}
+
+FilterGui::FilterGui(int x, int y, int w, int h, int n)
+{
+    xPos = x;
+    yPos = y;
+    height = h;
+    width = w;
+
+    addMyFilters(n);
 
 }
 
@@ -73,17 +84,36 @@ void FilterGui::resized()
 
 }
 
-void FilterGui::addMyFilters(int w, int h) {
-    myFilters.push_back(new FilterGraph(0, 0, w, h));
+void FilterGui::addMyFilters(int n) {
+    
+    float div = 1.0f / (3 * n);
+    ToggleButton *button = nullptr;
+    MyFilter *filter = nullptr;
+    for (size_t i = 0; i < n; ++i) {
+        button = new ToggleButton();
+        button->setBounds(i * 3 * div * width, height / 4, width * 1 * div, height / 2);
+        buttons.push_back(button);
 
-    for (auto& filter : myFilters) {
-        filter->setMyBounds();
+        if (i == 0) {
+            filter = new MyHighPass((i + 1 + i * 2) * div * width, 0, width * 2 * div, height);
+        }
+        else {            
+            filter = new MyLowPass((i + 1 + i * 2) * div * width, 0, width * 2 * div, height);
+        }
+        
+        filter -> setMyBounds();
+        myFilters.push_back(filter);
+
+        addAndMakeVisible(button);
         addAndMakeVisible(filter);
     }
+    
 }
 
+/*
 void FilterGui::addMyFilter(FilterGraph* painter) {
     myFilters.push_back(painter);
 }
+*/
 
 

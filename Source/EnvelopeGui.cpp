@@ -102,7 +102,7 @@ void EnvelopeGui::paint (Graphics& g)
 
 
     // draw an outline around the path that we have created
-    g.strokePath(envelopePath, PathStrokeType(4.0f)); // [4]
+    g.strokePath(envelopePath, PathStrokeType(2.0f)); // [4]
 
 
 }

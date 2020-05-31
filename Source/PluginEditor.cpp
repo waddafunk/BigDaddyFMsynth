@@ -26,7 +26,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     setSize(width, height);
 
     int barHeight = 20;
-    int envelopeBarHeight = height * 2 / 12;
+
 
     int heightForY = height + barHeight;
     int heightForHeight = height - barHeight;
@@ -35,6 +35,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     int v_divisor = 8; //used to dra the matrix modules
     int molt = 8; //used to dra the matrix modules
 
+    int envelopeBarHeight = (height - 2 * barHeight) / v_divisor;
     currentView = tabName::oscillators;
 
 
@@ -49,16 +50,16 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
 
     //matrix module initialization
 
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 0 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 0,true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 1 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 1, true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 2 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 2, true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 3 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 3, true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 4 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 4, true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 5 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 5, true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 6 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 6, true));
-    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 7 * (height - 2*barHeight) / v_divisor, width / divisor - width / (molt * divisor), (height - 2*barHeight) / v_divisor, 7, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 0 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 0,true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 1 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 1, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 2 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 2, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 3 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 3, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 4 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 4, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 5 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 5, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 6 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 6, true));
+    matrixModules.push_back(new EnvelopeGui(width * 3 / divisor + width / (molt / 2 * divisor), 2*barHeight + 7 * envelopeBarHeight, width / divisor - width / (molt * divisor), envelopeBarHeight, 7, true));
     matrixModules.push_back(new EnvelopeGui(width * 4 / divisor + width / (molt * divisor), 2*barHeight , width / divisor - width / (molt * divisor), envelopeBarHeight,8));
-    matrixModules.push_back(new MasterGui(width * 4 / divisor + width / (molt * divisor), 2*barHeight + envelopeBarHeight, width / divisor - width / (molt * divisor), height -barHeight- envelopeBarHeight));
+    matrixModules.push_back(new MasterGui(width * 4 / divisor + width / (molt * divisor), 2*barHeight + envelopeBarHeight, width / divisor - width / (molt * divisor), height - 2 * barHeight- envelopeBarHeight));
     matrixModules.push_back(new MatrixGui(0, 2*barHeight, width * 3 / divisor + width / (4 * divisor), height - 2*barHeight));
 
     modules.push_back(matrixModules);
@@ -116,55 +117,57 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
             label->setBounds(15 + i * width * 0.7 / elementLabels.size(), barHeight, width * 0.7 / elementLabels.size() + 18, barHeight);
             addAndMakeVisible(label);
         }
-        else if (i > 4 && i < 9){
-            label->setBounds( 97 +i * width * 0.67 / elementLabels.size(), barHeight, width * 0.67/ elementLabels.size() +100, barHeight);
-            addAndMakeVisible(label);
+        else{
+            if (i > 4 && i < 9) {
+                label->setBounds(97 + i * width * 0.67 / elementLabels.size(), barHeight, width * 0.67 / elementLabels.size() + 100, barHeight);
+                addAndMakeVisible(label);
+            }else{
+                if (i == 9) {
+                    label->setBounds(i * width * 0.85 / elementLabels.size(), barHeight, width * 0.85 / elementLabels.size(), barHeight);
+                    addAndMakeVisible(label);
+                }
+                else //i==10
+                {
+                    label->setBounds(i * width * 0.95 / elementLabels.size(), barHeight, width * 0.95 / elementLabels.size(), barHeight);
+                    addAndMakeVisible(label);
+                }
+
+            }
         }
-        else
-        {
-            label->setBounds(i * width * 0.85 / elementLabels.size(), barHeight, width * 0.85 / elementLabels.size() , barHeight);
-            addAndMakeVisible(label);
-        }
-        if (i == 10) {
-            label->setBounds(i * width * 0.95  / elementLabels.size(), barHeight, width * 0.95 / elementLabels.size(), barHeight);
-            addAndMakeVisible(label);
-        }
+             
         i++;
     }
 
-    matrixLabels.push_back(new Label("title", "Osc0"));
-    matrixLabels.push_back(new Label("title", "Osc1"));
-    matrixLabels.push_back(new Label("title", "Osc2"));
-    matrixLabels.push_back(new Label("title", "Osc3"));
-    matrixLabels.push_back(new Label("title", "Osc4"));
-    matrixLabels.push_back(new Label("title", "Osc5"));
-    matrixLabels.push_back(new Label("title", "Osc6"));
-    matrixLabels.push_back(new Label("title", "Osc7"));
-    matrixLabels.push_back(new Label("title", "Mod. index envs"));
-    matrixLabels.push_back(new Label("title", "Master"));
+    Label* label = nullptr;
 
-    i = 0;
-    for (auto& label : matrixLabels) {
+    for (i = 0; i < 10; ++i) {
         if (i < 8) {
+            label = new Label("title", "Osc" + std::to_string(i + 1));
+            matrixLabels.push_back(label);
             label->setBounds(15 + i * width * 0.895 / elementLabels.size(), barHeight, width * 0.895 / elementLabels.size() + 18, barHeight);
             addAndMakeVisible(label);
             label->setVisible(false);
         }
-
-        else if (i == 8) {
-            label->setBounds( i *0.95* width  / elementLabels.size(), barHeight, width / elementLabels.size() , barHeight);
-            addAndMakeVisible(label);
-            label->setVisible(false);
-        }
-
         else {
-            label->setBounds( i * width*1.08 / elementLabels.size(), barHeight, 1.08 * width / elementLabels.size() , barHeight);
-            addAndMakeVisible(label);
-            label->setVisible(false);
+            if (i == 8) {
+                label = new Label("title", "Mod. index envs");
+                matrixLabels.push_back(label);
+                label->setBounds(i * 0.95 * width / elementLabels.size(), barHeight, width / elementLabels.size(), barHeight);
+                addAndMakeVisible(label);
+                label->setVisible(false);
+            }
+            else {
+                label = new Label("title", "Master");
+                matrixLabels.push_back(label);
+                label->setBounds(i * width * 1.08 / elementLabels.size(), barHeight, 1.08 * width / elementLabels.size(), barHeight);
+                addAndMakeVisible(label);
+                label->setVisible(false);
+            }
         }
-        
-        i++;
+
+
     }
+
 }
 
 Fm_synthAudioProcessorEditor::~Fm_synthAudioProcessorEditor()

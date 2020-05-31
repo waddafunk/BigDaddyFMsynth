@@ -62,15 +62,15 @@ void FilterGraph::addGraphs()
 {
     this->myGraphs.push_back(new MyLowPass(xPos, yPos, width, height));
     this->myGraphs.push_back(new MyHighPass(xPos, yPos, width, height));
-    this->myGraphs.push_back(new MyBandPass(xPos, yPos, width, height));
-    this->myGraphs.push_back(new MyNotchFilter(xPos, yPos, width, height));
+  //  this->myGraphs.push_back(new MyBandPass(xPos, yPos, width, height));
+  //  this->myGraphs.push_back(new MyNotchFilter(xPos, yPos, width, height));
 
     for (auto& graph : myGraphs) {
         graph->setMyBounds();
     }
 
 
-    addAndMakeVisible(myGraphs[1]);
+    addAndMakeVisible(myGraphs[0]);
 
 
 }

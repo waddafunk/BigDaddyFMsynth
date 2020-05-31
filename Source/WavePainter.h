@@ -69,9 +69,15 @@ public:
 
     void toggle();
 
+    float getBasefreq();
+    void setBaseFreq(float freq);
+
+    float getTraslationalVelocity();
+    void setTraslationalVelocity(float velocity);
+
 
 protected:
-    float freq =0.02f;
+    float freq;
     float amp = 1.0f;
     float phase = 0.0f;
     float height = 300;
@@ -79,6 +85,8 @@ protected:
     bool triggered = false;
     int xPos;
     int yPos;
+    float baseFreq = 2 * double_Pi / width; //one period 
+    float traslationVelocity = 2 * double_Pi;
 
 
 private:

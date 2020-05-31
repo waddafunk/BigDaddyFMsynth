@@ -20,6 +20,9 @@ SinePainter::SinePainter()
     yPos = 0;
     height = 40;
     width = 40;
+    setBaseFreq(2 * double_Pi / width);
+    setPhase(0.0f);
+    setTraslationalVelocity(getBasefreq() * double_Pi / 4);
 
 }
 
@@ -29,6 +32,9 @@ SinePainter::SinePainter(int x, int y)
     yPos = y;
     height = 40;
     width = 40;
+    setBaseFreq(2 * double_Pi / width);
+    setPhase(0.0f);
+    setTraslationalVelocity(getBasefreq() * double_Pi / 4);
 }
 
 SinePainter::SinePainter(int x, int y, int width, int height){
@@ -39,6 +45,9 @@ SinePainter::SinePainter(int x, int y, int width, int height){
     amp = 0;
     phase = 0;
     freq = 0;
+    setBaseFreq(2 * 10 * double_Pi / width);
+    setPhase(0.0f);
+    setTraslationalVelocity(getBasefreq() * double_Pi / 4);
 }
 
 
@@ -67,9 +76,9 @@ void SinePainter::paint(Graphics& g)
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
-        float pos = height / 2.0f + amplitude * std::cos(i * freq + 8 * freq * getFrameCounter());
+        float pos = height / 2.0f + amplitude * std::cos(i * getBasefreq() * freq + getTraslationalVelocity() * getFrameCounter() + phase);
         if (getTriggered())
-            pos = height / 2.0f + amplitude * std::cos(i * freq);
+            pos = height / 2.0f + amplitude * std::cos(i * freq + phase);
         Point<float> p(i * width / (numberOfDots - 2), pos);
 
         //pushPainted(pos / height);
@@ -83,7 +92,7 @@ void SinePainter::paint(Graphics& g)
 
 
     // draw an outline around the path that we have created
-    g.strokePath(spinePath, PathStrokeType(4.0f)); // [4]
+    g.strokePath(spinePath, PathStrokeType(2.0f)); // [4]
 
 
 }

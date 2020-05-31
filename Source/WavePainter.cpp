@@ -146,6 +146,26 @@ void WavePainter::toggle()
     triggered = !triggered;
 }
 
+float WavePainter::getBasefreq()
+{
+	return this->baseFreq;
+}
+
+void WavePainter::setBaseFreq(float freq)
+{
+    this->baseFreq = freq;
+}
+
+float WavePainter::getTraslationalVelocity()
+{
+    return this->traslationVelocity;
+}
+
+void WavePainter::setTraslationalVelocity(float velocity)
+{
+    this->traslationVelocity = velocity;
+}
+
 std::vector<float> WavePainter::getWavePainted() const
 {
     return wavePainted;

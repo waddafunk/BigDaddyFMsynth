@@ -96,6 +96,8 @@ void FilterGui::addMyFilters(int n) {
     MyFilter *filter = nullptr;
     for (size_t i = 0; i < n; ++i) {
         button = new ToggleButton();
+        button->setName(std::to_string(i));
+        button->setState(Button::buttonDown);
         button->setBounds(i * 3 * div * width, height / 4, width * 1 * div, height / 2);
         buttons.push_back(button);
 
@@ -117,10 +119,15 @@ void FilterGui::addMyFilters(int n) {
 
 void FilterGui::buttonStateChanged(Button* button)
 {
+   
 }
 
 void FilterGui::buttonClicked(Button* button)
 {
+    int index = std::stoi(button->getName().toStdString());
+    if (index < myFilters.size()) {
+        myFilters[index].toggle();
+    }
 }
 
 /*

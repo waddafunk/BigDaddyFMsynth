@@ -62,7 +62,7 @@ void ButtonLookAndFeel::drawTickBox(Graphics & g, Component & component,
 
 ToggleButtonLookAndFeel::ToggleButtonLookAndFeel()
 {
-    img1 = ImageCache::getFromMemory(BinaryData::switch_toggle_png, BinaryData::switch_toggle_pngSize);
+    img1 = ImageCache::getFromMemory(BinaryData::min_switch_png, BinaryData::min_switch_pngSize);
 }
 
 void ToggleButtonLookAndFeel::drawToggleButton(Graphics& g, ToggleButton& button, bool isMouseOverButton, bool isButtonDown)
@@ -103,8 +103,10 @@ void ToggleButtonLookAndFeel::drawTickBox(Graphics& g, Component& component,
         int selector = (int)ticked;
         const int frames = int(img1.getHeight() / img1.getWidth());
         const int frameId = (int)ceil(selector * ((double)frames - 1.0));
-        
-        g.drawImage(img1, x, y-h/2, w*2, h*2,
+        int width = int(w * 8 / 7);
+        int height = int(h * 8 / 7);
+
+        g.drawImage(img1, x + width/2, y ,width, height,
             0, frameId * img1.getWidth(), img1.getWidth(), img1.getWidth());
     }
     else

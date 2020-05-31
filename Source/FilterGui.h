@@ -43,7 +43,6 @@ public:
 
 
 private:
-    ToggleButtonLookAndFeel toggleButtonLAF;
     std::vector<MyFilter*> myFilters;
     std::vector<ToggleButton*> buttons;
 

@@ -49,13 +49,13 @@ public:
 private:
     std::vector<WavePainter*> painters;
     std::vector<FilterGui*> filters;
-    ToggleButton *button = nullptr;
+    std::vector<ToggleButton *>buttons;
     int numOfOsc = 8;
     //std::vector<std::vector<float>*> paintedWaves; //TODO: set waves length to perceptual present
 
     void addOscillatorKnobs();
     void addOscillatorLfo();
-    void addTrigger();
+	void addTriggers();
     void addPainters();
     void addFilter(int x, int y, int w, int h);
 

@@ -22,6 +22,7 @@ OscillatorGui::OscillatorGui()
     width = 300;
     addPainters();
     addOscillatorKnobs();
+    addTriggers();
     addOscillatorLfo();
     addFilters();
 }
@@ -32,6 +33,7 @@ OscillatorGui::OscillatorGui(int x, int y)
     yPos = y;
     addPainters();
     addOscillatorKnobs();
+    addTriggers();
     addOscillatorLfo();
     addFilters();
 }
@@ -44,6 +46,7 @@ OscillatorGui::OscillatorGui(int x, int y, int w, int h)
     width = w;
     addPainters();
     addOscillatorKnobs();
+    addTriggers();
     addOscillatorLfo();
     addFilters();
 }
@@ -60,6 +63,11 @@ OscillatorGui::~OscillatorGui()
 
     for (auto& filter : filters) {
         delete filter;
+    }
+    for (auto& button : buttons) {
+        LookAndFeel* temp = &button->getLookAndFeel();
+        delete button;
+        delete temp;
     }
 }
 
@@ -127,6 +135,10 @@ void OscillatorGui::buttonStateChanged(Button* button)
 
 void OscillatorGui::buttonClicked(Button* button)
 {
+    int index = std::stoi(button->getName().toStdString());
+    if (index < painters.size()) {
+        painters[index]->toggle();
+    }
 }
 
 
@@ -150,10 +162,25 @@ void OscillatorGui::addPainters() {
 void OscillatorGui::addOscillatorKnobs()
 {
     for (size_t i = 0; i < numOfOsc; ++i) {
-        addKnobSection(0, height * i / numOfOsc, width * 4 / 15, height / numOfOsc, 4, tSection::oscillator, i, this);
+        addKnobSection(0, height * i / numOfOsc, width * 3 / 15, height / numOfOsc, 3, tSection::oscillator, i, this);
     }    
 }
 
+void OscillatorGui::addTriggers()
+{
+    ToggleButton* button = nullptr;
+    for (size_t i = 0; i < numOfOsc; ++i) {
+        button = new ToggleButton();
+        button->setName(std::to_string(i));
+        button->setToggleState(false, false);
+        button->setLookAndFeel(new ToggleButtonLookAndFeel());
+        button->addListener(this);
+        buttons.push_back(button);
+        button->setBounds(width * 3 / 15, height * i / numOfOsc, width * 1 / 15, height / numOfOsc);
+        addAndMakeVisible(button);
+    }
+
+}
 
 void OscillatorGui::addOscillatorLfo()
 {
@@ -163,12 +190,7 @@ void OscillatorGui::addOscillatorLfo()
 
 }
 
-void OscillatorGui::addTrigger()
-{
-    button = new ToggleButton();
-  //  button->setBounds(width * 2 / 5, height * i / numOfOsc, width * 4 / 15, height / numOfOsc, 4, tSection::lfo, i)
-    
-}
+
 
 void OscillatorGui::addFilters()
 {

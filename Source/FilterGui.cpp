@@ -67,7 +67,9 @@ FilterGui::~FilterGui()
 
     for(auto& button : buttons )
     {
+        LookAndFeel* temp = &button->getLookAndFeel();
         delete button;
+        delete temp;
     }
 }
 
@@ -98,7 +100,7 @@ void FilterGui::addMyFilters(int n) {
         button = new ToggleButton();
         button->setName(std::to_string(i));
         button->setToggleState(false,false);
-        button->setLookAndFeel(&toggleButtonLAF);
+        button->setLookAndFeel(new ToggleButtonLookAndFeel());
         button->addListener(this);
         button->setBounds(i * 3 * div * width , height / 4, width * 1 * div , height / 2);
         buttons.push_back(button);

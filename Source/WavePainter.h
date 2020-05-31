@@ -41,6 +41,8 @@ public:
     float getFreq() const;
     void setFreq(float freq);
 
+    void setFreqHz(float freq);
+
     float getAmp() const;
     void setAmp(float amp);
 

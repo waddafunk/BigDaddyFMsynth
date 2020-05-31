@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "WavePainter.h"
+#include "Converter.h"
 
 //==============================================================================
 WavePainter::WavePainter()
@@ -69,6 +70,31 @@ void WavePainter::setFreq(float freq)
     this->freq = freq;
 }
 
+void WavePainter::setFreqHz(float freq)
+{
+    this->freq = Converter::map(freq, 0, 10, 0, 1);
+}
+
+float WavePainter::getAmp() const
+{
+    return amp;
+}
+
+void WavePainter::setAmp(float amp)
+{
+    this->amp = amp;
+}
+
+
+float WavePainter::getPhase() const
+{
+    return phase;
+}
+
+void WavePainter::setPhase(float phase)
+{
+    this->phase = phase;
+}
 
 float WavePainter::getHeight() const
 {

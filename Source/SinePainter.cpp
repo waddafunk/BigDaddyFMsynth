@@ -36,6 +36,9 @@ SinePainter::SinePainter(int x, int y, int width, int height){
     yPos = y;
     this->width = width;
     this->height = height;
+    amp = 0;
+    phase = 0;
+    freq = 0.02;
 }
 
 
@@ -58,8 +61,7 @@ void SinePainter::paint(Graphics& g)
 
     auto numberOfDots = width; // [1]
     Path spinePath;         // [2]
-    int amplitude = (height-40)/2;
-    float freq = 0.02f;
+    int amplitude = (height - 40) / 2 * amp;
 
     //clearWavePainted();
 

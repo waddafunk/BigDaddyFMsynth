@@ -58,7 +58,7 @@ private:
     int width;
     int height;
     direction dir;
-    Slider::Listener* myListener;
+    
 
     
     void arrange();

@@ -26,13 +26,11 @@ KnobSection::KnobSection()
 KnobSection::KnobSection(int x, int y, int w, int h) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
-    myListener = this;
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
-    myListener = this;
     addKnobs(nKnob);
 }
 
@@ -40,9 +38,8 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) :
 {
     checkDirection();
     sender = new MySender(type); 
-    myListener = this;
     //addKnobs(nKnob);
-    addKnobs(nKnob, -1, myListener);
+    addKnobs(nKnob, -1);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
@@ -50,16 +47,14 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, i
     checkDirection();
     sender = new MySender(type);
     //addKnobs(nKnob, row);
-    myListener = this;
-    addKnobs(nKnob, row, myListener);
+    addKnobs(nKnob, row);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener* listener) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
     sender = new MySender(type);
-    myListener = this;
-    addKnobs(nKnob, row, myListener);
+    addKnobs(nKnob, row, listener);
 }
 
 KnobSection::~KnobSection(){
@@ -105,8 +100,22 @@ void KnobSection::addKnobs(int nKnob, int row,Slider:: Listener* listener)
         temp->setName(knobName); //set name to send to socket
         temp->addListener(listener);
         if (listener != this) {
-            temp->addListener(this);
+     //       temp->addListener(this);
+            switch (i)
+            {
+            case 0: temp->setType(knobType::amplitude);
+                break;
+            case 1: temp->setType(knobType::frequency);
+                break;
+            case 2: temp->setType(knobType::phase);
+                break;
+            default:
+                break;
+            }
+            temp->setRow(row);
+            
         }
+     
 
         temp->setLookAndFeel(&KnobLAF);
         addAndMakeVisible(temp); // makes visible each knob

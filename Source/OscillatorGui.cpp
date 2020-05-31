@@ -98,7 +98,19 @@ void OscillatorGui::addPainters(WavePainter * painter) {
 }
 
 void OscillatorGui::sliderValueChanged(Slider* slider){
-    //slider->getName();
+    MyKnob *myKnob = dynamic_cast<MyKnob*> (slider);
+    switch (myKnob->getType())
+    {
+    case knobType::amplitude: painters[myKnob->getRow()]->setAmp(myKnob->getValue());
+        break;
+    case knobType::frequency:painters[myKnob->getRow()]->setFreqHz(myKnob->getValue());
+        break;
+    case knobType::phase:painters[myKnob->getRow()]->setPhase(myKnob->getValue());
+        break;
+    default:
+        break;
+    }
+    
 }
 
 void OscillatorGui::sliderDragStarted(Slider*)

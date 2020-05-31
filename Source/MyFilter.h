@@ -220,8 +220,8 @@ public:
 
 
     float convertExp(float ctf) {
-        //return std::pow(10, ctf) / std::pow(10, width) * 100000;
-        return std::log10(ctf) * 10000 / std::log10(width);
+        return std::pow(10, ctf) / std::pow(10, width) * 100000;
+        //return std::log10(ctf) * 10000 / std::log10(width);
     }
 
     float convertGain(float gn) {
@@ -250,7 +250,7 @@ public:
 
     void toggle() {      
         state = !state;
-        sender->send(sender->getSocketName() << "State", getTypeInt(), row, state);
+        sender->send(sender->getSocketName() << "/State", getTypeInt(), row, state);
         if (state == true)
             sendAllFilterData();
     }

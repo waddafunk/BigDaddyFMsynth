@@ -16,10 +16,9 @@
 Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcessor& p)
     : AudioProcessorEditor(&p), processor(p)
 {
-
-    //int height = 750;
-    //int width = 1000;
-
+    daFont = Typeface::createSystemTypefaceFor(BinaryData::LaksOner_ttf, BinaryData::LaksOner_ttfSize);
+    
+    daFont.setHeight(20);
     int height = 675;
     int width = 900;
 
@@ -94,7 +93,6 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     }
 
     //elementLabels initialization
-
     elementLabels.push_back(new Label("title", "Amp"));
     elementLabels.push_back(new Label("title", "Freq"));
     elementLabels.push_back(new Label("title", "Phase"));
@@ -109,6 +107,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     
     i = 0;
     for (auto& label : elementLabels) {
+        label->setFont(daFont);
         if (i < 4){
             label->setBounds(15 + i * width * 0.7 / elementLabels.size(), barHeight, width * 0.7 / elementLabels.size() + 18, barHeight);
             addAndMakeVisible(label);

@@ -25,5 +25,5 @@ public:
 
 private:
     Image img1;
-
+    Font daFont;
 };

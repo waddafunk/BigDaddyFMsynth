@@ -61,6 +61,7 @@ private:
     std::vector<Label*> matrixLabels;
     std::vector<std::vector<ModuleGui*>> modules;
     std::vector<TextButton*> textButtons;
+    Font daFont;
     tabName currentView;
 
 

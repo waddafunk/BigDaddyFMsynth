@@ -320,9 +320,9 @@ OSCdef('OSCfilters', {
 		if (type == 1,
 		   {~hpFilter[index][0] = cutoff;
 		    ~hpFilter[index][1] = res;
-		    ~hpFilter[index][2] = gain;
-		});
-},
+		    ~hpFilter[index][2] = gain;});
+		msg.postln;
+	},
 "FmSynth/Filter");
 
 OSCdef('OSCfilterState', {
@@ -334,6 +334,7 @@ OSCdef('OSCfilterState', {
 		if (type == 1, {
 			if(state == 0, { ~lpFilter[index] = [20000,1,1];});
 		});
+		msg.postln;
 },
 "FmSynth/Filter/State");
 

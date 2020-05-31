@@ -98,8 +98,9 @@ void FilterGui::addMyFilters(int n) {
         button = new ToggleButton();
         button->setName(std::to_string(i));
         button->setToggleState(true,true);
+        button->setLookAndFeel(&toggleButtonLAF);
         button->addListener(this);
-        button->setBounds(i * 3 * div * width + width/4 * div, height / 4, width * 1 * div , height / 2);
+        button->setBounds(i * 3 * div * width , height / 4, width * 1 * div , height / 2);
         buttons.push_back(button);
 
         if (i == 0) {

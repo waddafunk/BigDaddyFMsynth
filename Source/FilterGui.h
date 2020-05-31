@@ -17,6 +17,7 @@
 #include "MyHighPass.h"
 #include "MylowPass.h"
 #include "MyFilter.h"
+#include "ButtonLookAndFeel.h"
 
 //==============================================================================
 /*
@@ -42,6 +43,7 @@ public:
 
 
 private:
+    ToggleButtonLookAndFeel toggleButtonLAF;
     std::vector<MyFilter*> myFilters;
     std::vector<ToggleButton*> buttons;
 

@@ -40,15 +40,8 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
         auto rw = radius * 2.0f;
         auto angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
         
-        g.drawImage(img1,
-            (int)rx,
-            (int)ry,
-            2 * (int)radius,
-            2 * (int)radius,
-            0,
-            frameId * img1.getWidth(),
-            img1.getWidth(),
-            img1.getWidth());
+        g.drawImage(img1, (int)rx, (int)ry, 2 * (int)radius, 2 * (int)radius,
+            0, frameId * img1.getWidth(), img1.getWidth(), img1.getWidth());
         
         float startY = height / 2 + rw * std::cos(rotaryStartAngle);
         float endX = width / 2 + radius* std::sin(rotaryEndAngle);

@@ -24,6 +24,21 @@ public:
         bool ticked, bool isEnabled, bool isMouseOverButton, bool isButtonDown) override;
     
 private:
+
+};
+
+class ToggleButtonLookAndFeel : public LookAndFeel_V4
+{
+public:
+
+    ToggleButtonLookAndFeel();
+    void drawToggleButton(Graphics& g, ToggleButton& button,
+        bool isMouseOverButton, bool isButtonDown) override;
+
+    void drawTickBox(Graphics& g, Component& component, float x, float y, float w, float h,
+        bool ticked, bool isEnabled, bool isMouseOverButton, bool isButtonDown) override;
+
+private:
     Image img1;
 
 };

@@ -248,7 +248,7 @@ public:
 
     void toggle() {      
         state = !state;
-        sender->send(sender->getSocketName() << "state", getTypeInt(), row, state);
+        sender->send(sender->getSocketName() << "State", getTypeInt(), row, state);
     }
 
 protected:

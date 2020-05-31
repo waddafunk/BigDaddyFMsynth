@@ -76,7 +76,9 @@ void MyHighPass::paint (Graphics& g)
 
 void MyHighPass::paint(Graphics& g)
 {
-  g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
+
+
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
 
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
@@ -84,40 +86,21 @@ void MyHighPass::paint(Graphics& g)
     Point<float> cutPoint(cutoff, height - Converter::map(gain, 0, 1, 0, height));
 
     //if resonance is 0 then 45 degrees .. else idk
-    //Point <float> startingPoint(computeStartingPointX(cutPoint), height);
-    Point <float> startingPoint(width, cutPoint.getY());
+    Point <float> startingPoint(computeZeroCrossingPointX(cutPoint,type), height);
+    Point <float> preCut(cutPoint.getX() - resonance * (width/20) * gain,cutPoint.getY() - (resonance / 4 * height)* gain);
+    Point <float> resCut(cutPoint.getX(), cutPoint.getY() - (resonance * height/2) * gain);
+    Point <float> posCut(cutPoint.getX() + (width - cutPoint.getX()) /2 * (1 - resonance * gain), cutPoint.getY() - resonance / 4 * height * gain);
+    Point <float> endPoint(width, cutPoint.getY());
 
-
-    Point <float> preCut(cutPoint.getX() + (cutPoint.getX()/2)*resonance, cutPoint.getY());
-
-
-    Point <float> resCut(cutPoint.getX(), cutPoint.getY()  - (resonance * height / 2) );
-
-
-    Point <float> preCut2(cutPoint.getX() + (width / 40), resCut.getY() *(1 + resonance * 0.3));
-
-
-    Point <float> endQuadratic(preCut.getX() + (preCut2.getX() - preCut.getX()) * 2 / 3 , preCut.getY() - height * resonance / 4);
-
-
-    Point <float> posCut(cutPoint.getX() - (width / 20), cutPoint.getY() + (1 - resonance)*height/10 );
-
-
-    Point <float> endPoint(computeZeroCrossingPointX(cutPoint, type) + width / 20, height);
-
-
-
-    
     filterPath.startNewSubPath(startingPoint);
-    filterPath.quadraticTo(preCut,endQuadratic);
-    filterPath.cubicTo(preCut2, resCut, endPoint);
-    
-
-    g.strokePath(filterPath, PathStrokeType(1.0f)); // [4]
+    filterPath.quadraticTo(preCut, resCut);
+    filterPath.quadraticTo(posCut, endPoint);
+    //filterPath.lineTo(cutPoint);
+    //filterPath.lineTo(width, cutPoint.getY());
 
     // draw an outline around the path that we have created
+    g.strokePath(filterPath, PathStrokeType(2.0f)); // [4]
     g.fillEllipse(cutPoint.getX() - 5, height * (1.0f - gain) - 5.0f, 10.0f, 10.0f);
-
 
     g.setColour(Colours::grey);
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component

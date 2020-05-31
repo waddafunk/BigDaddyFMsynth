@@ -70,7 +70,7 @@ void FilterGraph::addGraphs()
     }
 
 
-    addAndMakeVisible(myGraphs[1]);
+    addAndMakeVisible(myGraphs[0]);
 
 
 }

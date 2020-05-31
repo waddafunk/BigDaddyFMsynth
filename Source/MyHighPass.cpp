@@ -109,7 +109,7 @@ void MyHighPass::paint(Graphics& g)
     Point <float> posCut(cutPoint.getX() - (width / 20), cutPoint.getY() + (1 - resonance)*height/10 );
 
 
-    Point <float> endPoint(computeZeroCrossingPointX(cutPoint, type) + width / 20, height);
+    Point <float> endPoint(computeZeroCrossingPointX(cutPoint, type), height);
 
 
 

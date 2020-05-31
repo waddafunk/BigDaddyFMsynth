@@ -32,6 +32,7 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
     type = filterType::lowpass;
     cutoffSendValue = convertLog(cutoff);
     sender = new MySender(tSection::filter);
+    sendAllFilterData();
 }
 
 MyLowPass::~MyLowPass()

@@ -32,6 +32,7 @@ public:
         setCutoffFromHz(400);
         type = filterType::highpass;
         cutoffSendValue = convertLog(cutoff);
+        sendAllFilterData();
     }
 
     MyFilter(float cutOff, float gain, float resonance, int row) : cutoff{ cutoff }, gain{ gain }, resonance{ resonance } {
@@ -42,6 +43,7 @@ public:
         setCutoffFromHz(400);
         type = filterType::highpass;
         cutoffSendValue = convertLog(cutoff);
+        sendAllFilterData();
     }
 
 
@@ -108,6 +110,7 @@ public:
         mousePos.setCoordinates(event.getMouseDownX(), event.getMouseDownY());
         setCutoffFromHz(Converter::map(mousePos.getX(), 0, width, 20, 10000));
         setGain( -1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1 ));
+        sendAllFilterData();
     }
    
     void mouseWheelMove(const MouseEvent& mEvent, const MouseWheelDetails& wheelEvent)override {
@@ -119,6 +122,7 @@ public:
         if (slope + wheelEvent.deltaX < 1 && slope + wheelEvent.deltaX > 0) {
             slope += wheelEvent.deltaX;
         }
+        sendAllFilterData();
         
     }
 

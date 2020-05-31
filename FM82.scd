@@ -114,8 +114,6 @@ Task({s.waitForBoot{
 	~lpFilter = 8.collect{[7000, 1,1]};
     ~hpFilter = 8.collect{[40, 1,1]};
 
-
-
 	MIDIIn.noteOn_({ |src, chan, num, vel|
 		case{noSynths < polyphon }
 		{ synTest=0;
@@ -194,8 +192,6 @@ Task({s.waitForBoot{
 				}
 			);
 
-			y = Synth.tail(s,\filter, [\cutoff, 100]);
-
 			reltime = 8.collect{|i|(~envtimes[i][3]-~envtimes[i][2])};
 			reltime = reltime.maxItem;
 			noSynths = noSynths +1;
@@ -215,9 +211,7 @@ Task({s.waitForBoot{
 				synTestArray.put(spot,0);
 					synTestArray.postln;
 			}}).play;
-
 		}
-
 	);
 
 // =======================================================================================
@@ -317,7 +311,7 @@ OSCdef('OSCenvRel', {
 
 // ===============================================================================
 
-OSCdef('OSCLPfilter', {
+OSCdef('OSCfilters', {
 	arg msg;
 		var type = msg[1], index = msg[2], cutoff = msg[3], res = msg[4], gain = msg[5];
 		if( type == 0,
@@ -329,39 +323,28 @@ OSCdef('OSCLPfilter', {
 		    ~hpFilter[index][1] = res;
 		    ~hpFilter[index][2] = gain;
 		});
-
 },
 "FmSynth/Filter");
 
+OSCdef('OSCfilterState', {
+	arg msg;
+		var type = msg[1], index = msg[2], state = msg[3];
+		if( type == 0,{
+			if(state == 0, { ~hpFilter[index] = [20,1,1];});
+		   };
+		if (type == 1, {
+			if(state == 0, { ~lpFilter[index] = [20000,1,1];});
+		});
+},
+"FmSynth/Filter/State");
 
+
+// ===============================================================================
 
 }},AppClock).play);
 
 
 
-
-
-
-// ========================================================================================
-
-// msg[1] tells me the filter moved, // msg[2] tells me cutoff // msg[3] the resonance (height)
-OSCdef('OSCfilter', {
-	arg msg;
-	var index = msg[1];
-	if( index == 1,{~lpFilter = [msg[2], msg[3]];} )
-	if( index == 0,{~hpFilter = [msg[2], msg[3]];} )
-
-	~hpFilter = [40, 1];;
-},
-"FmSynth/filter");
-
-// =======================================================================================
-
-~lpFilter = [1200,1];
-~envlevs[1][2] = 3;
-
-
-// =======================================================================================
 
 (
 SynthDef(\delay, {arg delaytime=0.4;

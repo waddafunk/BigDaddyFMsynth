@@ -26,11 +26,13 @@ KnobSection::KnobSection()
 KnobSection::KnobSection(int x, int y, int w, int h) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
+    myListener = this;
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob) : xPos{ x }, yPos{ y }, width{ w }, height{ h }{
     checkDirection();
     sender = new MySender(tSection::matrix);
+    myListener = this;
     addKnobs(nKnob);
 }
 
@@ -38,22 +40,26 @@ KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type) :
 {
     checkDirection();
     sender = new MySender(type); 
-    addKnobs(nKnob);
+    myListener = this;
+    //addKnobs(nKnob);
+    addKnobs(nKnob, -1, myListener);
 }
 
 KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
     sender = new MySender(type);
-    addKnobs(nKnob, row);
+    //addKnobs(nKnob, row);
+    myListener = this;
+    addKnobs(nKnob, row, myListener);
 }
 
-KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener* listener)
+KnobSection::KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener* listener) : xPos{ x }, yPos{ y }, width{ w }, height{ h }
 {
     checkDirection();
     sender = new MySender(type);
-   // Component * c = dynamic_cast<listener
-    addKnobs(nKnob, row,listener);
+    myListener = this;
+    addKnobs(nKnob, row, myListener);
 }
 
 KnobSection::~KnobSection(){

@@ -97,6 +97,19 @@ void OscillatorGui::addPainters(WavePainter * painter) {
     addAndMakeVisible(painter);
 }
 
+void OscillatorGui::sliderValueChanged(Slider* slider){
+    //slider->getName();
+}
+
+void OscillatorGui::sliderDragStarted(Slider*)
+{
+}
+
+void OscillatorGui::sliderDragEnded(Slider*)
+{
+}
+
+
 
 
 void OscillatorGui::addPainters() {
@@ -117,10 +130,8 @@ void OscillatorGui::addPainters() {
 void OscillatorGui::addOscillatorKnobs()
 {
     for (size_t i = 0; i < numOfOsc; ++i) {
-        addKnobSection(0, height * i / numOfOsc, width * 4 / 15, height / numOfOsc, 4, tSection::oscillator, i);
-        
-    }
-    
+        addKnobSection(0, height * i / numOfOsc, width * 4 / 15, height / numOfOsc, 4, tSection::oscillator, i, this);
+    }    
 }
 
 

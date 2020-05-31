@@ -100,6 +100,21 @@ void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection t
 
 }
 
+void ModuleGui::addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener* listener)
+{
+    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob, type, row, listener);
+    knobSections.push_back(knobSection);
+    knobSection->setMyBounds();
+    addAndMakeVisible(knobSection);
+}
+
+void ModuleGui::addKnobSectionWithListener(int x, int y, int w, int h, int nKnob, tSection type, int row){
+    KnobSection* knobSection = new KnobSection(x, y, w, h, nKnob, type, row, this);
+    knobSections.push_back(knobSection);
+    knobSection->setMyBounds();
+    addAndMakeVisible(knobSection);
+}
+
 int ModuleGui::getXPos() const
 {
     return xPos;

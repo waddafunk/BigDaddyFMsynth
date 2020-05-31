@@ -31,6 +31,7 @@ MyHighPass::MyHighPass(int x, int y, int w, int h)
     type = filterType::highpass;
     cutoffSendValue = convertLog(cutoff);
     sender = new MySender(tSection::filter);
+    sendAllFilterData();
 
 }
 

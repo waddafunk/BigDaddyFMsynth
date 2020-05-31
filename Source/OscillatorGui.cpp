@@ -121,6 +121,14 @@ void OscillatorGui::sliderDragEnded(Slider*)
 {
 }
 
+void OscillatorGui::buttonStateChanged(Button* button)
+{
+}
+
+void OscillatorGui::buttonClicked(Button* button)
+{
+}
+
 
 
 
@@ -157,6 +165,9 @@ void OscillatorGui::addOscillatorLfo()
 
 void OscillatorGui::addTrigger()
 {
+    button = new ToggleButton();
+  //  button->setBounds(width * 2 / 5, height * i / numOfOsc, width * 4 / 15, height / numOfOsc, 4, tSection::lfo, i)
+    
 }
 
 void OscillatorGui::addFilters()

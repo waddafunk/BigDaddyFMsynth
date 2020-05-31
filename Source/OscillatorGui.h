@@ -43,9 +43,13 @@ public:
     void sliderDragStarted(Slider*) override;
     void sliderDragEnded(Slider*) override;
 
+    void buttonStateChanged(Button* button) override;
+    void buttonClicked(Button* button) override;
+
 private:
     std::vector<WavePainter*> painters;
     std::vector<FilterGui*> filters;
+    ToggleButton *button = nullptr;
     int numOfOsc = 8;
     //std::vector<std::vector<float>*> paintedWaves; //TODO: set waves length to perceptual present
 

@@ -23,6 +23,7 @@
 #include "EnvelopeGui.h"
 #include "MatrixGui.h"
 #include "MasterGui.h"
+#include "ButtonLookAndFeel.h"
 
 
 enum class tabName { matrix, oscillators };
@@ -55,7 +56,9 @@ public:
 private:
 
     Fm_synthAudioProcessor& processor;
-    
+    ButtonLookAndFeel buttonLAF;
+    std::vector<Label*> elementLabels;
+    std::vector<Label*> matrixLabels;
     std::vector<std::vector<ModuleGui*>> modules;
     std::vector<TextButton*> textButtons;
     tabName currentView;

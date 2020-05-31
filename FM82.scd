@@ -29,7 +29,8 @@ Task({s.waitForBoot{
 			s1,m1,m2,m3,m4,m5,m6,m7,m8,fmouts,inbus=8,
 			cur1,cur2,cur3,cur4,gate = 1,
 			lfoPitDepth=0,lfoFade=0,envPitDepth,
-			lpCutoff = 7000, lpRes = 1, hpCutoff = 30, hpRes = 1,
+			lpCutoff, lpRes, lpGain,
+			hpCutoff , hpRes, hpGain,
 			strtv = 0, atkv, decv, susv, relv,
 			tm1,tm2,tm3,tm4, masterEnv, lfophase, masterGain
 			|
@@ -62,7 +63,7 @@ Task({s.waitForBoot{
 
 	s.sync;
 
-	~synth =  Group.new(~feedback,\addAfter).postln;
+	~synth =  Group.new(~feedback,\addAfter);
 
 	s.sync;
 
@@ -94,7 +95,6 @@ Task({s.waitForBoot{
 
 	~masterLev = 1;
 
-
 	~envPitDepth = 8.collect{0}.postln;
 
 	~lfoAmpDepth = 8.collect{0.5}.postln;
@@ -111,9 +111,8 @@ Task({s.waitForBoot{
 	~fratio = 8.collect{|i| 8-i};
 	~oscphase = 8.collect{0};
 
-	~lpFilter = 8.collect{[1400, 1]};
-
-	~hpFilter = 8.collect{[40, 1]};
+	~lpFilter = 8.collect{[7000, 1,1]};
+    ~hpFilter = 8.collect{[40, 1,1]};
 
 
 
@@ -175,8 +174,10 @@ Task({s.waitForBoot{
 
 							\lpCutoff, ~lpFilter[i][0],
 							\lpRes , ~lpFilter[i][1],
+							\lpGain, ~lpFilter[i][2],
 							\hpCutoff ,~hpFilter[i][0],
 							\hpRes , ~hpFilter[i][1],
+							\hpGain, ~hpFilter[i][2],
 
 							\atkv,~envlevs[8][1],
 						    \decv,~envlevs[8][2],
@@ -187,12 +188,13 @@ Task({s.waitForBoot{
 						    \tm3,(~envtimes[8][2]),
 						    \tm4,(~envtimes[8][3]),
 							\masterGain, ~masterLev
-
 						],target:~synth
 					);
 
 				}
 			);
+
+			y = Synth.tail(s,\filter, [\cutoff, 100]);
 
 			reltime = 8.collect{|i|(~envtimes[i][3]-~envtimes[i][2])};
 			reltime = reltime.maxItem;
@@ -315,6 +317,24 @@ OSCdef('OSCenvRel', {
 
 // ===============================================================================
 
+OSCdef('OSCLPfilter', {
+	arg msg;
+		var type = msg[1], index = msg[2], cutoff = msg[3], res = msg[4], gain = msg[5];
+		if( type == 0,
+		   {~lpFilter[index][0] = cutoff;
+		    ~lpFilter[index][1] = res;
+		    ~lpFilter[index][2] = gain;});
+		if (type == 1,
+		   {~hpFilter[index][0] = cutoff;
+		    ~hpFilter[index][1] = res;
+		    ~hpFilter[index][2] = gain;
+		});
+
+},
+"FmSynth/Filter");
+
+
+
 }},AppClock).play);
 
 
@@ -352,6 +372,16 @@ Out.ar(0,effect); //adds to bus 0
 }).add;
 )
 
+
+
+(
+SynthDef(\filter, {arg cutoff=20, out;
+var input, effect;
+input=In.ar(0,2); //get two channels of input starting (and ending) on bus 0
+effect= LPF(input, cutoff, 1);
+	Out.ar(0, Pan2.ar(effect,0, 1));
+}).add;
+)
 
 (
 SynthDef(\flanger, {arg flangefreq=0.1, fdback=0.3;

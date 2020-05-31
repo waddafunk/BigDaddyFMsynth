@@ -471,7 +471,7 @@ float EnvelopeGui::computeAttackValue()
 float EnvelopeGui::computeDecayTime()
 {
     float currentTime = env[envelope::decay]->getX() - env[envelope::attack]->getX();
-    return Converter::map(currentTime, 0, width, 0, 8);
+    return Converter::map(currentTime, 0, width, 0, 4);
 }
 
 float EnvelopeGui::computeDecayValue()
@@ -483,7 +483,7 @@ float EnvelopeGui::computeDecayValue()
 float EnvelopeGui::computeSustainTime()
 {
     float currentTime = env[envelope::sustain]->getX() - env[envelope::decay]->getX();
-    return  Converter::map(currentTime, 0, width, 0, 8);
+    return  Converter::map(currentTime, 0, width, 0, 20);
 }
 
 float EnvelopeGui::computeSustainValue()
@@ -495,7 +495,7 @@ float EnvelopeGui::computeSustainValue()
 float EnvelopeGui::computeReleaseTime()
 {
     float currentTime = env[envelope::release]->getX() - env[envelope::sustain]->getX();
-    return Converter::map(currentTime, 0, width, 0, 8);
+    return Converter::map(currentTime, 0, width, 0, 10);
 }
 
 float EnvelopeGui::computeReleaseValue()

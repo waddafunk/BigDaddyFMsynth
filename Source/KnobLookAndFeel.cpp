@@ -28,11 +28,7 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
 {
     if (img1.isValid())
     {
-        const double rotation = (slider.getValue()
-            - slider.getMinimum())
-            / (slider.getMaximum()
-                - slider.getMinimum());
-
+        auto rotation = sliderPos * (rotaryEndAngle - rotaryStartAngle)/ (rotaryEndAngle - rotaryStartAngle);
         const int frames = img1.getHeight() / img1.getWidth();
         const int frameId = (int)ceil(rotation * ((double)frames - 1.0));
         const float radius = jmin(width / 2.0f, height / 2.0f) - 10;
@@ -43,7 +39,7 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
         
         auto rw = radius * 2.0f;
         auto angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-
+        
         g.drawImage(img1,
             (int)rx,
             (int)ry,
@@ -70,8 +66,7 @@ void KnobLookAndFeel::drawRotarySlider(Graphics& g,
             g.setGradientFill(*gradient);
             g.fillPath(filledArc);
          
-            delete gradient;
-       
+            delete gradient;    
     }
     else
     {

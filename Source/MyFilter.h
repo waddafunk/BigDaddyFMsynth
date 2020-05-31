@@ -157,7 +157,7 @@ public:
         }
         else {
             if (type == filterType::lowpass){
-                m = -Converter::map(slope, 0, 1, std::tan(45), std::tan(60));
+                m = - Converter::map(slope, 0, 1, std::tan(45), std::tan(60));
             }
         } 
         float x2 = cutPoint.getX();

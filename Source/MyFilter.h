@@ -267,6 +267,7 @@ protected:
     filterType type;
     float slope = 0;
     int row = 0;
+    int pointSize;
 
     bool state = true;
     

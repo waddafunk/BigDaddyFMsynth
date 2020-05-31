@@ -25,6 +25,7 @@ MyBandPass::MyBandPass(int x, int y, int w, int h)
     yPos = y;
     this->width = w;
     this->height = h;
+    pointSize = 6;
 }
 
 MyBandPass::~MyBandPass()

@@ -86,7 +86,8 @@ protected:
     int xPos;
     int yPos;
     float baseFreq = 2 * double_Pi / width; //one period 
-    float traslationVelocity = 2 * double_Pi;
+    float traslationVelocity;
+    
 
 
 private:

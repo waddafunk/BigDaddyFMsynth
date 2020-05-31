@@ -28,6 +28,7 @@ EnvelopeGui::EnvelopeGui()
     computeValuesAndTimes();
 
     sendAllData();
+    pointSize = 6;
 }
 
 
@@ -48,6 +49,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id )
     this->id = id;
 
     sendAllData();
+    pointSize = 6;
 }
 
 EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negativeRelease)
@@ -68,6 +70,7 @@ EnvelopeGui::EnvelopeGui(int x, int y, int width, int height,int id, bool negati
 
     computeValuesAndTimes();
     sendAllData();
+    pointSize = 6;
 }
 
 
@@ -83,7 +86,6 @@ void EnvelopeGui::paint (Graphics& g)
     g.setColour(Colours::grey);
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 
-    g.setColour(Colours::white);
 
     g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
@@ -95,15 +97,18 @@ void EnvelopeGui::paint (Graphics& g)
    
     for (std::map<envelope, Coordinate *>::const_iterator it = env.begin(); it != env.end(); ++it){
         Point<float> p(it->second->getX(), it->second->getY());
-        g.fillEllipse(p.x-5 , p.y-5 , 10.0f, 10.0f);
+        g.fillEllipse(p.x- pointSize / 2, p.y-pointSize/2 , pointSize, pointSize);
         envelopePath.lineTo(p);
     }
   
-
+    
 
     // draw an outline around the path that we have created
     g.strokePath(envelopePath, PathStrokeType(2.0f)); // [4]
-
+    envelopePath.lineTo(start);
+    //g.setColour(Colour::fromRGBA(83, 203, 230, 0.6));
+    g.setColour((getLookAndFeel().findColour(Slider::thumbColourId)).withMultipliedAlpha(0.3));
+    g.fillPath(envelopePath);
 
 }
 

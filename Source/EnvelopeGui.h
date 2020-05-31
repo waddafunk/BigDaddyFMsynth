@@ -50,6 +50,7 @@ private:
     MySender* sender;
     float attackTime, attackValue, decayTime, decayValue, sustainTime, sustainValue, releaseTime, releaseValue;
     int id;
+    int pointSize;
 
 
     float computeAttackTime();

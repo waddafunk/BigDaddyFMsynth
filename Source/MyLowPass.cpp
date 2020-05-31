@@ -34,6 +34,7 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
     sender = new MySender(tSection::filter);
     sendAllFilterData();
     setMyState(true);
+    pointSize = 6;
 }
 
 MyLowPass::~MyLowPass()
@@ -49,7 +50,8 @@ void MyLowPass::paint(Graphics& g) {
 
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
 
-    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
+    g.setColour(Colours::grey);
+    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 
     Path filterPath;
     Point<float> cutPoint(cutoff, height - Converter::map(gain, 0, 1, 0, height));
@@ -70,15 +72,18 @@ void MyLowPass::paint(Graphics& g) {
     filterPath.quadraticTo(preCut,endQuadratic);
     filterPath.cubicTo(preCut2, resCut, endPoint);
     //filterPath.lineTo(endPoint);
-    g.strokePath(filterPath, PathStrokeType(1.0f)); // [4]
+ 
+    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
 
-    // draw an outline around the path that we have created
-    g.fillEllipse(cutPoint.getX() - 5, height * (1.0f - gain) - 5.0f, 10.0f, 10.0f);
+    g.strokePath(filterPath, PathStrokeType(2.0f));
 
+    g.fillEllipse(cutPoint.getX() - pointSize / 2, height * (1.0f - gain) - pointSize / 2, pointSize, pointSize);
 
-    g.setColour(Colours::grey);
-    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
-
+    Point<float> end(0, height);
+    filterPath.lineTo(end);
+    filterPath.lineTo(startingPoint);
+    g.setColour((getLookAndFeel().findColour(Slider::thumbColourId)).withMultipliedAlpha(0.3));
+    g.fillPath(filterPath);
 }
 
 

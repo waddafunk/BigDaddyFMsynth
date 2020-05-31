@@ -38,7 +38,7 @@ SinePainter::SinePainter(int x, int y, int width, int height){
     this->height = height;
     amp = 0;
     phase = 0;
-    freq = 0.02;
+    freq = 0;
 }
 
 

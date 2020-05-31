@@ -225,7 +225,7 @@ public:
     }
 
     float convertGain(float gn) {
-        return gn * 2 / height;
+        return 2 - (gn * 2 / height);
     }
 
     void sendAllFilterData() {

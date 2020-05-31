@@ -100,7 +100,7 @@ void KnobSection::addKnobs(int nKnob, int row,Slider:: Listener* listener)
         temp->setName(knobName); //set name to send to socket
         temp->addListener(listener);
         if (listener != this) {
-     //       temp->addListener(this);
+            temp->addListener(this);
             switch (i)
             {
             case 0: temp->setType(knobType::amplitude);

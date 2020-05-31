@@ -24,14 +24,15 @@ Task({s.waitForBoot{
 		{
 			|
 			t1,t2,t3,t4,in,out=0,amp=0,lev1 = 0,lev2,lev3,lev4,lev5,
-			lfrate,lfoAmpDepth=0,freq,phase,pan=0,fmout=8,
+			lfrate,lfoAmpDepth=0,freq,phase,pan = 0,fmout=8,
 			s1,m1,m2,m3,m4,m5,m6,m7,m8,fmouts,inbus=8,
 			cur1,cur2,cur3,cur4,gate = 1,
 			lfoPitDepth=0,lfoFade=0,envPitDepth,
 			lpCutoff, lpRes, lpGain,
 			hpCutoff , hpRes, hpGain,
 			strtv = 0, atkv, decv, susv, relv,
-			tm1,tm2,tm3,tm4, masterEnv, lfophase, masterGain
+			tm1,tm2,tm3,tm4, masterEnv, lfophase,
+			masterGain,masterCut, mix, room
 			|
 
 			var env,osc,input,lfo,lfofade;
@@ -45,11 +46,12 @@ Task({s.waitForBoot{
 			lfo = SinOsc.ar(lfrate,lfophase,lfofade);
 
 			osc = SinOsc.ar(freq+(input)+(lfo*lfoPitDepth)+(env*envPitDepth),phase,1+(lfo*lfoAmpDepth),0)*env * masterEnv;
-
 			osc = RLPF.ar(osc,lpCutoff,lpRes,1);
 			osc = RHPF.ar(osc,hpCutoff,hpRes,1);
-			Out.ar(s1,[osc*m1,osc*m2,osc*m3,osc*m4,osc*m5,osc*m6,osc*m7,osc*m8]);
+			osc = LPF.ar(osc, masterCut, 1);
+			osc = FreeVerb.ar(osc, mix,room, 0.2);
 
+			Out.ar(s1,[osc*m1,osc*m2,osc*m3,osc*m4,osc*m5,osc*m6,osc*m7,osc*m8]);
 			Out.ar(out,Pan2.ar(osc,pan,amp*masterGain));
 		}
 
@@ -88,11 +90,11 @@ Task({s.waitForBoot{
 	nodecoll = 128.collect{List[]};
 
 
-	~envtimes = 9.collect{[0.1,0.5,0.7,1.0]}.postln;
+	~envtimes = 9.collect{[0.1,0.5,0.7,0.2]}.postln;
 
 	~envlevs = 9.collect{[1.0,0.5,0.5,0.0]}.postln;
 
-	~masterLev = 1;
+	~masterKnobs = [1,0,0, 20000];
 
 	~envPitDepth = 8.collect{0}.postln;
 
@@ -184,13 +186,14 @@ Task({s.waitForBoot{
 						    \tm2,(~envtimes[8][1]),
 						    \tm3,(~envtimes[8][2]),
 						    \tm4,(~envtimes[8][3]),
-							\masterGain, ~masterLev
+							\masterGain, ~masterKnobs[0],
+							\masterCut,~masterKnobs[3],
+							\mix,~masterKnobs[1],
+							\room,~masterKnobs[2]
 						],target:~synth
 					);
-
 				}
 			);
-
 			reltime = 8.collect{|i|(~envtimes[i][3]-~envtimes[i][2])};
 			reltime = reltime.maxItem;
 			noSynths = noSynths +1;
@@ -259,7 +262,10 @@ OSCdef('OSCmaster', {
 	arg msg;
 	var discriminator = msg[1], value = msg[2];
 		msg.postln;
-    if(discriminator == 3, {~masterLev = value  });
+		if(discriminator == 0, {~masterKnobs[3] = value});
+		if(discriminator == 1, {~masterKnobs[2] = value});
+		if(discriminator == 2, {~masterKnobs[1] = value});
+		if(discriminator == 3, {~masterKnobs[0] = value  });
 },
 "FmSynth/Master");
 
@@ -376,3 +382,5 @@ LocalOut.ar(fdback*effect);
 Out.ar(0,effect); //adds to bus 0 where original signal is already playing
 }).add;
 )
+
+~amplevs.postln;

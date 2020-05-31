@@ -9,7 +9,6 @@ FreqScope.new;
 Task({s.waitForBoot{
 	var
 	noSynths,synthArray,synTest,synTestArray,polyphon,reltime,debug,nodecoll;
-
 	SynthDef(\feedback, {
 		|in,out|
 
@@ -329,9 +328,9 @@ OSCdef('OSCfilters', {
 OSCdef('OSCfilterState', {
 	arg msg;
 		var type = msg[1], index = msg[2], state = msg[3];
-		if( type == 0,{
-			if(state == 0, { ~hpFilter[index] = [20,1,1];});
-		   };
+		if(type == 0,
+			{if(state == 0, { ~hpFilter[index] = [20,1,1] });
+		});
 		if (type == 1, {
 			if(state == 0, { ~lpFilter[index] = [20000,1,1];});
 		});

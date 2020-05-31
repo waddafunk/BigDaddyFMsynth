@@ -24,7 +24,7 @@
 //==============================================================================
 /*
 */
-class OscillatorGui    : public ModuleGui
+class OscillatorGui    : public ModuleGui, public Button::Listener
 {
 public:
     OscillatorGui();
@@ -51,6 +51,7 @@ private:
 
     void addOscillatorKnobs();
     void addOscillatorLfo();
+    void addTrigger();
     void addPainters();
     void addFilter(int x, int y, int w, int h);
 

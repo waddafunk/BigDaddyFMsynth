@@ -155,6 +155,10 @@ void OscillatorGui::addOscillatorLfo()
 
 }
 
+void OscillatorGui::addTrigger()
+{
+}
+
 void OscillatorGui::addFilters()
 {
     for (size_t i = 0; i < numOfOsc; ++i) {

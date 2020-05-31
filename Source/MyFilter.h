@@ -26,12 +26,12 @@ public:
     }
     MyFilter(float cutOff, float gain, float resonance) : cutoff{ cutoff }, gain{ gain }, resonance{ resonance } {
         sender = new MySender(tSection::filter);
-        cutoffSendValue = convertLog(cutoff);
+        cutoffSendValue = convertExp(cutoff);
         setGain(0.5);
         setResonance(0);
         setCutoffFromHz(400);
         type = filterType::highpass;
-        cutoffSendValue = convertLog(cutoff);
+        cutoffSendValue = convertExp(cutoff);
         sendAllFilterData();
     }
 
@@ -42,7 +42,7 @@ public:
         setResonance(0);
         setCutoffFromHz(400);
         type = filterType::highpass;
-        cutoffSendValue = convertLog(cutoff);
+        cutoffSendValue = convertExp(cutoff);
         sendAllFilterData();
     }
 
@@ -106,65 +106,72 @@ public:
 
     void mouseDown(const MouseEvent& event) override{
 
-        Coordinate mousePos;
-        mousePos.setCoordinates(event.getMouseDownX(), event.getMouseDownY());
-        setCutoffFromHz(Converter::map(mousePos.getX(), 0, width, 20, 10000));
-        setGain( -1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1 ));
-        sendAllFilterData();
+        if (state) {
+            Coordinate mousePos;
+            mousePos.setCoordinates(event.getMouseDownX(), event.getMouseDownY());
+            setCutoffFromHz(Converter::map(mousePos.getX(), 0, width, 20, 10000));
+            setGain(-1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1));
+            sendAllFilterData();
+        }
     }
    
     void mouseWheelMove(const MouseEvent& mEvent, const MouseWheelDetails& wheelEvent)override {
 
-        if (resonance + wheelEvent.deltaY < 1 && resonance + wheelEvent.deltaY > 0) {
-            resonance += wheelEvent.deltaY;
-        }
+        if (state) {
+            if (resonance + wheelEvent.deltaY < 1 && resonance + wheelEvent.deltaY > 0) {
+                resonance += wheelEvent.deltaY;
+            }
 
-        if (slope + wheelEvent.deltaX < 1 && slope + wheelEvent.deltaX > 0) {
-            slope += wheelEvent.deltaX;
+            if (slope + wheelEvent.deltaX < 1 && slope + wheelEvent.deltaX > 0) {
+                slope += wheelEvent.deltaX;
+            }
+            sendAllFilterData();
         }
-        sendAllFilterData();
         
     }
 
     void mouseDrag(const MouseEvent& event) override {
-        Coordinate mousePos;
-        bool isLegalX = true;
-        bool isLegalY = true;
-        mousePos.setCoordinates(event.getPosition().getX(), event.getPosition().getY());
-         
-        if (mousePos.getX() < 0) {
-            setCutoffFromHz(20);
-            isLegalX = false;
-        }
-        else {
-            if (mousePos.getX() > width) {
-                setCutoffFromHz(10000);
+        
+        if (state) {
+            Coordinate mousePos;
+            bool isLegalX = true;
+            bool isLegalY = true;
+            mousePos.setCoordinates(event.getPosition().getX(), event.getPosition().getY());
+
+            if (mousePos.getX() < 0) {
+                setCutoffFromHz(20);
                 isLegalX = false;
             }
-        }
+            else {
+                if (mousePos.getX() > width) {
+                    setCutoffFromHz(10000);
+                    isLegalX = false;
+                }
+            }
 
-        if (mousePos.getY() > height) {
-            setGain(0);
-            isLegalY = false;
-        }
-        else {
-            if (mousePos.getY() < 0) {
-                setGain(1);
+            if (mousePos.getY() > height) {
+                setGain(0);
                 isLegalY = false;
             }
-        }
+            else {
+                if (mousePos.getY() < 0) {
+                    setGain(1);
+                    isLegalY = false;
+                }
+            }
 
-        if (isLegalX) {
-            float xMapped = Converter::map(mousePos.getX(), 0, width, 20, 10000);
-            setCutoffFromHz(xMapped);
-            cutoffSendValue = convertLog(mousePos.getX());
+            if (isLegalX) {
+                float xMapped = Converter::map(mousePos.getX(), 0, width, 20, 10000);
+                setCutoffFromHz(xMapped);
+                cutoffSendValue = convertExp(mousePos.getX());
+            }
+            if (isLegalY) {
+                setGain(-1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1));
+                gainSendValue = convertGain(mousePos.getY());
+            }
+
+            sendAllFilterData();
         }
-        if (isLegalY) {
-            setGain(-1 * (Converter::map(mousePos.getY(), 0, height, 0, 1) - 1));
-            gainSendValue = convertGain(mousePos.getY());
-        }
-        
-        sendAllFilterData();
         
     }
     
@@ -210,12 +217,13 @@ public:
     }
 
 
-    float convertLog(float ctf) {
-        return std::log10(ctf) * 10000 / std::log10(width);
+    float convertExp(float ctf) {
+        return std::pow(10, std::fmaxf(20.0f, ctf)) * 10000 / std::pow(10, width);
+        //return std::log10(ctf) * 10000 / std::log10(width);
     }
 
     float convertGain(float gn) {
-        return -gn * 2 / height;
+        return gn * 2 / height;
     }
 
     void sendAllFilterData() {
@@ -230,6 +238,19 @@ public:
         return 1;
     }
 
+    void setMyState(bool state) {
+        this->state = state;
+    }
+
+    bool getMyState() {
+        return state;
+    }
+
+    void toggle() {      
+        state = !state;
+        sender->send(sender->getSocketName() << "state", getTypeInt(), row, state);
+    }
+
 protected:
 
     float cutoff = 440 * width / 10000.0f;
@@ -240,6 +261,8 @@ protected:
     filterType type;
     float slope = 0;
     int row = 0;
+
+    bool state = true;
     
     MySender* sender;
     

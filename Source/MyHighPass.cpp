@@ -29,9 +29,10 @@ MyHighPass::MyHighPass(int x, int y, int w, int h)
     setResonance(0.4);
     setCutoffFromHz(2000);
     type = filterType::highpass;
-    cutoffSendValue = convertLog(cutoff);
+    cutoffSendValue = convertExp(cutoff);
     sender = new MySender(tSection::filter);
     sendAllFilterData();
+    setMyState(true);
 
 }
 

@@ -30,9 +30,10 @@ MyLowPass::MyLowPass(int x, int y, int w, int h)
     setResonance(0.4);
     setCutoffFromHz(6000);
     type = filterType::lowpass;
-    cutoffSendValue = convertLog(cutoff);
+    cutoffSendValue = convertExp(cutoff);
     sender = new MySender(tSection::filter);
     sendAllFilterData();
+    setMyState(true);
 }
 
 MyLowPass::~MyLowPass()

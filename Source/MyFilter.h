@@ -215,9 +215,15 @@ public:
     }
 
     void sendAllFilterData() {
-        sender->send(sender->getSocketName() << "/Cutoff", row, cutoffSendValue);
-        sender->send(sender->getSocketName() << "/Resonance", row, resonance);
-        sender->send(sender->getSocketName() << "/Gain", row, gainSendValue);
+
+        sender->send(sender->getSocketName() , getTypeInt(), row, cutoffSendValue, resonance, gainSendValue);
+    }
+
+
+    int getTypeInt() {
+        if (type == filterType::highpass)
+            return 0;
+        return 1;
     }
 
 protected:

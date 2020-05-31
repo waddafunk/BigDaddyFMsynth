@@ -107,7 +107,7 @@ void KnobSection::addKnobs(int nKnob, int row, MySender* sender)
         else {
             knobName = sender->getSocketName() + ">=" + std::to_string(row) + ">=" + std::to_string(i);
         }
-
+        temp->setRange(0,10,0.1);
         std::string stdName = knobName.toStdString();
         temp->setName(knobName); //set name to send to socket
         temp->addListener(this);

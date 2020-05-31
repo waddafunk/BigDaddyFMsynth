@@ -57,6 +57,8 @@ private:
 
     Fm_synthAudioProcessor& processor;
     ButtonLookAndFeel buttonLAF;
+    std::vector<Label*> elementLabels;
+    std::vector<Label*> matrixLabels;
     std::vector<std::vector<ModuleGui*>> modules;
     std::vector<TextButton*> textButtons;
     tabName currentView;

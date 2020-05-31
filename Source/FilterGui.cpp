@@ -126,7 +126,7 @@ void FilterGui::buttonClicked(Button* button)
 {
     int index = std::stoi(button->getName().toStdString());
     if (index < myFilters.size()) {
-        myFilters[index].toggle();
+        myFilters[index]->toggle();
     }
 }
 

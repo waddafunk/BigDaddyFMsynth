@@ -220,8 +220,10 @@ public:
 
 
     float convertExp(float ctf) {
-        return std::pow(10, ctf) / std::pow(10, width) * 100000;
-        //return std::log10(ctf) * 10000 / std::log10(width);
+        int maxrange = 10000;
+        int minrange = 20;
+        float logmax = std::log10(maxrange / minrange);
+        return minrange*std::pow(10, logmax*ctf/width);
     }
 
     float convertGain(float gn) {

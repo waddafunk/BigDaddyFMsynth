@@ -18,7 +18,7 @@
 //==============================================================================
 /*
 */
-class ModuleGui    : public MyAnime, public MyMouseListener
+class ModuleGui : public MyAnime, public MyMouseListener, public Slider::Listener
 {
 public:
     ModuleGui();
@@ -37,8 +37,12 @@ public:
     void addKnobSection(int x, int y, int w, int h, int nKnob);
     void addKnobSection(int x, int y, int w, int h, int nKnob, tSection type);
     void addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row);
+    void addKnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener* listener);
+    void addKnobSectionWithListener(int x, int y, int w, int h, int nKnob, tSection type, int row);
 
-
+    void sliderValueChanged(Slider* slider)override {};
+    void sliderDragStarted(Slider*) override {};
+    void sliderDragEnded(Slider*) override  {};
 
 
     //getters and setters

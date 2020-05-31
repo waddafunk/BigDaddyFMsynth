@@ -1,17 +1,11 @@
 /*
   ==============================================================================
 
-    Observer.h
-    Created: 31 May 2020 3:13:24pm
+    MyMessage.cpp
+    Created: 31 May 2020 4:43:21pm
     Author:  daveg
 
   ==============================================================================
 */
 
-#pragma once
-
-
-class Observer {
-
-    virtual void update(int id, int row, float value) = 0;
-};
+#include "MyMessage.h"

@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "MySender.h"
 #include "KnobLookAndFeel.h"
+#include "MyKnob.h"
 
 //==============================================================================
 /*
@@ -28,6 +29,7 @@ public:
     KnobSection(int x, int y, int w, int h, int nKnob);
     KnobSection(int x, int y, int w, int h, int nKnob, tSection type);
     KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row);
+    KnobSection(int x, int y, int w, int h, int nKnob, tSection type, int row, Slider::Listener * listener);
 
     ~KnobSection();
 
@@ -41,22 +43,22 @@ public:
 
 
     void setMyBounds();
-    void addKnobs(int nKnob, MySender* sender);
-    void addKnobs(int nKnob, int row, MySender* sender);
-
-    void addKnobs(int nKnob, int row); //deprecating
+    void addKnobs(int nKnob);
+    void addKnobs(int nKnob, int row);
+    void addKnobs(int nKnob, int row, Slider::Listener *listener);
     
     void setMyOscillatorRange();
     void setMyLFORange();
     void setMyMatrixRange();
 
 private:
-    std::vector<Slider*> knobs;
+    std::vector<MyKnob*> knobs;
     int xPos;
     int yPos;
     int width;
     int height;
     direction dir;
+    Slider::Listener* myListener;
 
     
     void arrange();

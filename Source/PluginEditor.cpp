@@ -65,6 +65,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
     modules.push_back(matrixModules);
 
 
+
     //adds and makes visible all the created modules 
     size_t  i = 0;
     for (auto& moduleType : modules) {

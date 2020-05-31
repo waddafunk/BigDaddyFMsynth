@@ -115,13 +115,24 @@ void WavePainter::setTriggered(bool isTriggered)
     this->triggered = isTriggered;
 }
 
-/*void WavePainter::pushPainted(float pos)
+void WavePainter::toggle()
 {
-    wavePainted.push_back(pos);
+    triggered = !triggered;
 }
 
-void WavePainter::clearWavePainted()
+std::vector<float> WavePainter::getWavePainted() const
 {
-    this->wavePainted.clear();
+    return wavePainted;
 }
-*/
+
+void WavePainter::setWavePainted(std::vector<float> wavePainted)
+{
+    this->wavePainted = wavePainted;
+}
+
+bool WavePainter::getTriggered() const
+{
+    return triggered;
+}
+
+

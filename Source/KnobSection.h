@@ -49,6 +49,7 @@ public:
     
     void setMyOscillatorRange();
     void setMyLFORange();
+	void setMyMasterRange();
     void setMyMatrixRange();
 
 private:

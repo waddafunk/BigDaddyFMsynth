@@ -115,12 +115,9 @@ void KnobSection::addKnobs(int nKnob, int row,Slider:: Listener* listener)
             temp->setRow(row);
             
         }
-     
-
         temp->setLookAndFeel(&KnobLAF);
         addAndMakeVisible(temp); // makes visible each knob
         knobs.push_back(temp);
-
     }
 
     checkTypeAndSetRange(sender->getTSection()); // set range of each knob
@@ -193,6 +190,10 @@ void KnobSection::checkTypeAndSetRange(tSection type)
     case tSection::matrix:
         setMyMatrixRange();
         break;
+
+    case tSection::master:
+        setMyMasterRange();
+        break;
     default:
         break;
     }
@@ -236,7 +237,8 @@ void KnobSection::setMyOscillatorRange()
     knobs[0]->setRange(min/100, max/100, step);       // AMP
     knobs[1]->setRange(min/500, max/10, step);         // FREQ RATIO
     knobs[1]->setSkewFactorFromMidPoint(max/50);
-    knobs[2]->setRange(0, double_Pi, step);           //PHASE      
+    knobs[2]->setRange(0, 2*double_Pi, step);           //PHASE    
+    knobs[1]->setValue(1);
 }
 
 void KnobSection::setMyLFORange()
@@ -250,6 +252,14 @@ void KnobSection::setMyLFORange()
     knobs[2]->setRange(min, max, step);            // LFO rate
     knobs[2]->setSkewFactorFromMidPoint(max / 10);
     knobs[3]->setRange(0, double_Pi,step);      // LFO phase
+}
+
+void KnobSection::setMyMasterRange() 
+{
+    knobs[0]->setRange(0, 20000, 1);
+    knobs[0]->setSkewFactorFromMidPoint(1000);
+    knobs[1]->setRange(-1, 1, 0.01);
+    knobs[2]->setRange(-1, 1, 0.01);
 }
 
 void KnobSection::setMyMatrixRange()

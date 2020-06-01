@@ -357,10 +357,10 @@
  #define JucePlugin_Enable_IAA             0
 #endif
 #ifndef  JucePlugin_Name
- #define JucePlugin_Name                   "FMsynth"
+ #define JucePlugin_Name                   "BigDaddy"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "FMsynth"
+ #define JucePlugin_Desc                   "BigDaddy"
 #endif
 #ifndef  JucePlugin_Manufacturer
  #define JucePlugin_Manufacturer           "yourcompany"
@@ -417,16 +417,16 @@
  #define JucePlugin_AUSubType              JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AUExportPrefix
- #define JucePlugin_AUExportPrefix         FMsynthAU
+ #define JucePlugin_AUExportPrefix         BigDaddyAU
 #endif
 #ifndef  JucePlugin_AUExportPrefixQuoted
- #define JucePlugin_AUExportPrefixQuoted   "FMsynthAU"
+ #define JucePlugin_AUExportPrefixQuoted   "BigDaddyAU"
 #endif
 #ifndef  JucePlugin_AUManufacturerCode
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.yourcompany.FMsynth
+ #define JucePlugin_CFBundleIdentifier     com.yourcompany.BigDaddy
 #endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           2048
@@ -444,7 +444,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.yourcompany.FMsynth
+ #define JucePlugin_AAXIdentifier          com.yourcompany.BigDaddy
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -468,7 +468,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "yourcompany: FMsynth"
+ #define JucePlugin_IAAName                "yourcompany: BigDaddy"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16

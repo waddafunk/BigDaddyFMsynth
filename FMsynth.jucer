@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="CAcYrn" name="FMsynth" projectType="audioplug" jucerVersion="5.4.7"
+<JUCERPROJECT id="CAcYrn" name="BigDaddy" projectType="audioplug" jucerVersion="5.4.7"
               pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
               includeBinaryInJuceHeader="1">
-  <MAINGROUP id="It8PsJ" name="FMsynth">
+  <MAINGROUP id="It8PsJ" name="BigDaddy">
     <GROUP id="{EEE764A2-426D-8D6F-B2BD-98E4F3C1D40E}" name="Source">
       <GROUP id="{AC544877-3D8F-1719-2502-57A93CE4609D}" name="Utils">
         <FILE id="uxeAdq" name="Converter.cpp" compile="1" resource="0" file="Source/Converter.cpp"/>

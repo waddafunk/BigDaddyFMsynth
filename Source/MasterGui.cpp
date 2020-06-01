@@ -30,7 +30,7 @@ MasterGui::MasterGui(int x, int y, int width, int height)
     fader.setSliderStyle(Slider::SliderStyle::LinearVertical);
     fader.setTextBoxStyle(Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
     fader.addListener(this);
-    fader.setRange(-32, 9, 0.1);
+    fader.setRange(-32, 18, 0.1);
     fader.setSkewFactorFromMidPoint(-16);
     fader.setValue(0);
     fader.setLookAndFeel(&MySliderLAF);

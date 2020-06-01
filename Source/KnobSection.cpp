@@ -244,23 +244,25 @@ void KnobSection::setMyOscillatorRange()
 
 void KnobSection::setMyLFORange()
 {
-    int max = 20 ;
+    int max = 100 ;
     int min = 0.002 ;
     float step = 0.1;
 
-    knobs[0]->setRange( min, max / 20 , step ); // LFOA amp
-    knobs[1]->setRange(min, max/4, step/10);       // LFOP amp
+    knobs[0]->setRange( min, max / 100 , step ); // LFOA amp
+    knobs[1]->setRange(min, max/5, step/10);       // LFOP amp
     knobs[2]->setRange(min, max, step);            // LFO rate
-    knobs[2]->setSkewFactorFromMidPoint(max / 10);
-    knobs[3]->setRange(0, double_Pi,step);      // LFO phase
+    knobs[2]->setSkewFactorFromMidPoint(max / 20);
+    knobs[3]->setRange(0, 2*double_Pi,step);      // LFO phase
 }
 
 void KnobSection::setMyMasterRange() 
 {
-    knobs[0]->setRange(0, 20000, 1);
+    knobs[0]->setRange(40, 20000, 1);
     knobs[0]->setSkewFactorFromMidPoint(1000);
-    knobs[1]->setRange(-1, 1, 0.01);
-    knobs[2]->setRange(-1, 1, 0.01);
+    knobs[1]->setRange(0, 1, 0.01);
+    knobs[2]->setRange(0, 1, 0.01);
+    knobs[1]->setSkewFactorFromMidPoint(0.2);
+    knobs[2]->setSkewFactorFromMidPoint(0.38);
     knobs[0]->setValue(20000);
     for (auto& knob : knobs) {
         knob->setTextBoxStyle(Slider::NoTextBox, false,0,0 );

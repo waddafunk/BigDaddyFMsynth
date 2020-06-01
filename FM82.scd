@@ -23,16 +23,16 @@ Task({s.waitForBoot{
 	SynthDef(\fmTex,
 		{
 			|
-			t1,t2,t3,t4,in,out=0,amp=0,lev1 = 0,lev2,lev3,lev4,lev5,
-			lfrate,lfoAmpDepth=0,freq,phase,pan = 0,fmout=8,
-			s1,m1,m2,m3,m4,m5,m6,m7,m8,fmouts,inbus=8,
-			cur1,cur2,cur3,cur4,gate = 1,
-			lfoPitDepth=0,lfoFade=0,envPitDepth,
-			lpCutoff, lpRes, lpGain,
+			t1,t2,t3,t4,lev2,lev3,lev4,lev5,                         // envelopes vars
+			cur1,cur2,cur3,cur4,gate = 1,envPitDepth,
+			amp=0,lev1 = 0,freq,phase,pan = 0,                       // oscillators vars
+			lfrate,lfoAmpDepth=0,lfoPitDepth=0,lfoFade=0,lfophase,   // lfo vars
+			in,out=0,s1,m1,m2,m3,m4,m5,m6,m7,m8,inbus=8,             // fm vars and buses
+			lpCutoff, lpRes, lpGain,                                 // filters vars
 			hpCutoff , hpRes, hpGain,
-			strtv = 0, atkv, decv, susv, relv,
-			tm1,tm2,tm3,tm4, masterEnv, lfophase,
-			masterGain,masterCut, mix, room
+			strtv = 0, atkv, decv, susv, relv,                       // master Env vars
+			tm1,tm2,tm3,tm4, masterEnv,
+			masterGain,masterCut, mix, room                          // others
 			|
 
 			var env,osc,input,lfo,lfofade;
@@ -42,36 +42,30 @@ Task({s.waitForBoot{
 			env = EnvGen.kr(Env.new([lev1,lev2,lev3,lev4,lev5],[t1,t2,t3,t4],[cur1,cur2,cur3,cur4],3,4),gate,doneAction:2);
             masterEnv = EnvGen.kr(Env.new([strtv, atkv, decv, susv, relv],[tm1,tm2,tm3,tm4],[cur1,cur2,cur3,cur4],3,4),gate,doneAction:2);
 			lfofade = Line.kr(0.0001,1,lfoFade);
-
 			lfo = SinOsc.ar(lfrate,lfophase,lfofade);
 
-			osc = SinOsc.ar(freq+(input)+(lfo*lfoPitDepth)+(env*envPitDepth),phase,1+(lfo*lfoAmpDepth),0)*env * masterEnv;
+			// oscillator declaration + chain of effects
+			osc = SinOsc.ar(freq+ (input)+(lfo*lfoPitDepth)+(env*envPitDepth),phase,1+(lfo*lfoAmpDepth),0)*env * masterEnv;
 			osc = RLPF.ar(osc,lpCutoff,lpRes,1);
 			osc = RHPF.ar(osc,hpCutoff,hpRes,1);
 			osc = LPF.ar(osc, masterCut, 1);
 			osc = FreeVerb.ar(osc, mix,room, 0.2);
 
+			// first Out is a feedback, the signal returns inside as input, the second is the actual output
 			Out.ar(s1,[osc*m1,osc*m2,osc*m3,osc*m4,osc*m5,osc*m6,osc*m7,osc*m8]);
 			Out.ar(out,Pan2.ar(osc,pan,amp*masterGain));
 		}
 
 	).send(s);
 
-
+// connect the group chain of global object, on which we will attach the two synthdefs
 	s.sync;
-
 	~feedback = Group.new;
-
 	s.sync;
-
 	~synth =  Group.new(~feedback,\addAfter);
-
 	s.sync;
 
-	~effects = Group.new(~synth, \addAfter);
-
-	s.sync;
-
+	// first synthdef attachment (~feedback, polyphony setting)
 	polyphon = 6;
 	polyphon.do{|o|
 		8.do{
@@ -80,59 +74,48 @@ Task({s.waitForBoot{
 		};
 	};
 
+// control and grouping variables
 	noSynths = 0;
-
 	synTest = 0;
-
 	synTestArray = polyphon.collect{0};
-
 	synthArray = Array.newClear(128);
 	nodecoll = 128.collect{List[]};
 
-
-	~envtimes = 9.collect{[0.1,0.5,0.7,0.2]}.postln;
-
-	~envlevs = 9.collect{[1.0,0.5,0.5,0.0]}.postln;
+// global variables database representing the state of the synth
+	~envtimes    = 9.collect{[0.1,0.5,0.7,0.2]};
+	~envlevs     = 9.collect{[1.0,0.5,0.5,0.0]};
+	~envPitDepth = 8.collect{0};
+	~envcurves   = 8.collect{[0,0,0,0]};
 
 	~masterKnobs = [1,0,0, 20000];
 
-	~envPitDepth = 8.collect{0}.postln;
-
-	~lfoAmpDepth = 8.collect{0.5}.postln;
-	~lfoPitDepth = 8.collect{1}.postln;
-	~lfoRate = 8.collect{3};
+	~lfoAmpDepth = 8.collect{0.5};
+	~lfoPitDepth = 8.collect{1};
+	~lfoRate     = 8.collect{3};
 	~lfoFadeTime = 8.collect{4};
-	~lfoPhase = 8.collect{0};
+	~lfoPhase    = 8.collect{0};
 
-	~envcurves = 8.collect{[0,0,0,0]};
+	~modlevs     = 8.collect{8.collect{0}};
+	~amplevs     = 8.collect{1};
+	~fratio      = 8.collect{|i| 8-i};
+	~oscphase    = 8.collect{0};
+	~lpFilter    = 8.collect{[7000, 1,1]};
+    ~hpFilter    = 8.collect{[40, 1,1]};
 
-	~modlevs = 8.collect{8.collect{0}};
-
-	~amplevs = 8.collect{1};
-	~fratio = 8.collect{|i| 8-i};
-	~oscphase = 8.collect{0};
-
-	~lpFilter = 8.collect{[7000, 1,1]};
-    ~hpFilter = 8.collect{[40, 1,1]};
-
+// Each time a note is played we set the synth accordingly to the database
 	MIDIIn.noteOn_({ |src, chan, num, vel|
 		case{noSynths < polyphon }
 		{ synTest=0;
-
-			if(synTestArray.includesEqual(num))
-			{
-				"wank".postln;
-			}
-			{
-				"yay".postln;
-			};
+			"BDHN".postln;
+			[num, vel].postln;
 
 			synTest = synTestArray.detectIndex { |item| item == 0 };
-			if(synTest.notNil) { synTestArray.put(synTest,num) } { /* else fail, maybe throw an error? */ };
+			if(synTest.notNil) { synTestArray.put(synTest,num) } { "what?".postln; };
 
 			synthArray.put(num,
 				8.collect{|i| var syn;
 
+				// second Synthdef attachment (called eight times, grouped into ~synth)
 				syn =
 					Synth(\fmTex,
 						[
@@ -168,7 +151,7 @@ Task({s.waitForBoot{
 							\m6,(num.midicps/10)*~modlevs[i][5],
 							\m7,(num.midicps/10)*~modlevs[i][6],
 							\m8,(num.midicps/10)*~modlevs[i][7],
-							\amp,~amplevs[i]/8,
+							\amp,~amplevs[i]/8*vel/128,
 							\phase, ~oscphase[i],
 
 							\lpCutoff, ~lpFilter[i][0],
@@ -200,6 +183,7 @@ Task({s.waitForBoot{
 		}
 	});
 
+// Then we release it
 	MIDIIn.noteOff_(
 
 		{|src, chan, num, vel|
@@ -211,16 +195,17 @@ Task({s.waitForBoot{
 				synTestArray.put(spot,129);
 				reltime.wait; noSynths = noSynths-1;
 				synTestArray.put(spot,0);
-					synTestArray.postln;
 			}}).play;
 		}
 	);
 
+//________________________________________________________________________________________
+// =============================== OSC MESSAGES SECTION ==================================
 // =======================================================================================
 
 // msg[1] tells me the column  // msg[2] tells me the row // msg[3] tells me the value
 OSCdef('OSCmatrix', {
-	arg msg;
+		arg msg;
 	msg.postln;
 
 	~modlevs[msg[1]][msg[2]] = msg[3];
@@ -228,8 +213,9 @@ OSCdef('OSCmatrix', {
 },
 "FmSynth/Matrix");
 
-// =====================================================================================
+// ======================================================================================
 
+// discriminator tells me the variable to update// index the relative oscillator // the third the value
 OSCdef('OSCoscillator', {
 	arg msg;
 	var discriminator = msg[2], index = msg[1], value = msg[3];
@@ -240,38 +226,45 @@ OSCdef('OSCoscillator', {
 },
 "FmSynth/Oscillator");
 
-// ========================================================================================
+// ======================================================================================
 
-// msg[1] tells me the input, // msg[2] tells me the amp
-
+// discriminator tells me the variable to update// index the relative oscillator // the third the value
 OSCdef('OSCLfo', {
 	arg msg;
 	var discriminator = msg[2], index = msg[1], value = msg[3];
 		msg.postln;
-	if(discriminator == 0, {~lfoAmpDepth[index] = value});
-	if(discriminator == 1, {~lfoPitDepth[index] = value});
-	if(discriminator == 2, {~lfoRate[index] = value});
-	if(discriminator == 3, {~lfoPhase[index] = value});
+	if(discriminator == 0, {~lfoAmpDepth[index] = value;
+			                ~synth.set(\lfoAmpDepth, value);});
+	if(discriminator == 1, {~lfoPitDepth[index] = value;
+			                ~synth.set(\lfoPitDepth, value);});
+	if(discriminator == 2, {~lfoRate[index] = value;
+			                ~synth.set(\lfrate, value);});
+	if(discriminator == 3, {~lfoPhase[index] = value;
+			                ~synth.set(\lfophase, value);});
 },
 "FmSynth/Lfo");
 
-// ========================================================================================
-// The first message tells me the index, the second one the levels , the third one the times
+// ======================================================================================
 
+// discriminator tells me the variable to update// msg[2] tells me the value
 OSCdef('OSCmaster', {
 	arg msg;
 	var discriminator = msg[1], value = msg[2];
 		msg.postln;
-		if(discriminator == 0, {~masterKnobs[3] = value});
-		if(discriminator == 1, {~masterKnobs[2] = value});
-		if(discriminator == 2, {~masterKnobs[1] = value});
+		if(discriminator == 0, {~masterKnobs[3] = value;
+			                    ~synth.set(\masterCut, value);});
+		if(discriminator == 1, {~masterKnobs[2] = value;
+			                    ~synth.set(\room, value);});
+		if(discriminator == 2, {~masterKnobs[1] = value;
+			                    ~synth.set(\mix, value);});
 		if(discriminator == 3, {~masterKnobs[0] = value  });
 },
 "FmSynth/Master");
 
-// ========================================================================================
+// ======================================================================================
 
-	OSCdef('OSCenvAtk', {
+// the index tells me the relative oscillator // then we have the level and adjacent times
+OSCdef('OSCenvAtk', {
 	arg msg;
 	var index = msg[1], atklev = msg[2], atktime = msg[3], dectime = msg[4];
 		~envlevs[index][0] = atklev;
@@ -281,7 +274,7 @@ OSCdef('OSCmaster', {
 },
 "FmSynth/Envelope/Attack");
 
-
+// the index tells me the relative oscillator // then we have the level and adjacent times
 OSCdef('OSCenvDec', {
 	arg msg;
 	var index = msg[1], declev = msg[2], dectime = msg[3], sustime = msg[4];
@@ -292,7 +285,7 @@ OSCdef('OSCenvDec', {
 },
 "FmSynth/Envelope/Decay");
 
-
+// the index tells me the relative oscillator // then we have the level and adjacent times
 OSCdef('OSCenvSus', {
 	arg msg;
 	var index = msg[1], suslev = msg[2], sustime = msg[3], reltime = msg[4];
@@ -304,7 +297,7 @@ OSCdef('OSCenvSus', {
 "FmSynth/Envelope/Sustain");
 
 
-
+// the index tells me the relative oscillator // then we have the level and adjacent times
 OSCdef('OSCenvRel', {
 	arg msg;
 	var index = msg[1], rellev = msg[2], reltime = msg[3];
@@ -314,22 +307,33 @@ OSCdef('OSCenvRel', {
 },
 "FmSynth/Envelope/Release");
 
-// ===============================================================================
+// =====================================================================================
 
+// type tells me the filter type// index the relative oscillator // the others are values
 OSCdef('OSCfilters', {
 	arg msg;
 		var type = msg[1], index = msg[2], cutoff = msg[3], res = msg[4], gain = msg[5];
-		if( type == 0,
-		   {~lpFilter[index][0] = cutoff;
+		if( type == 1,
+		   {~synth.set(\lpCutoff, cutoff);
+		    ~synth.set(\lpRes, res);
+		    ~synth.set(\lpGain, gain);
+			~lpFilter[index][0] = cutoff;
 		    ~lpFilter[index][1] = res;
-		    ~lpFilter[index][2] = gain;});
-		if (type == 1,
-		   {~hpFilter[index][0] = cutoff;
+		    ~lpFilter[index][2] = gain;
+			});
+		if (type == 0,
+		   {~synth.set(\hpCutoff, cutoff);
+		    ~synth.set(\hpRes, res);
+		    ~synth.set(\hpGain, gain);
+			~hpFilter[index][0] = cutoff;
 		    ~hpFilter[index][1] = res;
 		    ~hpFilter[index][2] = gain;});
 		msg.postln;
 	},
 "FmSynth/Filter");
+
+// type tells me the filter type// index the relative oscillator // the state disables the filter
+// whenever the state it's 1, JUCE will send a FmSynth/Filter message to revert to previous conditions
 
 OSCdef('OSCfilterState', {
 	arg msg;
@@ -344,43 +348,9 @@ OSCdef('OSCfilterState', {
 },
 "FmSynth/Filter/State");
 
-
-// ===============================================================================
-
+// ========================== END OSC MESSAGES SECTION ==================================
+// ======================================================================================
+	"Let's Go".postln;
 }},AppClock).play);
 
-
-
-
-(
-SynthDef(\delay, {arg delaytime=0.4;
-var input, effect;
-input=In.ar(0,2); //get two channels of input starting (and ending) on bus 0
-effect= DelayN.ar(input, 1,delaytime, mul: 0.1); //max delay of one second
-Out.ar(0,effect); //adds to bus 0
-}).add;
-)
-
-
-
-(
-SynthDef(\filter, {arg cutoff=20, out;
-var input, effect;
-input=In.ar(0,2); //get two channels of input starting (and ending) on bus 0
-effect= LPF(input, cutoff, 1);
-	Out.ar(0, Pan2.ar(effect,0, 1));
-}).add;
-)
-
-(
-SynthDef(\flanger, {arg flangefreq=0.1, fdback=0.3;
-var input, effect;
-input=In.ar(0,2); //get two channels of input starting (and ending) on bus 0
-input= input+ LocalIn.ar(2); //add some feedback
-effect= DelayN.ar(input,0.02,SinOsc.kr(flangefreq,0,0.005,0.005)); //max delay of 20msec
-LocalOut.ar(fdback*effect);
-Out.ar(0,effect); //adds to bus 0 where original signal is already playing
-}).add;
-)
-
-~amplevs.postln;
+(1.asString ++ "sss").postln;

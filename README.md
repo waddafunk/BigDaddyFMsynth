@@ -1,4 +1,4 @@
-# FMsynth
+# BigDaddy FM synthesizer
 
 FM synthesizer with **juce-powered c++** graphic interface connected to a **supercollider** server. 
 All is needed to run the application is the two files found in **"BigDaddyV1.1.zip"**.

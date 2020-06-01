@@ -1,3 +1,7 @@
 # FMsynth
+
+##Setup
+
+<img src = "/images/Scd_interface.PNG" width = "1000" >
  
-Place the repository where you want to store it, open the jucer and make sure juce_osc is included in the modules.
+

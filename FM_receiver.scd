@@ -5,7 +5,6 @@ s.options.memSize = 80000;
 FreqScope.new;
 
 (
-
 Task({s.waitForBoot{
 	var
 	noSynths,synthArray,synTest,synTestArray,polyphon,reltime,debug,nodecoll;
@@ -232,7 +231,6 @@ OSCdef('OSCoscillator', {
 OSCdef('OSCLfo', {
 	arg msg;
 	var discriminator = msg[2], index = msg[1], value = msg[3];
-		msg.postln;
 	if(discriminator == 0, {~lfoAmpDepth[index] = value;
 			                ~synth.set(\lfoAmpDepth, value);});
 	if(discriminator == 1, {~lfoPitDepth[index] = value;
@@ -250,7 +248,6 @@ OSCdef('OSCLfo', {
 OSCdef('OSCmaster', {
 	arg msg;
 	var discriminator = msg[1], value = msg[2];
-		msg.postln;
 		if(discriminator == 0, {~masterKnobs[3] = value;
 			                    ~synth.set(\masterCut, value);});
 		if(discriminator == 1, {~masterKnobs[2] = value;
@@ -328,7 +325,6 @@ OSCdef('OSCfilters', {
 			~hpFilter[index][0] = cutoff;
 		    ~hpFilter[index][1] = res;
 		    ~hpFilter[index][2] = gain;});
-		msg.postln;
 	},
 "FmSynth/Filter");
 

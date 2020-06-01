@@ -83,10 +83,10 @@ void MyHighPass::paint (Graphics& g)
 
 void MyHighPass::paint(Graphics& g)
 {
-  g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
+  g.fillAll((getLookAndFeel().findColour(ResizableWindow::backgroundColourId)).brighter(0.01));   // clear the background
 
-  g.setColour(Colours::grey);
-  g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
+    g.setColour(Colours::grey.darker(0.8));
+    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 
 
     Path filterPath;

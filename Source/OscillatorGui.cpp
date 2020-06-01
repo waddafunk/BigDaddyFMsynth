@@ -82,7 +82,7 @@ void OscillatorGui::paint (Graphics& g)
 
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
 
-    g.setColour (Colours::grey);
+    g.setColour (Colours::grey.darker(0.8));
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 }
 
@@ -172,7 +172,6 @@ void OscillatorGui::addTriggers()
     for (size_t i = 0; i < numOfOsc; ++i) {
         button = new ToggleButton();
         button->setName(std::to_string(i));
-        button->setToggleState(false, false);
         button->setLookAndFeel(new ToggleButtonLookAndFeel());
         button->addListener(this);
         buttons.push_back(button);

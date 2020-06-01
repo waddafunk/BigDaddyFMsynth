@@ -82,7 +82,7 @@ void OscillatorGui::paint (Graphics& g)
 
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
 
-    g.setColour (Colours::grey);
+    g.setColour (Colours::grey.darker(0.8));
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 }
 

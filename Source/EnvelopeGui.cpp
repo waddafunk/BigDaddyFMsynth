@@ -83,11 +83,12 @@ void EnvelopeGui::paint (Graphics& g)
 {
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
 
-    g.setColour(Colours::grey);
+    g.setColour(Colours::grey.darker(0.8));
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 
 
-    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
+    //g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
+    g.setColour(Colour::fromRGB(230,80,129));
 
     Path envelopePath;
 
@@ -107,7 +108,9 @@ void EnvelopeGui::paint (Graphics& g)
     g.strokePath(envelopePath, PathStrokeType(2.0f)); // [4]
     envelopePath.lineTo(start);
     //g.setColour(Colour::fromRGBA(83, 203, 230, 0.6));
-    g.setColour((getLookAndFeel().findColour(Slider::thumbColourId)).withMultipliedAlpha(0.3));
+    //g.setColour((getLookAndFeel().findColour(Slider::thumbColourId)).withMultipliedAlpha(0.3));
+
+    g.setColour(Colour::fromRGB(230, 80, 129).withMultipliedAlpha(0.3));
     g.fillPath(envelopePath);
 
 }

@@ -235,6 +235,7 @@ void KnobSection::setMyOscillatorRange()
     float step = 0.01;
  
     knobs[0]->setRange(min/100, max/100, step);         // AMP
+    knobs[0]->setValue(1 / 8);
     knobs[1]->setRange(min/500, max/10, step);          // FREQ RATIO
     knobs[1]->setSkewFactorFromMidPoint(max/50);
     knobs[2]->setRange(0, 2*double_Pi, step);           //PHASE    
@@ -261,6 +262,9 @@ void KnobSection::setMyMasterRange()
     knobs[1]->setRange(-1, 1, 0.01);
     knobs[2]->setRange(-1, 1, 0.01);
     knobs[0]->setValue(20000);
+    for (auto& knob : knobs) {
+        knob->setTextBoxStyle(Slider::NoTextBox, false,0,0 );
+    }
 }
 
 void KnobSection::setMyMatrixRange()

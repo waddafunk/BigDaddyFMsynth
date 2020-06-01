@@ -43,43 +43,6 @@ MyHighPass::~MyHighPass()
 }
 
 
-/*
-void MyHighPass::paint (Graphics& g)
-{
-    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour(getLookAndFeel().findColour(Slider::thumbColourId));
-
-    Path filterPath;
-    Point<float> cutX(cutoff, (float)-resonance * 2.0f * height * 0.7f + height * 0.5f), 
-        preCutX(cutX.getX() - width / 50, height / 2.0f), 
-        start(preCutX.getX() * 90 / 100, (float)height),
-        endLinear(width, (float)(height / 2)),
-        endp(cutX.getX() + width / 5, (float)height / 2), 
-        smoothingPoint(endp.getX() - width / 10, endp.getY() * 8 / 10),
-        smoothingPoint2(smoothingPoint.getX() + width / 80, smoothingPoint.getY() * 120 / 100),
-        smoothingPoint3(smoothingPoint.getX() + width / 40 + 10, height / 2);
-    
-    if (endp.getX() > width)
-        endp.setX(width);
-    
-    filterPath.startNewSubPath(start);  // if this is the first point, start a new path..
-    filterPath.cubicTo(preCutX, cutX, smoothingPoint);
-    filterPath.quadraticTo(smoothingPoint2, endp);
-
-    filterPath.lineTo(endLinear);
-
-
-    // draw an outline around the path that we have created
-    g.strokePath(filterPath, PathStrokeType(2.0f)); // [4]
-    g.fillEllipse(cutX.getX()-5, height * (1.0f - resonance) - 5.0f, 10.0f, 10.0f);
-
-    g.setColour(Colours::grey);
-    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
-}
-
-*/
-
 
 void MyHighPass::paint(Graphics& g)
 {
@@ -132,8 +95,15 @@ void MyHighPass::paint(Graphics& g)
     Point<float> end(width, height);
     filterPath.lineTo(end);
     filterPath.lineTo(startingPoint);
-    g.setColour((getLookAndFeel().findColour(Slider::thumbColourId)).withMultipliedAlpha(0.3));
+    
+    ColourGradient* gradient = new ColourGradient(Colours::grey.brighter(0.2), cutPoint.getX(), 50 + cutPoint.getY(), Colours::aliceblue, cutPoint.getX() + 300, cutPoint.getY(), false);
+    gradient->clearColours();
+    gradient->addColour(0, Colours::deepskyblue.withMultipliedAlpha(0.4));
+    gradient->addColour(0.4, Colours::cadetblue.darker(0.4).withMultipliedAlpha(0.4));
+    gradient->addColour(0.9, Colours::pink.withMultipliedAlpha(0.4));
+    g.setGradientFill(*gradient);
     g.fillPath(filterPath);
+    delete gradient;
    
 }
 

@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   BigDaddy_png;
+    const int            BigDaddy_pngSize = 34320;
+
     extern const char*   min_switch_png;
     const int            min_switch_pngSize = 682;
 
@@ -42,7 +45,7 @@ namespace BinaryData
     const int            neuropol_ttfSize = 91532;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 11;
+    const int namedResourceListSize = 12;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

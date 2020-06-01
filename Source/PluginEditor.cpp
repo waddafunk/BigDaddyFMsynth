@@ -95,7 +95,7 @@ Fm_synthAudioProcessorEditor::Fm_synthAudioProcessorEditor(Fm_synthAudioProcesso
 
     //elementLabels initialization
     elementLabels.push_back(new Label("title", "Amp"));
-    elementLabels.push_back(new Label("title", "Freq"));
+    elementLabels.push_back(new Label("title", "Fratio"));
     elementLabels.push_back(new Label("title", "Phase"));
     elementLabels.push_back(new Label("title", "Trigger"));
     elementLabels.push_back(new Label("title", "Wave"));

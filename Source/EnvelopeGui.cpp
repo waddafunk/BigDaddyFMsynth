@@ -464,7 +464,7 @@ void EnvelopeGui::sendAllData()
 float EnvelopeGui::computeAttackTime()
 {
     float currentTime = env[envelope::attack]->getX();
-    return Converter::map(currentTime, 0, width, 0, 8);
+    return Converter::map(currentTime, 0, width, 0, 4);
 }
 
 float EnvelopeGui::computeAttackValue()
@@ -501,9 +501,9 @@ float EnvelopeGui::computeReleaseTime()
 {
     float currentTime = env[envelope::release]->getX() - env[envelope::sustain]->getX();
     if (!isForMatrix)
-        return Converter::map(currentTime, 0, width, 0, 14);
+        return Converter::map(currentTime, 0, width, 0, 8);
     else 
-        return Converter::map(currentTime, -width, width, -12, 12);
+        return Converter::map(currentTime, -width, width, -10, 10);
 }
 
 float EnvelopeGui::computeReleaseValue()

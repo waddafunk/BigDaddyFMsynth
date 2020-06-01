@@ -66,8 +66,6 @@ void MyLowPass::paint(Graphics& g) {
     Point <float> posCut(cutPoint.getX() + (width / 20), cutPoint.getY() + (1 - resonance)*height/10 );
     Point <float> endPoint(computeZeroCrossingPointX(cutPoint, type), height);
 
-
-
     filterPath.startNewSubPath(startingPoint);
     filterPath.quadraticTo(preCut,endQuadratic);
     filterPath.cubicTo(preCut2, resCut, endPoint);
@@ -82,12 +80,17 @@ void MyLowPass::paint(Graphics& g) {
     Point<float> end(0, height);
     filterPath.lineTo(end);
     filterPath.lineTo(startingPoint);
-    g.setColour((getLookAndFeel().findColour(Slider::thumbColourId)).withMultipliedAlpha(0.3));
+
+    ColourGradient* gradient = new ColourGradient(Colours::grey.brighter(0.2), cutPoint.getX()+100, cutPoint.getY(), Colours::aliceblue, -150+cutPoint.getX(), 50+cutPoint.getY(), false);
+    gradient->clearColours();
+    gradient->addColour(0, Colours::pink.withMultipliedAlpha(0.4));
+    gradient->addColour(0.2, Colours::cadetblue.darker(0.4).withMultipliedAlpha(0.4));
+    gradient->addColour(0.5, Colours::deepskyblue.withMultipliedAlpha(0.4));
+    g.setGradientFill(*gradient);
     g.fillPath(filterPath);
+
+    delete gradient;
 }
-
-
-
 
 
 void MyLowPass::resized()

@@ -99,14 +99,13 @@ void FaderLookAndFeel::drawLinearSliderBackground(Graphics& g, int x, int y, int
         off.addRectangle(r);
     }
 
-
     ColourGradient* gradient = new ColourGradient(Colours::grey.brighter(0.2),x,slider.getBottom(), Colours::aliceblue, x, y,false);
     gradient->clearColours();
     gradient->addColour(0, Colours::brown);
     gradient->addColour(0.3, getDefaultLookAndFeel().findColour(ResizableWindow::backgroundColourId).darker(0.9));
     gradient->addColour(0.5, Colours::deepskyblue.darker(0.8));
-    gradient->addColour(0.9, Colours::indianred.darker(0.4));
-
+    gradient->addColour(0.9, Colour::fromRGB(230, 80, 129));
+    
     g.setGradientFill(*gradient);
     
     g.fillPath(on);

@@ -235,7 +235,7 @@ void KnobSection::setMyOscillatorRange()
     float step = 0.01;
  
     knobs[0]->setRange(min/100, max/100, step);         // AMP
-    knobs[0]->setValue(1 / 8);
+    knobs[0]->setValue(0.2);
     knobs[1]->setRange(min/500, max/10, step);          // FREQ RATIO
     knobs[1]->setSkewFactorFromMidPoint(max/50);
     knobs[2]->setRange(0, 2*double_Pi, step);           //PHASE    

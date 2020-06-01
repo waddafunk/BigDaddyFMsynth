@@ -60,7 +60,7 @@ void MasterGui::paint(Graphics& g)
     
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));   // clear the background
 
-    g.setColour(Colours::grey);
+    g.setColour(Colours::grey.darker(0.8));
     g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
     g.drawImage(img,0,height/7,width,width*3/4,0,0,img.getWidth(), img.getHeight(), false);
 }

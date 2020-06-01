@@ -22,7 +22,8 @@ SinePainter::SinePainter()
     width = 40;
     setBaseFreq(2 * double_Pi / width);
     setPhase(0.0f);
-    setTraslationalVelocity(getBasefreq() * double_Pi / 4);
+    setTraslationalVelocity(getBasefreq() * double_Pi * 2);
+    setFramesPerSecond(60);
 
 }
 
@@ -34,7 +35,8 @@ SinePainter::SinePainter(int x, int y)
     width = 40;
     setBaseFreq(2 * double_Pi / width);
     setPhase(0.0f);
-    setTraslationalVelocity(getBasefreq() * double_Pi / 4);
+    setTraslationalVelocity(getBasefreq() * double_Pi * 2);
+    setFramesPerSecond(60);
 }
 
 SinePainter::SinePainter(int x, int y, int width, int height){
@@ -47,7 +49,8 @@ SinePainter::SinePainter(int x, int y, int width, int height){
     freq = 0;
     setBaseFreq(2 * 10 * double_Pi / width);
     setPhase(0.0f);
-    setTraslationalVelocity(getBasefreq() * double_Pi / 4);
+    setTraslationalVelocity(getBasefreq() * double_Pi * 2);
+    setFramesPerSecond(60);
 }
 
 
@@ -74,7 +77,7 @@ void SinePainter::paint(Graphics& g)
 
     for (auto i = 0; i < numberOfDots; ++i) // [3]
     {
-        float pos = height / 2.0f + amplitude * std::cos(i * getBasefreq() * freq + getTraslationalVelocity() * getFrameCounter() + phase);
+        float pos = height / 2.0f + amplitude * std::cos(i * getBasefreq() * freq + getTraslationalVelocity() * getFrameCounter() / 60 + phase);
         if (getTriggered())
             pos = height / 2.0f + amplitude * std::cos(i * freq * getBasefreq() + phase);
         Point<float> p(i * width / (numberOfDots - 2), pos);

@@ -2,7 +2,7 @@
 
 FM synthesizer with **juce-powered c++** graphic interface connected to a **supercollider** server. 
 **All is needed to run the application is the two files found in the following link** 
-(BigDaddyV1.1.zip)[https://drive.google.com/file/d/1G9ZSSqRgZz3AXU1HTHx8N8j_sianmmLi/view?usp=sharing].
+[BigDaddyV1.1.zip](https://drive.google.com/file/d/1G9ZSSqRgZz3AXU1HTHx8N8j_sianmmLi/view?usp=sharing).
 
 ## Setup
 

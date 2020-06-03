@@ -255,6 +255,7 @@ OSCdef('OSCmaster', {
 		if(discriminator == 2, {~masterKnobs[1] = value;
 			                    ~synth.set(\mix, value);});
 		if(discriminator == 3, {~masterKnobs[0] = value  });
+		//msg.postln;
 },
 "FmSynth/Master");
 
@@ -318,6 +319,7 @@ OSCdef('OSCfilters', {
 		    ~lpFilter[index][1] = res;
 		    ~lpFilter[index][2] = gain;
 			});
+
 		if (type == 0,
 		   {~synth.set(\hpCutoff, cutoff);
 		    ~synth.set(\hpRes, res);
@@ -325,6 +327,7 @@ OSCdef('OSCfilters', {
 			~hpFilter[index][0] = cutoff;
 		    ~hpFilter[index][1] = res;
 		    ~hpFilter[index][2] = gain;});
+		//msg.postln;
 	},
 "FmSynth/Filter");
 
